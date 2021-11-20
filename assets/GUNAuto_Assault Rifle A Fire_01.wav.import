@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/GUNAuto_Assault Rifle A Fire_01.wav-f0aaeb45ffc0b3c4d345ee84fc6d4b47.sample"
+
+[deps]
+
+source_file="res://assets/GUNAuto_Assault Rifle A Fire_01.wav"
+dest_files=[ "res://.import/GUNAuto_Assault Rifle A Fire_01.wav-f0aaeb45ffc0b3c4d345ee84fc6d4b47.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=true
+compress/mode=0

@@ -1,0 +1,164 @@
+[gd_scene load_steps=23 format=2]
+
+[ext_resource path="res://assets/player/PenguinAttack.png" type="Texture" id=1]
+[ext_resource path="res://entities/Player.gd" type="Script" id=2]
+[ext_resource path="res://assets/GUNAuto_Assault Rifle A Fire_01.wav" type="AudioStream" id=3]
+[ext_resource path="res://assets/GUNArtl_Rocket Launcher Fire_02.wav" type="AudioStream" id=4]
+[ext_resource path="res://assets/player/PengiunIdle.png" type="Texture" id=5]
+[ext_resource path="res://assets/player/FlamingoBack.png" type="Texture" id=6]
+[ext_resource path="res://assets/player/PengiunMoving.png" type="Texture" id=7]
+
+[sub_resource type="Animation" id=2]
+resource_name = "shootFlamingo"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("Camera2D:offset")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0.00051496, 0.0607652, 0.0996447 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ), Vector2( -15, 0 ), Vector2( 0, 0 ) ]
+}
+
+[sub_resource type="Animation" id=4]
+resource_name = "switch"
+length = 0.3
+
+[sub_resource type="AtlasTexture" id=11]
+atlas = ExtResource( 7 )
+region = Rect2( 0, 0, 16, 32 )
+
+[sub_resource type="AtlasTexture" id=12]
+atlas = ExtResource( 7 )
+region = Rect2( 16, 0, 16, 32 )
+
+[sub_resource type="SpriteFrames" id=13]
+animations = [ {
+"frames": [ SubResource( 11 ), SubResource( 12 ) ],
+"loop": true,
+"name": "default",
+"speed": 2.0
+} ]
+
+[sub_resource type="AtlasTexture" id=5]
+atlas = ExtResource( 5 )
+region = Rect2( 0, 0, 16, 32 )
+
+[sub_resource type="AtlasTexture" id=6]
+atlas = ExtResource( 5 )
+region = Rect2( 16, 0, 16, 32 )
+
+[sub_resource type="SpriteFrames" id=7]
+animations = [ {
+"frames": [ SubResource( 5 ), SubResource( 6 ) ],
+"loop": true,
+"name": "default",
+"speed": 2.0
+} ]
+
+[sub_resource type="AtlasTexture" id=14]
+atlas = ExtResource( 1 )
+region = Rect2( 0, 0, 16, 32 )
+
+[sub_resource type="AtlasTexture" id=15]
+atlas = ExtResource( 1 )
+region = Rect2( 16, 0, 16, 32 )
+
+[sub_resource type="SpriteFrames" id=16]
+animations = [ {
+"frames": [ SubResource( 14 ), SubResource( 15 ) ],
+"loop": true,
+"name": "default",
+"speed": 10.0
+} ]
+
+[sub_resource type="AtlasTexture" id=8]
+atlas = ExtResource( 6 )
+region = Rect2( 0, 0, 16, 32 )
+
+[sub_resource type="AtlasTexture" id=9]
+atlas = ExtResource( 6 )
+region = Rect2( 16, 0, 16, 32 )
+
+[sub_resource type="SpriteFrames" id=10]
+animations = [ {
+"frames": [ SubResource( 8 ), SubResource( 9 ) ],
+"loop": true,
+"name": "default",
+"speed": 2.0
+} ]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 8, 16 )
+
+[node name="Player" type="KinematicBody2D"]
+collision_layer = 4
+collision_mask = 43
+script = ExtResource( 2 )
+
+[node name="Camera2D" type="Camera2D" parent="."]
+current = true
+zoom = Vector2( 0.4, 0.4 )
+smoothing_enabled = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/shootFlamingo = SubResource( 2 )
+anims/switch = SubResource( 4 )
+
+[node name="PenguinSprite" type="Node2D" parent="."]
+rotation = 5.93836
+
+[node name="penguinMove" type="AnimatedSprite" parent="PenguinSprite"]
+visible = false
+position = Vector2( 0, -6 )
+frames = SubResource( 13 )
+frame = 1
+playing = true
+
+[node name="penguinIdle" type="AnimatedSprite" parent="PenguinSprite"]
+position = Vector2( -5.36442e-07, -6 )
+frames = SubResource( 7 )
+frame = 1
+playing = true
+
+[node name="penguinAttack" type="AnimatedSprite" parent="PenguinSprite"]
+visible = false
+position = Vector2( 0, -6 )
+frames = SubResource( 16 )
+playing = true
+
+[node name="penguinIdleBackpack" type="AnimatedSprite" parent="PenguinSprite"]
+position = Vector2( 0, -6 )
+frames = SubResource( 10 )
+frame = 1
+playing = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 0, -6 )
+shape = SubResource( 1 )
+
+[node name="penguinShot" type="Position2D" parent="."]
+position = Vector2( 9, -2 )
+
+[node name="penguinShotTimer" type="Timer" parent="."]
+wait_time = 0.15
+one_shot = true
+
+[node name="flamingoShotTimer" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+
+[node name="switchTimer" type="Timer" parent="."]
+wait_time = 0.8
+one_shot = true
+
+[node name="penguinShootLoop" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 3 )
+pitch_scale = 0.8
+
+[node name="flamingoShoot" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 4 )
