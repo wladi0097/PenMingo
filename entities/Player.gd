@@ -9,29 +9,30 @@ var penguinShotPositionRandomSpread := 5
 var penguinShotKnockback := 1
 var flamingoShotKnockback := 10
 var rng = RandomNumberGenerator.new()
-onready var penguinShotPosition := $penguinShot
 onready var regularBullet := preload("res://entities/Bullet.tscn")
 onready var sniperBullet := preload("res://entities/SniperBullet.tscn")
-onready var penguinShotTimer := $penguinShotTimer
-onready var flamingoShotTimer := $flamingoShotTimer
+onready var trail := preload("res://entities/Trail.tscn")
+
 onready var camera := $Camera2D
-onready var penguinShootLoopAudio := $penguinShootLoop
-onready var flamingoShootAudio := $flamingoShoot
 onready var animations := $AnimationPlayer
 onready var switchTimer := $switchTimer
+onready var switchTrail := $switchTrail
+onready var collision := $CollisionShape2D
+onready var penguinShotPosition := $penguinShot
 
+onready var penguinShootLoopAudio := $penguinShootLoop
+onready var penguinShotTimer := $penguinShotTimer
 onready var penguinIdle := $PenguinSprite/penguinIdle
 onready var penguinMove := $PenguinSprite/penguinMove
 onready var penguinAttack := $PenguinSprite/penguinAttack
 onready var penguinIdleBackpack := $PenguinSprite/penguinIdleBackpack
 onready var penguinSpriteCollection := $PenguinSprite
-onready var collision := $CollisionShape2D
 
+onready var flamingoShootAudio := $flamingoShoot
+onready var flamingoShotTimer := $flamingoShotTimer
 onready var flamingoIdle := $FlamingoSprite/flamingoIdle
 onready var flamingoMove := $FlamingoSprite/flamingoMove
 onready var flamingoSpriteCollection := $FlamingoSprite
-
-
 
 enum PlayerTypes {PENGUIN, FLAMINGO}
 var currentplayerType = PlayerTypes.PENGUIN
@@ -44,29 +45,15 @@ func _ready():
 
 func _process(delta):
 	movement()
-	
-	if get_global_mouse_position().x < global_position.x:
-		penguinSpriteCollection.scale.y = -1
-		flamingoSpriteCollection.scale.y = -1
-		collision.position.y = 6
-	else:
-		penguinSpriteCollection.scale.y = 1
-		flamingoSpriteCollection.scale.y = 1
-		collision.position.y = -6
-	
+	rotateSpriteAccoringToMouse()
+
 func _input(event):
 	if event.is_action_pressed("action"):
 		if currentplayerType == PlayerTypes.FLAMINGO:
 			flamingoShot()
 	
-	if event.is_action_pressed("action2") && switchTimer.is_stopped():
-		switchTimer.start()
-		penguinShootLoopAudio.stop()
+	if event.is_action_pressed("action2"):
 		slide()
-		if currentplayerType == PlayerTypes.PENGUIN:
-			showFlamingoSettings()
-		else:
-			showPenguinSettings()
 
 func showPenguinSettings():
 	currentplayerType = PlayerTypes.PENGUIN
@@ -81,8 +68,15 @@ func showFlamingoSettings():
 	pass
 	
 func slide():
-	animations.play("switch")
-	movement(15)
+	if switchTimer.is_stopped():
+		switchTimer.start()
+		penguinShootLoopAudio.stop()
+		if currentplayerType == PlayerTypes.PENGUIN:
+			showFlamingoSettings()
+		else:
+			showPenguinSettings()
+		animations.play("switch")
+		movement(15)
 
 func shootSingleBullet(bulletType, new_rotation, allowRandomShots = false):
 	var shootPositon = penguinShotPosition.global_position
@@ -122,6 +116,35 @@ func flamingoShot():
 func movement(extraSpeed = 1):
 	var motion = Vector2()
 	
+	handlePenguinShot()
+	
+	if Input.is_action_pressed("up"):
+		motion.y -= 1
+	if Input.is_action_pressed("right"):
+		motion.x += 1
+	if Input.is_action_pressed("down"):
+		motion.y += 1
+	if Input.is_action_pressed("left"):
+		motion.x -= 1
+		
+	var movementHappend = motion != Vector2()
+	
+	switchMovementAnimation(movementHappend)
+	if movementHappend:
+		var trail_instance
+		if extraSpeed > 1:
+			trail_instance = trail.instance()
+			trail_instance.addPoint(position)
+			
+		self.move_and_slide(motion * movementSpeed * extraSpeed)
+		
+		if extraSpeed > 1:
+			trail_instance.addPoint(position)
+			get_tree().get_root().call_deferred("add_child", trail_instance)
+	
+	self.look_at(get_global_mouse_position())
+
+func handlePenguinShot():
 	if currentplayerType == PlayerTypes.PENGUIN:
 		if Input.is_action_pressed("action"):
 			penguinAttack.visible = true
@@ -133,31 +156,29 @@ func movement(extraSpeed = 1):
 			if penguinShootLoopAudio.playing:
 				penguinShootLoopAudio.stop()
 			camera.set_offset(Vector2())
-	
-	if Input.is_action_pressed("up"):
-		motion.y -= 1
-	if Input.is_action_pressed("right"):
-		motion.x += 1
-	if Input.is_action_pressed("down"):
-		motion.y += 1
-	if Input.is_action_pressed("left"):
-		motion.x -= 1
-	
-	if motion == Vector2():
-		penguinIdle.visible = true
-		penguinMove.visible = false
-		flamingoIdle.visible = true
-		flamingoMove.visible = false
-	else:
+
+func switchMovementAnimation(didMove):
+	if didMove:
 		penguinIdle.visible = false
 		penguinMove.visible = true
 		flamingoIdle.visible = false
 		flamingoMove.visible = true
-		self.move_and_slide(motion * movementSpeed * extraSpeed)
-	
-#	if !animations.has_playing("slide"):
-	self.look_at(get_global_mouse_position())
-	
+	else:
+		penguinIdle.visible = true
+		penguinMove.visible = false
+		flamingoIdle.visible = true
+		flamingoMove.visible = false
+
+func rotateSpriteAccoringToMouse():
+	if get_global_mouse_position().x < global_position.x:
+		penguinSpriteCollection.scale.y = -1
+		flamingoSpriteCollection.scale.y = -1
+		collision.position.y = 6
+	else:
+		penguinSpriteCollection.scale.y = 1
+		flamingoSpriteCollection.scale.y = 1
+		collision.position.y = -6
+
 func hit(body, dmg):
 	currentHp -= 1
 	updateHpBox()
@@ -165,7 +186,6 @@ func hit(body, dmg):
 	if currentHp == 0:
 		die()
 		
-
 func die():
 	currentHp = maxHp
 	updateHpBox()
