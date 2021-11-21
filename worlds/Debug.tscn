@@ -1,10 +1,9 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://assets/mainTileSet.tres" type="TileSet" id=1]
 [ext_resource path="res://entities/Player.tscn" type="PackedScene" id=2]
-[ext_resource path="res://entities/SingleShotEnemy.tscn" type="PackedScene" id=3]
+[ext_resource path="res://entities/Spawner.tscn" type="PackedScene" id=3]
 [ext_resource path="res://assets/audio/town-10169.mp3" type="AudioStream" id=4]
-[ext_resource path="res://entities/RunnerEnemy.tscn" type="PackedScene" id=5]
 
 [node name="Debug" type="Node2D"]
 
@@ -29,12 +28,18 @@ tile_data = PoolIntArray( -196606, 3, 0, -131070, 5, 0, 12, 4, 0, 196602, 4, 0, 
 [node name="Player" parent="Navigation2D" instance=ExtResource( 2 )]
 position = Vector2( 28, 25 )
 
-[node name="singleshotenemy4" parent="Navigation2D" instance=ExtResource( 3 )]
-position = Vector2( -244, 131 )
+[node name="Spawner" parent="Navigation2D" instance=ExtResource( 3 )]
+position = Vector2( -49, 25 )
 
-[node name="drone" parent="Navigation2D" instance=ExtResource( 5 )]
-position = Vector2( -27, 24 )
+[node name="Spawner2" parent="Navigation2D" instance=ExtResource( 3 )]
+position = Vector2( 126, -2 )
+spawnEnemy = 1
+
+[node name="Spawner3" parent="Navigation2D" instance=ExtResource( 3 )]
+position = Vector2( 17, 96 )
+spawnEnemy = 2
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 4 )
 volume_db = -5.0
+autoplay = true

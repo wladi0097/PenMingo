@@ -15,7 +15,10 @@ onready var trail := preload("res://entities/Trail.tscn")
 
 onready var camera := $Camera2D
 onready var animations := $AnimationPlayer
+onready var hitAnimationPlayer := $HitAnimationPlayer
+onready var hitCooldown := $HitCooldown
 onready var switchTimer := $switchTimer
+onready var invincibleTimerAfterSwitch := $InvincibleTimerAfterSwitch
 onready var switchTrail := $switchTrail
 onready var collision := $CollisionShape2D
 onready var penguinShotPosition := $penguinShot
@@ -43,7 +46,7 @@ func _ready():
 	updateHpBox()
 	rng.randomize()
 
-func _process(delta):
+func _physics_process(delta):
 	movement()
 	rotateSpriteAccoringToMouse()
 
@@ -70,6 +73,7 @@ func showFlamingoSettings():
 func slide():
 	if switchTimer.is_stopped():
 		switchTimer.start()
+		invincibleTimerAfterSwitch.start()
 		penguinShootLoopAudio.stop()
 		if currentplayerType == PlayerTypes.PENGUIN:
 			showFlamingoSettings()
@@ -180,6 +184,10 @@ func rotateSpriteAccoringToMouse():
 		collision.position.y = -6
 
 func hit(body, dmg):
+	if !hitCooldown.is_stopped() || !invincibleTimerAfterSwitch.is_stopped(): return
+	hitCooldown.start()
+	
+	hitAnimationPlayer.play("hit")
 	currentHp -= 1
 	updateHpBox()
 	

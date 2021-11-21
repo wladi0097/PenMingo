@@ -1,7 +1,8 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://assets/enemies/drone.png" type="Texture" id=1]
 [ext_resource path="res://entities/RunnerEnemy.gd" type="Script" id=2]
+[ext_resource path="res://assets/sprites/bulletCollision.png" type="Texture" id=3]
 
 [sub_resource type="AtlasTexture" id=1]
 atlas = ExtResource( 1 )
@@ -29,13 +30,87 @@ animations = [ {
 
 [sub_resource type="CircleShape2D" id=6]
 
+[sub_resource type="CircleShape2D" id=7]
+radius = 12.0
+
+[sub_resource type="Animation" id=8]
+resource_name = "afterAttack"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/path = NodePath("AnimatedSprite:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.467267, 0.5 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ 0.0, 360.0, 0.0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("AttackSprite:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0.00232568, 0.0576316 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+
+[sub_resource type="Animation" id=9]
+resource_name = "hit"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/path = NodePath("AnimatedSprite:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0.00325484, 0.151169, 0.3 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 0, 0.164706, 1 ), Color( 1, 1, 1, 1 ) ]
+}
+
 [node name="RunnerEnemy" type="KinematicBody2D"]
+collision_layer = 8
+collision_mask = 20
 script = ExtResource( 2 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 5 )
-frame = 2
+frame = 3
 playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource( 6 )
+
+[node name="Line2D" type="Line2D" parent="."]
+
+[node name="PlayerEnter" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerEnter"]
+shape = SubResource( 7 )
+
+[node name="AfterAttackCooldown" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/afterAttack = SubResource( 8 )
+anims/hit = SubResource( 9 )
+
+[node name="AttackSprite" type="Sprite" parent="."]
+visible = false
+position = Vector2( 8, 0 )
+scale = Vector2( 1, 2 )
+texture = ExtResource( 3 )
+
+[connection signal="body_entered" from="PlayerEnter" to="." method="_on_PlayerEnter_body_entered"]
