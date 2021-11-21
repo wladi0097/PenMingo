@@ -177,11 +177,11 @@ func rotateSpriteAccoringToMouse():
 	if get_global_mouse_position().x < global_position.x:
 		penguinSpriteCollection.scale.y = -1
 		flamingoSpriteCollection.scale.y = -1
-		collision.position.y = 6
+		collision.position.y = 1
 	else:
 		penguinSpriteCollection.scale.y = 1
 		flamingoSpriteCollection.scale.y = 1
-		collision.position.y = -6
+		collision.position.y = -1
 
 func hit(body, dmg):
 	if !hitCooldown.is_stopped() || !invincibleTimerAfterSwitch.is_stopped(): return

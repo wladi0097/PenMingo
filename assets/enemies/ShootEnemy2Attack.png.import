@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/roguelikeSheet_transparent.png-cd3a50438593de754089da4607424a78.stex"
+path="res://.import/ShootEnemy2Attack.png-a272d9ed593150645ed031e84ac408d0.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/roguelikeSheet_transparent.png"
-dest_files=[ "res://.import/roguelikeSheet_transparent.png-cd3a50438593de754089da4607424a78.stex" ]
+source_file="res://assets/enemies/ShootEnemy2Attack.png"
+dest_files=[ "res://.import/ShootEnemy2Attack.png-a272d9ed593150645ed031e84ac408d0.stex" ]
 
 [params]
 

@@ -13,8 +13,12 @@ onready var shotCooldown := $shotCooldown
 onready var shotPosition := $shotPosition
 onready var regularBullet := preload("res://entities/Bullet.tscn")
 onready var navigation : Navigation2D = find_parent("Navigation2D")
+onready var regularAttackSprite := $regularAttackSprite
+onready var regulatMoveSprite := $regularMoveSprite
+onready var shotgunMoveSprite := $shotgunMoveSprite
+onready var shotgunAttackprite := $shotgunAttackSprite
 
-func _ready():
+func _ready():	
 	pass
 
 func hit(bullet: Node2D, dmg):
@@ -46,10 +50,18 @@ func followUntilPlayerIsVisible(delta):
 	move_and_slide(self.position.direction_to(path[0]).normalized() * speed)
 
 func _physics_process(delta):
+	rotateSpriteAccoringToPlayer()
 	look_at(GLOBAL.player.global_position)
 	
 	var collision = checkPlayerVisible.get_collider()
 	if collision is KinematicBody2D:
+		if currentType == ENEMY_TYPE.regular:
+			regularAttackSprite.show()
+			regulatMoveSprite.hide()
+		else:
+			shotgunAttackprite.show()
+			shotgunMoveSprite.hide()
+		
 		if shotCooldown.is_stopped():
 			shotCooldown.start()
 			if currentType == ENEMY_TYPE.regular:
@@ -57,4 +69,23 @@ func _physics_process(delta):
 			elif currentType == ENEMY_TYPE.shotgun:
 				shotgunShoot()
 	else:
+		if currentType == ENEMY_TYPE.regular:
+			regularAttackSprite.hide()
+			regulatMoveSprite.show()
+		else:
+			shotgunAttackprite.hide()
+			shotgunMoveSprite.show()
+		
 		followUntilPlayerIsVisible(delta)
+		
+func rotateSpriteAccoringToPlayer():
+	if GLOBAL.player.global_position.x < global_position.x:
+		regularAttackSprite.scale.y = -1
+		regulatMoveSprite.scale.y = -1
+		shotgunAttackprite.scale.y = -1
+		shotgunMoveSprite.scale.y = -1
+	else:
+		regularAttackSprite.scale.y = 1
+		regulatMoveSprite.scale.y = 1
+		shotgunAttackprite.scale.y = 1
+		shotgunMoveSprite.scale.y = 1
