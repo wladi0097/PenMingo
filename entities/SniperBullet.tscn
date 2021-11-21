@@ -1,15 +1,16 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://entities/SniperBullet.gd" type="Script" id=1]
-[ext_resource path="res://assets/smoke/explosion/explosion00.png" type="Texture" id=2]
+[ext_resource path="res://assets/smoke/explosion/explosion04.png" type="Texture" id=2]
 [ext_resource path="res://assets/smoke/explosion/explosion05.png" type="Texture" id=3]
-[ext_resource path="res://assets/smoke/explosion/explosion08.png" type="Texture" id=4]
-[ext_resource path="res://assets/smoke/explosion/explosion06.png" type="Texture" id=5]
-[ext_resource path="res://assets/smoke/explosion/explosion04.png" type="Texture" id=6]
-[ext_resource path="res://assets/smoke/explosion/explosion07.png" type="Texture" id=7]
+[ext_resource path="res://assets/sprites/muzflash.png" type="Texture" id=4]
+[ext_resource path="res://assets/smoke/explosion/explosion00.png" type="Texture" id=5]
+[ext_resource path="res://assets/smoke/explosion/explosion08.png" type="Texture" id=6]
+[ext_resource path="res://assets/smoke/explosion/explosion06.png" type="Texture" id=7]
 [ext_resource path="res://assets/smoke/explosion/explosion02.png" type="Texture" id=8]
-[ext_resource path="res://assets/smoke/explosion/explosion03.png" type="Texture" id=9]
-[ext_resource path="res://assets/smoke/explosion/explosion01.png" type="Texture" id=10]
+[ext_resource path="res://assets/smoke/explosion/explosion07.png" type="Texture" id=9]
+[ext_resource path="res://assets/smoke/explosion/explosion03.png" type="Texture" id=10]
+[ext_resource path="res://assets/smoke/explosion/explosion01.png" type="Texture" id=11]
 
 [sub_resource type="Gradient" id=1]
 offsets = PoolRealArray( 0, 0.541436, 1 )
@@ -20,7 +21,7 @@ extents = Vector2( 18, 6 )
 
 [sub_resource type="SpriteFrames" id=4]
 animations = [ {
-"frames": [ ExtResource( 2 ), ExtResource( 10 ), ExtResource( 8 ), ExtResource( 9 ), ExtResource( 6 ), ExtResource( 3 ), ExtResource( 5 ), ExtResource( 7 ), ExtResource( 4 ) ],
+"frames": [ ExtResource( 5 ), ExtResource( 11 ), ExtResource( 8 ), ExtResource( 10 ), ExtResource( 2 ), ExtResource( 3 ), ExtResource( 7 ), ExtResource( 9 ), ExtResource( 6 ) ],
 "loop": true,
 "name": "default",
 "speed": 5.0
@@ -60,6 +61,7 @@ tracks/1/keys = {
 [node name="SniperBullet" type="RigidBody2D"]
 collision_layer = 16
 collision_mask = 9
+gravity_scale = 0.0
 continuous_cd = 1
 contacts_reported = 1
 contact_monitor = true
@@ -85,6 +87,8 @@ frames = SubResource( 4 )
 frame = 1
 
 [node name="ExplosionArea" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 8
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ExplosionArea"]
 position = Vector2( 17, 0 )
@@ -93,5 +97,15 @@ shape = SubResource( 3 )
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/explode = SubResource( 5 )
 
+[node name="MuzTimer" type="Timer" parent="."]
+wait_time = 0.1
+one_shot = true
+autostart = true
+
+[node name="muzSprite" type="Sprite" parent="."]
+scale = Vector2( 1.5, 1.75 )
+texture = ExtResource( 4 )
+
 [connection signal="body_entered" from="." to="." method="_on_SniperBullet_body_entered"]
 [connection signal="timeout" from="destroyTimer" to="." method="_on_destroyTimer_timeout"]
+[connection signal="timeout" from="MuzTimer" to="." method="_on_MuzTimer_timeout"]

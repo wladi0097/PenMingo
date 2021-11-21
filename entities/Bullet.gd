@@ -1,9 +1,21 @@
 extends RigidBody2D
 
+export (bool) var isFromEnemy := false
 onready var muzSprite := $muzSprite
 onready var collisionSprite := $CollisionSprite
-onready var mainSprite := $Sprite
+onready var playerShootSprite := $playerShootSprite
+onready var enemyShootSprite := $enemyShootSprite
 var speed = 200
+var dmg = 1
+
+func _ready():
+	if isFromEnemy:
+		set_collision_layer_bit(5, true)
+		enemyShootSprite.show()
+	else: # is from player
+		set_collision_mask_bit(3, true)
+		set_collision_layer_bit(6, true)
+		playerShootSprite.show()
 
 func fire(fromPosition, fromRotiation, toRotation):
 	position = fromPosition
@@ -12,10 +24,11 @@ func fire(fromPosition, fromRotiation, toRotation):
 
 func _on_Node2D_body_entered(body: Node2D):
 	if body is KinematicBody2D:
-		body.hit(self)
+		body.hit(self, dmg)
 	
 	collisionSprite.show()
-	mainSprite.hide()
+	playerShootSprite.hide()
+	enemyShootSprite.hide()
 	$collisionDieTimer.start()
 
 func _on_Timer_timeout():

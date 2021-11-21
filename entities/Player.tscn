@@ -1,16 +1,21 @@
-[gd_scene load_steps=23 format=2]
+[gd_scene load_steps=34 format=2]
 
 [ext_resource path="res://assets/player/PenguinAttack.png" type="Texture" id=1]
 [ext_resource path="res://entities/Player.gd" type="Script" id=2]
-[ext_resource path="res://assets/GUNAuto_Assault Rifle A Fire_01.wav" type="AudioStream" id=3]
-[ext_resource path="res://assets/GUNArtl_Rocket Launcher Fire_02.wav" type="AudioStream" id=4]
+[ext_resource path="res://assets/audio/GUNAuto_Assault Rifle A Fire_01.wav" type="AudioStream" id=3]
+[ext_resource path="res://assets/audio/GUNArtl_Rocket Launcher Fire_02.wav" type="AudioStream" id=4]
 [ext_resource path="res://assets/player/PengiunIdle.png" type="Texture" id=5]
 [ext_resource path="res://assets/player/FlamingoBack.png" type="Texture" id=6]
 [ext_resource path="res://assets/player/PengiunMoving.png" type="Texture" id=7]
+[ext_resource path="res://assets/sprites/hp_empty.png" type="Texture" id=8]
+[ext_resource path="res://assets/sprites/hp_filled.png" type="Texture" id=9]
+[ext_resource path="res://assets/player/FlamingoIdle.png" type="Texture" id=10]
+[ext_resource path="res://assets/player/FlamingoMoving.png" type="Texture" id=11]
+[ext_resource path="res://assets/player/FlamingoAttack.png" type="Texture" id=12]
 
 [sub_resource type="Animation" id=2]
 resource_name = "shootFlamingo"
-length = 0.1
+length = 0.7
 tracks/0/type = "value"
 tracks/0/path = NodePath("Camera2D:offset")
 tracks/0/interp = 1
@@ -23,10 +28,57 @@ tracks/0/keys = {
 "update": 0,
 "values": [ Vector2( 0, 0 ), Vector2( -15, 0 ), Vector2( 0, 0 ) ]
 }
+tracks/1/type = "value"
+tracks/1/path = NodePath("FlamingoSprite/flamingoAttack:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0.00038219, 0.694083 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
 
 [sub_resource type="Animation" id=4]
 resource_name = "switch"
 length = 0.3
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 8, 16 )
+
+[sub_resource type="AtlasTexture" id=20]
+atlas = ExtResource( 11 )
+region = Rect2( 0, 0, 16, 32 )
+
+[sub_resource type="AtlasTexture" id=21]
+atlas = ExtResource( 11 )
+region = Rect2( 16, 0, 16, 32 )
+
+[sub_resource type="SpriteFrames" id=22]
+animations = [ {
+"frames": [ SubResource( 20 ), SubResource( 21 ) ],
+"loop": true,
+"name": "default",
+"speed": 4.0
+} ]
+
+[sub_resource type="AtlasTexture" id=17]
+atlas = ExtResource( 10 )
+region = Rect2( 0, 0, 16, 32 )
+
+[sub_resource type="AtlasTexture" id=18]
+atlas = ExtResource( 10 )
+region = Rect2( 16, 0, 16, 32 )
+
+[sub_resource type="SpriteFrames" id=19]
+animations = [ {
+"frames": [ SubResource( 17 ), SubResource( 18 ) ],
+"loop": true,
+"name": "default",
+"speed": 2.0
+} ]
 
 [sub_resource type="AtlasTexture" id=11]
 atlas = ExtResource( 7 )
@@ -92,15 +144,13 @@ animations = [ {
 "speed": 2.0
 } ]
 
-[sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 8, 16 )
-
 [node name="Player" type="KinematicBody2D"]
 collision_layer = 4
 collision_mask = 43
 script = ExtResource( 2 )
 
 [node name="Camera2D" type="Camera2D" parent="."]
+offset = Vector2( -9.1745, 0 )
 current = true
 zoom = Vector2( 0.4, 0.4 )
 smoothing_enabled = true
@@ -109,8 +159,30 @@ smoothing_enabled = true
 anims/shootFlamingo = SubResource( 2 )
 anims/switch = SubResource( 4 )
 
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 0, -6 )
+shape = SubResource( 1 )
+
+[node name="FlamingoSprite" type="Node2D" parent="."]
+visible = false
+
+[node name="flamingoMove" type="AnimatedSprite" parent="FlamingoSprite"]
+visible = false
+position = Vector2( 0, -6 )
+frames = SubResource( 22 )
+frame = 1
+playing = true
+
+[node name="flamingoIdle" type="AnimatedSprite" parent="FlamingoSprite"]
+position = Vector2( 0, -6 )
+frames = SubResource( 19 )
+playing = true
+
+[node name="flamingoAttack" type="Sprite" parent="FlamingoSprite"]
+position = Vector2( 0, -6 )
+texture = ExtResource( 12 )
+
 [node name="PenguinSprite" type="Node2D" parent="."]
-rotation = 5.93836
 
 [node name="penguinMove" type="AnimatedSprite" parent="PenguinSprite"]
 visible = false
@@ -129,6 +201,7 @@ playing = true
 visible = false
 position = Vector2( 0, -6 )
 frames = SubResource( 16 )
+frame = 1
 playing = true
 
 [node name="penguinIdleBackpack" type="AnimatedSprite" parent="PenguinSprite"]
@@ -136,10 +209,6 @@ position = Vector2( 0, -6 )
 frames = SubResource( 10 )
 frame = 1
 playing = true
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( 0, -6 )
-shape = SubResource( 1 )
 
 [node name="penguinShot" type="Position2D" parent="."]
 position = Vector2( 9, -2 )
@@ -149,7 +218,7 @@ wait_time = 0.15
 one_shot = true
 
 [node name="flamingoShotTimer" type="Timer" parent="."]
-wait_time = 0.5
+wait_time = 0.8
 one_shot = true
 
 [node name="switchTimer" type="Timer" parent="."]
@@ -162,3 +231,45 @@ pitch_scale = 0.8
 
 [node name="flamingoShoot" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 4 )
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Control" type="Control" parent="CanvasLayer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HpContainer" type="HBoxContainer" parent="CanvasLayer/Control"]
+margin_right = 212.0
+margin_bottom = 50.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="preload" type="Control" parent="CanvasLayer/Control"]
+visible = false
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HpFilled" type="TextureRect" parent="CanvasLayer/Control/preload"]
+margin_right = 50.0
+margin_bottom = 50.0
+rect_min_size = Vector2( 40, 40 )
+texture = ExtResource( 9 )
+stretch_mode = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HpEmpty" type="TextureRect" parent="CanvasLayer/Control/preload"]
+margin_right = 50.0
+margin_bottom = 50.0
+rect_min_size = Vector2( 40, 40 )
+texture = ExtResource( 8 )
+stretch_mode = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}

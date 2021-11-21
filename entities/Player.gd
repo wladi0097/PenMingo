@@ -1,5 +1,7 @@
 extends KinematicBody2D
 
+var maxHp = 5
+var currentHp = 5
 var movementSpeed := 150
 var penguinShotSpread := 0.3
 var penguinShotRandomSpread := 0.08
@@ -15,7 +17,6 @@ onready var flamingoShotTimer := $flamingoShotTimer
 onready var camera := $Camera2D
 onready var penguinShootLoopAudio := $penguinShootLoop
 onready var flamingoShootAudio := $flamingoShoot
-onready var flamingoshotRayCast := $flamingoShotRaycast
 onready var animations := $AnimationPlayer
 onready var switchTimer := $switchTimer
 
@@ -24,6 +25,12 @@ onready var penguinMove := $PenguinSprite/penguinMove
 onready var penguinAttack := $PenguinSprite/penguinAttack
 onready var penguinIdleBackpack := $PenguinSprite/penguinIdleBackpack
 onready var penguinSpriteCollection := $PenguinSprite
+onready var collision := $CollisionShape2D
+
+onready var flamingoIdle := $FlamingoSprite/flamingoIdle
+onready var flamingoMove := $FlamingoSprite/flamingoMove
+onready var flamingoSpriteCollection := $FlamingoSprite
+
 
 
 enum PlayerTypes {PENGUIN, FLAMINGO}
@@ -31,6 +38,8 @@ var currentplayerType = PlayerTypes.PENGUIN
 var velocity := Vector2()
 
 func _ready():
+	GLOBAL.player = self
+	updateHpBox()
 	rng.randomize()
 
 func _process(delta):
@@ -38,8 +47,12 @@ func _process(delta):
 	
 	if get_global_mouse_position().x < global_position.x:
 		penguinSpriteCollection.scale.y = -1
+		flamingoSpriteCollection.scale.y = -1
+		collision.position.y = 6
 	else:
 		penguinSpriteCollection.scale.y = 1
+		flamingoSpriteCollection.scale.y = 1
+		collision.position.y = -6
 	
 func _input(event):
 	if event.is_action_pressed("action"):
@@ -57,10 +70,14 @@ func _input(event):
 
 func showPenguinSettings():
 	currentplayerType = PlayerTypes.PENGUIN
+	flamingoSpriteCollection.hide()
+	penguinSpriteCollection.show()
 	pass
 	
 func showFlamingoSettings():
 	currentplayerType = PlayerTypes.FLAMINGO
+	flamingoSpriteCollection.show()
+	penguinSpriteCollection.hide()
 	pass
 	
 func slide():
@@ -129,13 +146,40 @@ func movement(extraSpeed = 1):
 	if motion == Vector2():
 		penguinIdle.visible = true
 		penguinMove.visible = false
+		flamingoIdle.visible = true
+		flamingoMove.visible = false
 	else:
 		penguinIdle.visible = false
 		penguinMove.visible = true
+		flamingoIdle.visible = false
+		flamingoMove.visible = true
 		self.move_and_slide(motion * movementSpeed * extraSpeed)
 	
 #	if !animations.has_playing("slide"):
 	self.look_at(get_global_mouse_position())
 	
-func hit():
+func hit(body, dmg):
+	currentHp -= 1
+	updateHpBox()
+	
+	if currentHp == 0:
+		die()
+		
+
+func die():
+	currentHp = maxHp
+	updateHpBox()
 	pass
+	
+onready var hpContainer := $CanvasLayer/Control/HpContainer
+onready var hpFilledIcon := $CanvasLayer/Control/preload/HpFilled
+onready var hpEmptyIcon := $CanvasLayer/Control/preload/HpEmpty
+func updateHpBox():
+	for child in hpContainer.get_children():
+		hpContainer.remove_child(child)
+		child.queue_free()
+	
+	for i in range(currentHp):
+		hpContainer.add_child(hpFilledIcon.duplicate())
+	for i in range(maxHp - currentHp):
+		hpContainer.add_child(hpEmptyIcon.duplicate())

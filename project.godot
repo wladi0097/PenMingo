@@ -14,6 +14,15 @@ config/name="PenMingo"
 run/main_scene="res://worlds/Debug.tscn"
 config/icon="res://icon.png"
 
+[autoload]
+
+GLOBAL="*res://global.gd"
+
+[display]
+
+mouse_cursor/custom_image="res://assets/crosshair092.png"
+mouse_cursor/custom_image_hotspot=Vector2( 32, 32 )
+
 [input]
 
 up={

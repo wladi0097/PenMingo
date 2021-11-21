@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/GUNArtl_Rocket Launcher Fire_02.wav-efc9f6abd8b54bd7c6ba169cf42f5e68.sample"
+
+[deps]
+
+source_file="res://assets/audio/GUNArtl_Rocket Launcher Fire_02.wav"
+dest_files=[ "res://.import/GUNArtl_Rocket Launcher Fire_02.wav-efc9f6abd8b54bd7c6ba169cf42f5e68.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0
