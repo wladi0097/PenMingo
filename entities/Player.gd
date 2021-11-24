@@ -68,6 +68,9 @@ func _physics_process(delta):
 	rotateSpriteAccoringToMouse()
 
 func _input(event):
+	if isDead:
+		return
+	
 	if event.is_action_pressed("action"):
 		if currentplayerType == PLAYER_TYPES.FLAMINGO:
 			flamingoShot()
@@ -243,6 +246,7 @@ func upgrade(): # power up
 func showPickUpText(content):
 	pickupText.text = content
 	pickupTextAnimationPlayer.play("pickup")
+	
 	
 onready var hpContainer := $CanvasLayer/Control/HpContainer
 onready var hpFilledIcon := $CanvasLayer/Control/preload/HpFilled

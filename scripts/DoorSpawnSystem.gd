@@ -48,6 +48,7 @@ func spawnEnemies():
 		instance.spawnNode = self
 		instance.global_position = point.global_position
 		add_child(instance)
+		
 		aliveEnemies += 1
 
 func startOfFight():

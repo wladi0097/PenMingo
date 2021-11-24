@@ -21,6 +21,7 @@
 
 [sub_resource type="Animation" id=26]
 resource_name = "pickup"
+length = 1.8
 tracks/0/type = "value"
 tracks/0/path = NodePath("../CanvasLayer/Control/PickUpText:visible")
 tracks/0/interp = 1
@@ -28,7 +29,7 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.02, 0.99 ),
+"times": PoolRealArray( 0, 0.02, 1.8 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 1,
 "values": [ false, true, false ]
@@ -40,7 +41,7 @@ tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0, 0.2, 0.8, 1 ),
+"times": PoolRealArray( 0, 0.2, 1.5, 1.8 ),
 "transitions": PoolRealArray( 1, 1, 1, 1 ),
 "update": 0,
 "values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
@@ -284,6 +285,7 @@ playing = true
 [node name="flamingoIdle" type="AnimatedSprite" parent="FlamingoSprite"]
 position = Vector2( 0, -6 )
 frames = SubResource( 19 )
+frame = 1
 playing = true
 
 [node name="flamingoAttack" type="Sprite" parent="FlamingoSprite"]
@@ -297,13 +299,11 @@ texture = ExtResource( 12 )
 visible = false
 position = Vector2( 0, -6 )
 frames = SubResource( 13 )
-frame = 1
 playing = true
 
 [node name="penguinIdle" type="AnimatedSprite" parent="PenguinSprite"]
 position = Vector2( -5.36442e-07, -6 )
 frames = SubResource( 7 )
-frame = 1
 playing = true
 
 [node name="penguinAttack" type="AnimatedSprite" parent="PenguinSprite"]
@@ -316,7 +316,6 @@ playing = true
 [node name="penguinIdleBackpack" type="AnimatedSprite" parent="PenguinSprite"]
 position = Vector2( 0, -6 )
 frames = SubResource( 10 )
-frame = 1
 playing = true
 
 [node name="penguinShot" type="Position2D" parent="."]
@@ -412,20 +411,25 @@ __meta__ = {
 
 [node name="PickUpText" type="Label" parent="CanvasLayer/Control"]
 visible = false
+modulate = Color( 1, 1, 1, 0 )
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_top = -96.0
-margin_bottom = -64.0
+margin_top = -492.0
+margin_bottom = -460.0
 custom_colors/font_color = Color( 1, 0.584314, 0, 1 )
 custom_colors/font_color_shadow = Color( 1, 1, 1, 1 )
 custom_fonts/font = ExtResource( 13 )
 text = "Pickup"
 align = 1
 valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Death" type="ColorRect" parent="CanvasLayer"]
 visible = false
+modulate = Color( 1, 1, 1, 0 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 color = Color( 0.184314, 0.188235, 0.211765, 0.929412 )

@@ -130,7 +130,7 @@ tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( -0.0220326, 0.00318249, 0.1 ),
+"times": PoolRealArray( 0, 0.016057, 0.1 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 0,
 "values": [ Color( 1, 1, 1, 1 ), Color( 1, 0, 0, 1 ), Color( 1, 1, 1, 1 ) ]
@@ -145,24 +145,24 @@ script = ExtResource( 2 )
 [node name="regularAttackSprite" type="AnimatedSprite" parent="."]
 visible = false
 frames = SubResource( 5 )
+frame = 1
 playing = true
 
 [node name="regularMoveSprite" type="AnimatedSprite" parent="."]
 visible = false
 frames = SubResource( 13 )
-frame = 5
+frame = 3
 playing = true
 
 [node name="shotgunAttackSprite" type="AnimatedSprite" parent="."]
 visible = false
 frames = SubResource( 16 )
-frame = 1
 playing = true
 
 [node name="shotgunMoveSprite" type="AnimatedSprite" parent="."]
 visible = false
 frames = SubResource( 23 )
-frame = 5
+frame = 3
 playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

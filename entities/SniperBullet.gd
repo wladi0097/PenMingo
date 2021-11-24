@@ -23,6 +23,7 @@ func explode():
 			body.hit(self, dmg)
 	
 	yield(animations, "animation_finished")
+	queue_free()
 	
 func regularShot(body):
 	if body is KinematicBody2D:
