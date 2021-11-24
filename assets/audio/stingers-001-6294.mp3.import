@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/stingers-001-6294.mp3-3add81c535fcdbce6e84af5d67066de8.mp3str"
+
+[deps]
+
+source_file="res://assets/audio/stingers-001-6294.mp3"
+dest_files=[ "res://.import/stingers-001-6294.mp3-3add81c535fcdbce6e84af5d67066de8.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0

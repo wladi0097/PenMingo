@@ -1,7 +1,8 @@
 extends KinematicBody2D
 
 var maxHp = 5
-var currentHp = 5
+var isDead = false
+export var currentHp = 5
 var movementSpeed := 150
 var penguinShotSpread := 0.3
 var penguinShotRandomSpread := 0.08
@@ -22,6 +23,10 @@ onready var invincibleTimerAfterSwitch := $InvincibleTimerAfterSwitch
 onready var switchTrail := $switchTrail
 onready var collision := $CollisionShape2D
 onready var penguinShotPosition := $penguinShot
+onready var slideAudio := $slideAudio
+onready var pickupTextAnimationPlayer := $PickupTextAnimationPlayer
+onready var upgradeAudio := $upgradeAudio
+onready var healAudio := $healAudio
 
 onready var penguinShootLoopAudio := $penguinShootLoop
 onready var penguinShotTimer := $penguinShotTimer
@@ -37,50 +42,65 @@ onready var flamingoIdle := $FlamingoSprite/flamingoIdle
 onready var flamingoMove := $FlamingoSprite/flamingoMove
 onready var flamingoSpriteCollection := $FlamingoSprite
 
-enum PlayerTypes {PENGUIN, FLAMINGO}
-var currentplayerType = PlayerTypes.PENGUIN
+enum PLAYER_TYPES {PENGUIN, FLAMINGO}
+var currentplayerType = PLAYER_TYPES.PENGUIN
 var velocity := Vector2()
+
+onready var pickupText := $CanvasLayer/Control/PickUpText
+
+enum UPGRADE_STATE {NOTHING, SLIDE, TRIPPLE_SHOT, EXPLOSIVE_SHOT}
+var upgradeText = ["", "Rightlick Dash", "Penguin tripple shot", "Flamingo explosive shot"]
+var currentUpgradeState = UPGRADE_STATE.NOTHING
 
 func _ready():
 	GLOBAL.player = self
+	AudioServer.set_bus_effect_enabled(1, 0, false)
+	AudioServer.set_bus_volume_db(1, 1)
+	AudioServer.set_bus_mute(2, false)
 	updateHpBox()
 	rng.randomize()
 
 func _physics_process(delta):
+	if isDead:
+		return
+
 	movement()
 	rotateSpriteAccoringToMouse()
 
 func _input(event):
 	if event.is_action_pressed("action"):
-		if currentplayerType == PlayerTypes.FLAMINGO:
+		if currentplayerType == PLAYER_TYPES.FLAMINGO:
 			flamingoShot()
 	
 	if event.is_action_pressed("action2"):
 		slide()
 
 func showPenguinSettings():
-	currentplayerType = PlayerTypes.PENGUIN
+	currentplayerType = PLAYER_TYPES.PENGUIN
 	flamingoSpriteCollection.hide()
 	penguinSpriteCollection.show()
 	pass
 	
 func showFlamingoSettings():
-	currentplayerType = PlayerTypes.FLAMINGO
+	currentplayerType = PLAYER_TYPES.FLAMINGO
 	flamingoSpriteCollection.show()
 	penguinSpriteCollection.hide()
 	pass
 	
-func slide():
+func slide():	
 	if switchTimer.is_stopped():
 		switchTimer.start()
 		invincibleTimerAfterSwitch.start()
 		penguinShootLoopAudio.stop()
-		if currentplayerType == PlayerTypes.PENGUIN:
+		if currentplayerType == PLAYER_TYPES.PENGUIN:
 			showFlamingoSettings()
 		else:
 			showPenguinSettings()
 		animations.play("switch")
-		movement(15)
+		slideAudio.play()
+		
+		if currentUpgradeState >= UPGRADE_STATE.SLIDE:
+			movement(15)
 
 func shootSingleBullet(bulletType, new_rotation, allowRandomShots = false):
 	var shootPositon = penguinShotPosition.global_position
@@ -88,8 +108,12 @@ func shootSingleBullet(bulletType, new_rotation, allowRandomShots = false):
 	if allowRandomShots:
 		new_rotation += rng.randf_range(-penguinShotRandomSpread, penguinShotRandomSpread)
 		shootPositon.y += rng.randf_range(-penguinShotPositionRandomSpread, penguinShotPositionRandomSpread)
-	
+		
 	var bullet_instance = bulletType.instance()
+	
+	if bulletType == sniperBullet && currentUpgradeState >= UPGRADE_STATE.EXPLOSIVE_SHOT:
+		bullet_instance.isExplodingBullet = true
+	
 	bullet_instance.fire(shootPositon, self.rotation_degrees, new_rotation)
 	get_tree().get_root().call_deferred("add_child", bullet_instance)
 	
@@ -103,8 +127,10 @@ func penguinShot():
 	camera.set_offset(Vector2(rand_range(-1.0, 1.0), rand_range(-1.0, 1.0)))
 	move_and_collide(get_global_mouse_position().direction_to(self.global_position).normalized() * penguinShotKnockback)
 	shootSingleBullet(regularBullet, rotation, true)
-	shootSingleBullet(regularBullet, rotation + penguinShotSpread, true)
-	shootSingleBullet(regularBullet, rotation - penguinShotSpread, true)
+	
+	if currentUpgradeState >= UPGRADE_STATE.TRIPPLE_SHOT:
+		shootSingleBullet(regularBullet, rotation + penguinShotSpread, true)
+		shootSingleBullet(regularBullet, rotation - penguinShotSpread, true)
 	
 func flamingoShot():
 	if !flamingoShotTimer.is_stopped():
@@ -149,7 +175,7 @@ func movement(extraSpeed = 1):
 	self.look_at(get_global_mouse_position())
 
 func handlePenguinShot():
-	if currentplayerType == PlayerTypes.PENGUIN:
+	if currentplayerType == PLAYER_TYPES.PENGUIN:
 		if Input.is_action_pressed("action"):
 			penguinAttack.visible = true
 			penguinIdleBackpack.visible = false
@@ -187,17 +213,36 @@ func hit(body, dmg):
 	if !hitCooldown.is_stopped() || !invincibleTimerAfterSwitch.is_stopped(): return
 	hitCooldown.start()
 	
-	hitAnimationPlayer.play("hit")
 	currentHp -= 1
-	updateHpBox()
 	
 	if currentHp == 0:
 		die()
+	elif currentHp > 0:
+		hitAnimationPlayer.play("hit")
+		updateHpBox()
 		
 func die():
-	currentHp = maxHp
-	updateHpBox()
-	pass
+	isDead = true
+	AudioServer.set_bus_effect_enabled(1, 0, true)
+	AudioServer.set_bus_volume_db(1, -20)
+	AudioServer.set_bus_mute(2, true)
+	$DeathAnimationPlayer.play("die")
+	$deathAudio.play()
+	
+func heal():
+	if currentHp <= maxHp:
+		healAudio.play()
+		currentHp += 1
+		updateHpBox()
+		
+func upgrade(): # power up
+	currentUpgradeState += 1
+	upgradeAudio.play()
+	showPickUpText(upgradeText[currentUpgradeState])
+	
+func showPickUpText(content):
+	pickupText.text = content
+	pickupTextAnimationPlayer.play("pickup")
 	
 onready var hpContainer := $CanvasLayer/Control/HpContainer
 onready var hpFilledIcon := $CanvasLayer/Control/preload/HpFilled
@@ -211,3 +256,7 @@ func updateHpBox():
 		hpContainer.add_child(hpFilledIcon.duplicate())
 	for i in range(maxHp - currentHp):
 		hpContainer.add_child(hpEmptyIcon.duplicate())
+
+
+func _on_Restart_button_down():
+	GLOBAL.loadLevel()

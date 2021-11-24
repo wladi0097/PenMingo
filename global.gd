@@ -2,6 +2,5 @@ extends Node
 
 var player: KinematicBody2D
 
-func _ready():
-	var master_sound = AudioServer.get_bus_index("Master")
-#	AudioServer.set_bus_mute(master_sound, true)
+func loadLevel():
+	get_tree().change_scene("res://worlds/Level01_Zoo.tscn")

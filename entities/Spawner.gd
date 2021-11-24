@@ -3,11 +3,20 @@ extends Node2D
 onready var animations := $AnimationPlayer
 onready var navigationNode : Navigation2D = find_parent("Navigation2D")
 
+var rng = RandomNumberGenerator.new()
+var spawnNode
+
 var enemies = []
 enum ENEMIES {regularShooter, shotgunShooter, regularDrone}
 export(ENEMIES) var spawnEnemy = ENEMIES.regularShooter
 
+func chooseRandomEnemy():
+	rng.randomize()
+	spawnEnemy = rng.randi_range(0, ENEMIES.size() - 1)
+
 func _ready():
+	yield(get_tree().create_timer(rng.randf_range(0, 3)), "timeout")
+	
 	animations.play("spawn")
 	yield(animations, "animation_finished")
 	
@@ -22,7 +31,11 @@ func _ready():
 			instance= load("res://entities/RunnerEnemy.tscn").instance()
 			
 	instance.global_position = global_position
-	navigationNode.add_child(instance)
+	
+	if spawnNode == null:
+		navigationNode.add_child(instance)
+	else:
+		spawnNode.add_child(instance)
 			
 	animations.play("spawnComplete")
 	yield(animations, "animation_finished")

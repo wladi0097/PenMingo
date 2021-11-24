@@ -4,7 +4,7 @@ enum ENEMY_TYPE {regular, shotgun}
 export(ENEMY_TYPE) var currentType = ENEMY_TYPE.regular
 
 var knockback = 2
-var speed = 100
+var speed = 50
 var hp = 10
 var shotgunSpread =  0.3
 onready var animations := $AnimationPlayer
@@ -17,9 +17,13 @@ onready var regularAttackSprite := $regularAttackSprite
 onready var regulatMoveSprite := $regularMoveSprite
 onready var shotgunMoveSprite := $shotgunMoveSprite
 onready var shotgunAttackprite := $shotgunAttackSprite
+onready var shootAudio := $shootAudio
 
-func _ready():	
-	pass
+func die():
+	var parent = get_parent()
+	if parent.has_method('enemyDied'):
+		parent.enemyDied()
+	queue_free()
 
 func hit(bullet: Node2D, dmg):
 	animations.play("hit")
@@ -27,13 +31,14 @@ func hit(bullet: Node2D, dmg):
 	
 	hp -= dmg
 	if hp <= 0:
-		queue_free()
+		die()
 
 func shoot(new_rotation):
 	var bullet_instance = regularBullet.instance()
 	bullet_instance.isFromEnemy = true
 	bullet_instance.fire(shotPosition.global_position, self.rotation_degrees, new_rotation)
 	get_tree().get_root().call_deferred("add_child", bullet_instance)
+	shootAudio.play()
 
 
 func regularShoot():

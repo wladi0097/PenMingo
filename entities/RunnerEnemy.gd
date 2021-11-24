@@ -1,6 +1,6 @@
 extends KinematicBody2D
 
-var speed = 200
+var speed = 120
 var shotKnockback = 10
 var afterAttackKnockback = 30
 var hp = 5
@@ -8,8 +8,11 @@ onready var navigation : Navigation2D = find_parent("Navigation2D")
 onready var afterAttackCooldown := $AfterAttackCooldown
 onready var animations := $AnimationPlayer
 
-func _ready():
-	pass # Replace with function body.
+func die():
+	var parent = get_parent()
+	if parent.has_method('enemyDied'):
+		parent.enemyDied()
+	queue_free()
 
 func followUntilPlayerIsVisible(delta):
 	var path = navigation.get_simple_path(self.position, GLOBAL.player.position)
@@ -27,7 +30,7 @@ func hit(bullet, dmg):
 	
 	hp -= dmg
 	if hp <= 0:
-		queue_free()
+		die()
 	
 func _on_PlayerEnter_body_entered(body):
 	animations.play("afterAttack")

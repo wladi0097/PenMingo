@@ -6,6 +6,7 @@ onready var muzSprite := $muzSprite
 onready var explosionArea := $ExplosionArea
 var dmg = 5
 var speed = 600
+var isExplodingBullet = false # set by player unlock
 
 func fire(fromPosition, fromRotiation, toRotation):
 	position = fromPosition
@@ -22,10 +23,17 @@ func explode():
 			body.hit(self, dmg)
 	
 	yield(animations, "animation_finished")
+	
+func regularShot(body):
+	if body is KinematicBody2D:
+		body.hit(self, dmg)
 	queue_free()
 
 func _on_SniperBullet_body_entered(body):
-	explode()
+	if isExplodingBullet:
+		explode()
+	else:
+		regularShot(body)
 
 func _on_destroyTimer_timeout():
 	queue_free()

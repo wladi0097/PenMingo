@@ -1,8 +1,10 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://assets/enemies/drone.png" type="Texture" id=1]
 [ext_resource path="res://entities/RunnerEnemy.gd" type="Script" id=2]
 [ext_resource path="res://assets/sprites/bulletCollision.png" type="Texture" id=3]
+[ext_resource path="res://assets/audio/BLLTImpt_Hit Marker_07.wav" type="AudioStream" id=4]
+[ext_resource path="res://assets/audio/copter.mp3" type="AudioStream" id=5]
 
 [sub_resource type="AtlasTexture" id=1]
 atlas = ExtResource( 1 )
@@ -76,6 +78,18 @@ tracks/0/keys = {
 "update": 0,
 "values": [ Color( 1, 1, 1, 1 ), Color( 1, 0, 0.164706, 1 ), Color( 1, 1, 1, 1 ) ]
 }
+tracks/1/type = "value"
+tracks/1/path = NodePath("hitAudio:playing")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
 
 [node name="RunnerEnemy" type="KinematicBody2D"]
 collision_layer = 8
@@ -83,8 +97,8 @@ collision_mask = 20
 script = ExtResource( 2 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+rotation = 2.68933
 frames = SubResource( 5 )
-frame = 3
 playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -112,5 +126,15 @@ visible = false
 position = Vector2( 8, 0 )
 scale = Vector2( 1, 2 )
 texture = ExtResource( 3 )
+
+[node name="hitAudio" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 4 )
+bus = "Effects"
+
+[node name="rotorSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 5 )
+volume_db = -5.0
+autoplay = true
+bus = "Effects"
 
 [connection signal="body_entered" from="PlayerEnter" to="." method="_on_PlayerEnter_body_entered"]
