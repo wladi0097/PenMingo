@@ -27,6 +27,8 @@ onready var slideAudio := $slideAudio
 onready var pickupTextAnimationPlayer := $PickupTextAnimationPlayer
 onready var upgradeAudio := $upgradeAudio
 onready var healAudio := $healAudio
+onready var slideTimeAnimationPlayer := $SliderTimeAnimation/AnimationPlayer
+onready var sliderTimeAnimationContainer := $SliderTimeAnimation
 
 onready var penguinShootLoopAudio := $penguinShootLoop
 onready var penguinShotTimer := $penguinShotTimer
@@ -92,6 +94,7 @@ func showFlamingoSettings():
 	
 func slide():	
 	if switchTimer.is_stopped():
+		slideTimeAnimationPlayer.play("progress")
 		switchTimer.start()
 		invincibleTimerAfterSwitch.start()
 		penguinShootLoopAudio.stop()
@@ -207,10 +210,12 @@ func rotateSpriteAccoringToMouse():
 		penguinSpriteCollection.scale.y = -1
 		flamingoSpriteCollection.scale.y = -1
 		collision.position.y = 1
+		sliderTimeAnimationContainer.scale.y = -1
 	else:
 		penguinSpriteCollection.scale.y = 1
 		flamingoSpriteCollection.scale.y = 1
 		collision.position.y = -1
+		sliderTimeAnimationContainer.scale.y = 1
 
 func hit(body, dmg):
 	if !hitCooldown.is_stopped() || !invincibleTimerAfterSwitch.is_stopped(): return
@@ -233,8 +238,9 @@ func die():
 	$deathAudio.play()
 	
 func heal():
+	healAudio.play()
+	
 	if currentHp <= maxHp:
-		healAudio.play()
 		currentHp += 1
 		updateHpBox()
 		
