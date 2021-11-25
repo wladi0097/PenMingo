@@ -11,6 +11,7 @@
 [ext_resource path="res://assets/smoke/explosion/explosion07.png" type="Texture" id=9]
 [ext_resource path="res://assets/smoke/explosion/explosion03.png" type="Texture" id=10]
 [ext_resource path="res://assets/smoke/explosion/explosion01.png" type="Texture" id=11]
+[ext_resource path="res://assets/smoke/explosion/explodingAnimationPlayerEntry.tres" type="Animation" id=12]
 
 [sub_resource type="Gradient" id=1]
 offsets = PoolRealArray( 0, 0.541436, 1 )
@@ -29,34 +30,6 @@ animations = [ {
 
 [sub_resource type="CircleShape2D" id=3]
 radius = 43.0
-
-[sub_resource type="Animation" id=5]
-resource_name = "explode"
-length = 0.3
-tracks/0/type = "value"
-tracks/0/path = NodePath("ExplosionSprite:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 0.0254393, 0.0580263, 0.0889314, 0.12474, 0.178865, 0.219299, 0.278142 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1 ),
-"update": 1,
-"values": [ 1, 2, 3, 4, 5, 6, 7, 8 ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath("ExplosionSprite:visible")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0.00138778, 0.294996 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 1,
-"values": [ true, false ]
-}
 
 [node name="SniperBullet" type="RigidBody2D"]
 collision_layer = 16
@@ -84,7 +57,7 @@ visible = false
 position = Vector2( 18.5, 0 )
 scale = Vector2( 0.146688, 0.150427 )
 frames = SubResource( 4 )
-frame = 1
+frame = 8
 
 [node name="ExplosionArea" type="Area2D" parent="."]
 collision_layer = 0
@@ -95,7 +68,7 @@ position = Vector2( 17, 0 )
 shape = SubResource( 3 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-anims/explode = SubResource( 5 )
+anims/explode = ExtResource( 12 )
 
 [node name="MuzTimer" type="Timer" parent="."]
 wait_time = 0.1

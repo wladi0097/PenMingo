@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=2]
+[gd_scene load_steps=25 format=2]
 
 [ext_resource path="res://assets/tilesets/background.tres" type="TileSet" id=1]
 [ext_resource path="res://entities/Player.tscn" type="PackedScene" id=2]
@@ -9,6 +9,8 @@
 [ext_resource path="res://assets/audio/town-10169.mp3" type="AudioStream" id=7]
 [ext_resource path="res://entities/Pickup.tscn" type="PackedScene" id=8]
 [ext_resource path="res://assets/sprites/pickupTutorial.png" type="Texture" id=9]
+[ext_resource path="res://entities/ExplosiveBarrel.tscn" type="PackedScene" id=10]
+[ext_resource path="res://entities/TankBoss.tscn" type="PackedScene" id=11]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 32.5, 79.5 )
@@ -88,6 +90,30 @@ position = Vector2( -100.043, -323.5 )
 rotation = -0.294961
 texture = ExtResource( 5 )
 
+[node name="StaticBody" parent="Navigation2D/custom props" instance=ExtResource( 10 )]
+position = Vector2( -32, 3 )
+
+[node name="StaticBody2" parent="Navigation2D/custom props" instance=ExtResource( 10 )]
+position = Vector2( 160, -288 )
+
+[node name="StaticBody3" parent="Navigation2D/custom props" instance=ExtResource( 10 )]
+position = Vector2( -316, 328 )
+
+[node name="StaticBody4" parent="Navigation2D/custom props" instance=ExtResource( 10 )]
+position = Vector2( -274, 751 )
+
+[node name="StaticBody5" parent="Navigation2D/custom props" instance=ExtResource( 10 )]
+position = Vector2( -535, 862 )
+
+[node name="StaticBody6" parent="Navigation2D/custom props" instance=ExtResource( 10 )]
+position = Vector2( -100, -565 )
+
+[node name="StaticBody7" parent="Navigation2D/custom props" instance=ExtResource( 10 )]
+position = Vector2( 125, -647 )
+
+[node name="StaticBody8" parent="Navigation2D/custom props" instance=ExtResource( 10 )]
+position = Vector2( -385, -655 )
+
 [node name="pickup" type="Node2D" parent="Navigation2D"]
 
 [node name="Pickup" parent="Navigation2D/pickup" instance=ExtResource( 8 )]
@@ -145,134 +171,139 @@ texture = ExtResource( 4 )
 
 [node name="Rooms" type="Node2D" parent="Navigation2D"]
 
-[node name="1" parent="Navigation2D/Rooms" instance=ExtResource( 6 )]
+[node name="1 out of flamingo" parent="Navigation2D/Rooms" instance=ExtResource( 6 )]
 waves = 1
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Navigation2D/Rooms/1/EntryDoor" index="0"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Navigation2D/Rooms/1 out of flamingo/EntryDoor" index="0"]
 position = Vector2( -76, -302.5 )
 shape = SubResource( 1 )
 
-[node name="Position2D" type="Position2D" parent="Navigation2D/Rooms/1/SpawnPositions" index="0"]
+[node name="Position2D" type="Position2D" parent="Navigation2D/Rooms/1 out of flamingo/SpawnPositions" index="0"]
 position = Vector2( 168, -304 )
 
-[node name="Position2D6" type="Position2D" parent="Navigation2D/Rooms/1/SpawnPositions" index="1"]
+[node name="Position2D6" type="Position2D" parent="Navigation2D/Rooms/1 out of flamingo/SpawnPositions" index="1"]
 position = Vector2( 48, -352 )
 
-[node name="Position2D7" type="Position2D" parent="Navigation2D/Rooms/1/SpawnPositions" index="2"]
+[node name="Position2D7" type="Position2D" parent="Navigation2D/Rooms/1 out of flamingo/SpawnPositions" index="2"]
 position = Vector2( 136, -104 )
 
-[node name="Position2D2" type="Position2D" parent="Navigation2D/Rooms/1/SpawnPositions" index="3"]
+[node name="Position2D2" type="Position2D" parent="Navigation2D/Rooms/1 out of flamingo/SpawnPositions" index="3"]
 position = Vector2( 216, -176 )
 
-[node name="Position2D3" type="Position2D" parent="Navigation2D/Rooms/1/SpawnPositions" index="4"]
+[node name="Position2D3" type="Position2D" parent="Navigation2D/Rooms/1 out of flamingo/SpawnPositions" index="4"]
 position = Vector2( -32, -160 )
 
-[node name="Position2D4" type="Position2D" parent="Navigation2D/Rooms/1/SpawnPositions" index="5"]
+[node name="Position2D4" type="Position2D" parent="Navigation2D/Rooms/1 out of flamingo/SpawnPositions" index="5"]
 position = Vector2( 32, 32 )
 
-[node name="Position2D5" type="Position2D" parent="Navigation2D/Rooms/1/SpawnPositions" index="6"]
+[node name="Position2D5" type="Position2D" parent="Navigation2D/Rooms/1 out of flamingo/SpawnPositions" index="6"]
 position = Vector2( 88, 144 )
 
-[node name="CollisionShape2D3" type="CollisionShape2D" parent="Navigation2D/Rooms/1/ClosedUp" index="0"]
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="Navigation2D/Rooms/1 out of flamingo/ClosedUp" index="0"]
 position = Vector2( -130, -317 )
 shape = SubResource( 2 )
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Navigation2D/Rooms/1/ClosedUp" index="1"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Navigation2D/Rooms/1 out of flamingo/ClosedUp" index="1"]
 position = Vector2( -131, 193.5 )
 shape = SubResource( 3 )
 
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="Navigation2D/Rooms/1/ClosedUp" index="2"]
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Navigation2D/Rooms/1 out of flamingo/ClosedUp" index="2"]
 position = Vector2( 85.5444, 204.051 )
 rotation = -2.14501
 shape = SubResource( 4 )
 
-[node name="2" parent="Navigation2D/Rooms" instance=ExtResource( 6 )]
+[node name="2 turning point" parent="Navigation2D/Rooms" instance=ExtResource( 6 )]
 waves = 1
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Navigation2D/Rooms/2/EntryDoor" index="0"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Navigation2D/Rooms/2 turning point/EntryDoor" index="0"]
 position = Vector2( -261.5, 256 )
 shape = SubResource( 5 )
 
-[node name="Position2D" type="Position2D" parent="Navigation2D/Rooms/2/SpawnPositions" index="0"]
+[node name="Position2D" type="Position2D" parent="Navigation2D/Rooms/2 turning point/SpawnPositions" index="0"]
 position = Vector2( -409, 266 )
 
-[node name="Position2D2" type="Position2D" parent="Navigation2D/Rooms/2/SpawnPositions" index="1"]
+[node name="Position2D2" type="Position2D" parent="Navigation2D/Rooms/2 turning point/SpawnPositions" index="1"]
 position = Vector2( -563, 201 )
 
-[node name="Position2D3" type="Position2D" parent="Navigation2D/Rooms/2/SpawnPositions" index="2"]
+[node name="Position2D3" type="Position2D" parent="Navigation2D/Rooms/2 turning point/SpawnPositions" index="2"]
 position = Vector2( -666, 304 )
 
-[node name="Position2D4" type="Position2D" parent="Navigation2D/Rooms/2/SpawnPositions" index="3"]
+[node name="Position2D4" type="Position2D" parent="Navigation2D/Rooms/2 turning point/SpawnPositions" index="3"]
 position = Vector2( -112, 317 )
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Navigation2D/Rooms/2/ClosedUp" index="0"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Navigation2D/Rooms/2 turning point/ClosedUp" index="0"]
 position = Vector2( -611, 38.125 )
 shape = SubResource( 6 )
 
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="Navigation2D/Rooms/2/ClosedUp" index="1"]
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Navigation2D/Rooms/2 turning point/ClosedUp" index="1"]
 position = Vector2( -688, 363.5 )
 shape = SubResource( 7 )
 
-[node name="CollisionShape2D3" type="CollisionShape2D" parent="Navigation2D/Rooms/2/ClosedUp" index="2"]
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="Navigation2D/Rooms/2 turning point/ClosedUp" index="2"]
 position = Vector2( -139, 193.5 )
 shape = SubResource( 8 )
 
-[node name="3" parent="Navigation2D/Rooms" instance=ExtResource( 6 )]
+[node name="3 sand" parent="Navigation2D/Rooms" instance=ExtResource( 6 )]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Navigation2D/Rooms/3/EntryDoor" index="0"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Navigation2D/Rooms/3 sand/EntryDoor" index="0"]
 position = Vector2( -687.25, 736 )
 shape = SubResource( 9 )
 
-[node name="Position2D" type="Position2D" parent="Navigation2D/Rooms/3/SpawnPositions" index="0"]
+[node name="Position2D" type="Position2D" parent="Navigation2D/Rooms/3 sand/SpawnPositions" index="0"]
 position = Vector2( -176, 648 )
 
-[node name="Position2D2" type="Position2D" parent="Navigation2D/Rooms/3/SpawnPositions" index="1"]
+[node name="Position2D2" type="Position2D" parent="Navigation2D/Rooms/3 sand/SpawnPositions" index="1"]
 position = Vector2( -483, 651 )
 
-[node name="Position2D3" type="Position2D" parent="Navigation2D/Rooms/3/SpawnPositions" index="2"]
+[node name="Position2D3" type="Position2D" parent="Navigation2D/Rooms/3 sand/SpawnPositions" index="2"]
 position = Vector2( -190, 888 )
 
-[node name="Position2D4" type="Position2D" parent="Navigation2D/Rooms/3/SpawnPositions" index="3"]
+[node name="Position2D4" type="Position2D" parent="Navigation2D/Rooms/3 sand/SpawnPositions" index="3"]
 position = Vector2( -425, 811 )
 
-[node name="Position2D5" type="Position2D" parent="Navigation2D/Rooms/3/SpawnPositions" index="4"]
+[node name="Position2D5" type="Position2D" parent="Navigation2D/Rooms/3 sand/SpawnPositions" index="4"]
 position = Vector2( -600, 868 )
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Navigation2D/Rooms/3/ClosedUp" index="0"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Navigation2D/Rooms/3 sand/ClosedUp" index="0"]
 position = Vector2( -688, 599.5 )
 shape = SubResource( 10 )
 
-[node name="4" parent="Navigation2D/Rooms" instance=ExtResource( 6 )]
+[node name="4 close to exit" parent="Navigation2D/Rooms" instance=ExtResource( 6 )]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Navigation2D/Rooms/4/EntryDoor" index="0"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Navigation2D/Rooms/4 close to exit/EntryDoor" index="0"]
 position = Vector2( -403, -556 )
 shape = SubResource( 11 )
 
-[node name="Position2D" type="Position2D" parent="Navigation2D/Rooms/4/SpawnPositions" index="0"]
+[node name="Position2D" type="Position2D" parent="Navigation2D/Rooms/4 close to exit/SpawnPositions" index="0"]
 position = Vector2( 0, -544 )
 
-[node name="Position2D5" type="Position2D" parent="Navigation2D/Rooms/4/SpawnPositions" index="1"]
+[node name="Position2D5" type="Position2D" parent="Navigation2D/Rooms/4 close to exit/SpawnPositions" index="1"]
 position = Vector2( -81, -688 )
 
-[node name="Position2D2" type="Position2D" parent="Navigation2D/Rooms/4/SpawnPositions" index="2"]
+[node name="Position2D2" type="Position2D" parent="Navigation2D/Rooms/4 close to exit/SpawnPositions" index="2"]
 position = Vector2( 308, -729 )
 
-[node name="Position2D3" type="Position2D" parent="Navigation2D/Rooms/4/SpawnPositions" index="3"]
+[node name="Position2D3" type="Position2D" parent="Navigation2D/Rooms/4 close to exit/SpawnPositions" index="3"]
 position = Vector2( 250, -530 )
 
-[node name="Position2D4" type="Position2D" parent="Navigation2D/Rooms/4/SpawnPositions" index="4"]
+[node name="Position2D4" type="Position2D" parent="Navigation2D/Rooms/4 close to exit/SpawnPositions" index="4"]
 position = Vector2( -572, -708 )
 
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="Navigation2D/Rooms/4/ClosedUp" index="0"]
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Navigation2D/Rooms/4 close to exit/ClosedUp" index="0"]
 position = Vector2( -549, -479 )
 shape = SubResource( 12 )
 
-[node name="CollisionShape2D3" type="CollisionShape2D" parent="Navigation2D/Rooms/4/ClosedUp" index="1"]
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="Navigation2D/Rooms/4 close to exit/ClosedUp" index="1"]
 position = Vector2( -640.5, -703.5 )
 shape = SubResource( 13 )
 
+[node name="BossRoom" type="Node2D" parent="Navigation2D/Rooms"]
+
+[node name="Node2D" parent="Navigation2D/Rooms/BossRoom" instance=ExtResource( 11 )]
+position = Vector2( -724, -1255 )
+
 [node name="Player" parent="." instance=ExtResource( 2 )]
-position = Vector2( -226, 66 )
+position = Vector2( -224, 66 )
 currentHp = 4
 
 [node name="LevelMusic" type="AudioStreamPlayer" parent="."]
@@ -281,7 +312,7 @@ volume_db = -10.0
 autoplay = true
 bus = "Music"
 
-[editable path="Navigation2D/Rooms/1"]
-[editable path="Navigation2D/Rooms/2"]
-[editable path="Navigation2D/Rooms/3"]
-[editable path="Navigation2D/Rooms/4"]
+[editable path="Navigation2D/Rooms/1 out of flamingo"]
+[editable path="Navigation2D/Rooms/2 turning point"]
+[editable path="Navigation2D/Rooms/3 sand"]
+[editable path="Navigation2D/Rooms/4 close to exit"]

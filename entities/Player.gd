@@ -1,4 +1,5 @@
 extends KinematicBody2D
+class_name Player
 
 var maxHp = 5
 var isDead = false
@@ -20,7 +21,6 @@ onready var hitAnimationPlayer := $HitAnimationPlayer
 onready var hitCooldown := $HitCooldown
 onready var switchTimer := $switchTimer
 onready var invincibleTimerAfterSwitch := $InvincibleTimerAfterSwitch
-onready var switchTrail := $switchTrail
 onready var collision := $CollisionShape2D
 onready var penguinShotPosition := $penguinShot
 onready var slideAudio := $slideAudio
@@ -172,13 +172,20 @@ func movement(extraSpeed = 1):
 			trail_instance = trail.instance()
 			trail_instance.addPoint(position)
 			
-		self.move_and_slide(motion * movementSpeed * extraSpeed)
+		self.move_and_slide(motion * movementSpeed * extraSpeed, Vector2( 0, 0 ), false, 4,  0.785398, false)
+		checkCollisionsWithRigidBodies()
 		
 		if extraSpeed > 1:
 			trail_instance.addPoint(position)
 			get_tree().get_root().call_deferred("add_child", trail_instance)
 	
 	self.look_at(get_global_mouse_position())
+	
+func checkCollisionsWithRigidBodies():
+	for i in get_slide_count():
+		var collision: KinematicCollision2D = get_slide_collision(i)
+		if collision.collider is RigidBody2D:
+			collision.collider.apply_central_impulse(-collision.normal)
 
 func handlePenguinShot():
 	if currentplayerType == PLAYER_TYPES.PENGUIN:
@@ -252,7 +259,6 @@ func upgrade(): # power up
 func showPickUpText(content):
 	pickupText.text = content
 	pickupTextAnimationPlayer.play("pickup")
-	
 	
 onready var hpContainer := $CanvasLayer/Control/HpContainer
 onready var hpFilledIcon := $CanvasLayer/Control/preload/HpFilled

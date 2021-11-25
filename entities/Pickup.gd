@@ -1,4 +1,5 @@
 extends Area2D
+class_name PickUp
 
 onready var animations := $AnimationPlayer
 enum PICKUP_TYPE {health, maxHealth, upgrade}

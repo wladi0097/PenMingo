@@ -1,4 +1,5 @@
 extends RigidBody2D
+class_name SniperBullet
 
 onready var line := $Line2D
 onready var animations := $AnimationPlayer

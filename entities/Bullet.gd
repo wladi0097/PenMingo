@@ -1,4 +1,5 @@
 extends RigidBody2D
+class_name Bullet
 
 export (bool) var isFromEnemy := false
 onready var muzSprite := $muzSprite
