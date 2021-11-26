@@ -9,9 +9,7 @@ onready var afterAttackCooldown := $AfterAttackCooldown
 onready var animations := $AnimationPlayer
 
 func die():
-	var parent = get_parent()
-	if parent.has_method('enemyDied'):
-		parent.enemyDied()
+	find_parent("FightStage").enemyDied()
 	queue_free()
 
 func followUntilPlayerIsVisible(delta):

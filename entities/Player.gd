@@ -50,10 +50,6 @@ var velocity := Vector2()
 
 onready var pickupText := $CanvasLayer/Control/PickUpText
 
-enum UPGRADE_STATE {NOTHING, SLIDE, TRIPPLE_SHOT, EXPLOSIVE_SHOT}
-var upgradeText = ["", "Rightlick Dash", "Penguin tripple shot", "Flamingo explosive shot"]
-var currentUpgradeState = UPGRADE_STATE.NOTHING
-
 func _ready():
 	GLOBAL.player = self
 	AudioServer.set_bus_effect_enabled(1, 0, false)
@@ -104,9 +100,7 @@ func slide():
 			showPenguinSettings()
 		animations.play("switch")
 		slideAudio.play()
-		
-		if currentUpgradeState >= UPGRADE_STATE.SLIDE:
-			movement(15)
+		movement(15)
 
 func shootSingleBullet(bulletType, new_rotation, allowRandomShots = false):
 	var shootPositon = penguinShotPosition.global_position
@@ -116,10 +110,6 @@ func shootSingleBullet(bulletType, new_rotation, allowRandomShots = false):
 		shootPositon.y += rng.randf_range(-penguinShotPositionRandomSpread, penguinShotPositionRandomSpread)
 		
 	var bullet_instance = bulletType.instance()
-	
-	if bulletType == sniperBullet && currentUpgradeState >= UPGRADE_STATE.EXPLOSIVE_SHOT:
-		bullet_instance.isExplodingBullet = true
-	
 	bullet_instance.fire(shootPositon, self.rotation_degrees, new_rotation)
 	get_tree().get_root().call_deferred("add_child", bullet_instance)
 	
@@ -134,7 +124,7 @@ func penguinShot():
 	move_and_collide(get_global_mouse_position().direction_to(self.global_position).normalized() * penguinShotKnockback)
 	shootSingleBullet(regularBullet, rotation, true)
 	
-	if currentUpgradeState >= UPGRADE_STATE.TRIPPLE_SHOT:
+	if CURRENT_RUN.hasUpgrade(CURRENT_RUN.UPGRADES.TRIPPLE_SHOT):
 		shootSingleBullet(regularBullet, rotation + penguinShotSpread, true)
 		shootSingleBullet(regularBullet, rotation - penguinShotSpread, true)
 	
@@ -252,9 +242,9 @@ func heal():
 		updateHpBox()
 		
 func upgrade(): # power up
-	currentUpgradeState += 1
+	var newUpgrade = CURRENT_RUN.getRandomUpgrade()
 	upgradeAudio.play()
-	showPickUpText(upgradeText[currentUpgradeState])
+	showPickUpText(CURRENT_RUN.getTextForUpgrade(newUpgrade))
 	
 func showPickUpText(content):
 	pickupText.text = content

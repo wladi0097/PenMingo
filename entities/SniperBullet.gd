@@ -32,7 +32,7 @@ func regularShot(body):
 	queue_free()
 
 func _on_SniperBullet_body_entered(body):
-	if isExplodingBullet:
+	if CURRENT_RUN.hasUpgrade(CURRENT_RUN.UPGRADES.EXPLOSIVE_SHOT):
 		explode()
 	else:
 		regularShot(body)

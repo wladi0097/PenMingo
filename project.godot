@@ -14,10 +14,15 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://entities/Bullet.gd"
 }, {
-"base": "Area2D",
-"class": "PickUp",
+"base": "Node2D",
+"class": "FightStage",
 "language": "GDScript",
-"path": "res://entities/Pickup.gd"
+"path": "res://scripts/FightStage.gd"
+}, {
+"base": "",
+"class": "GitAPI",
+"language": "NativeScript",
+"path": "res://addons/godot-git-plugin/git_api.gdns"
 }, {
 "base": "KinematicBody2D",
 "class": "Player",
@@ -31,7 +36,8 @@ _global_script_classes=[ {
 } ]
 _global_script_class_icons={
 "Bullet": "",
-"PickUp": "",
+"FightStage": "",
+"GitAPI": "",
 "Player": "",
 "SniperBullet": ""
 }
@@ -39,12 +45,13 @@ _global_script_class_icons={
 [application]
 
 config/name="PenMingo"
-run/main_scene="res://worlds/Level01_Zoo.tscn"
+run/main_scene="res://worlds/Lobby.tscn"
 config/icon="res://icon.png"
 
 [autoload]
 
 GLOBAL="*res://global.gd"
+CURRENT_RUN="*res://scripts/CurrentRun.tscn"
 
 [display]
 
@@ -54,6 +61,14 @@ mouse_cursor/custom_image="res://assets/crosshair092.png"
 mouse_cursor/custom_image_hotspot=Vector2( 32, 32 )
 window/stretch/mode="viewport"
 window/stretch/aspect="expand"
+
+[editor_plugins]
+
+enabled=PoolStringArray(  )
+
+[gdnative]
+
+singletons=[ "res://addons/godot-git-plugin/git_api.gdnlib" ]
 
 [input]
 
@@ -85,6 +100,11 @@ action={
 action2={
 "deadzone": 0.5,
 "events": [ Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"button_mask":0,"position":Vector2( 0, 0 ),"global_position":Vector2( 0, 0 ),"factor":1.0,"button_index":2,"pressed":false,"doubleclick":false,"script":null)
+ ]
+}
+E={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":0,"physical_scancode":69,"unicode":0,"echo":false,"script":null)
  ]
 }
 

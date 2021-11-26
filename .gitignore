@@ -5,3 +5,4 @@ export.cfg
 data_*/
 dist/
 *.vs
+addons/

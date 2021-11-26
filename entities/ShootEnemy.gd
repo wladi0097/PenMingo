@@ -20,9 +20,7 @@ onready var shotgunAttackprite := $shotgunAttackSprite
 onready var shootAudio := $shootAudio
 
 func die():
-	var parent = get_parent()
-	if parent.has_method('enemyDied'):
-		parent.enemyDied()
+	find_parent("FightStage").enemyDied()
 	queue_free()
 
 func hit(bullet: Node2D, dmg):

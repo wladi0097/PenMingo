@@ -1,0 +1,46 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://entities/Player.tscn" type="PackedScene" id=1]
+[ext_resource path="res://assets/tilesets/background.tres" type="TileSet" id=2]
+[ext_resource path="res://assets/tilesets/props.tres" type="TileSet" id=3]
+[ext_resource path="res://worlds/Lobby.gd" type="Script" id=4]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 16, 48 )
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource( 4 )
+
+[node name="Background-noaccess" type="TileMap" parent="."]
+tile_set = ExtResource( 2 )
+cell_size = Vector2( 32, 32 )
+show_collision = true
+collision_layer = 2
+collision_mask = 2
+format = 1
+
+[node name="Background" type="TileMap" parent="."]
+tile_set = ExtResource( 2 )
+cell_size = Vector2( 32, 32 )
+show_collision = true
+format = 1
+tile_data = PoolIntArray( 0, 0, 0, 1, 0, 0, 2, 0, 0, 3, 0, 0, 4, 5, 0, 65536, 0, 0, 65537, 0, 0, 65538, 0, 0, 65539, 0, 0, 65540, 5, 0, 131072, 0, 0, 131073, 0, 0, 131074, 0, 0, 131075, 0, 0, 131076, 5, 0 )
+
+[node name="Props" type="TileMap" parent="."]
+tile_set = ExtResource( 3 )
+cell_size = Vector2( 32, 32 )
+show_collision = true
+format = 1
+
+[node name="Player" parent="." instance=ExtResource( 1 )]
+position = Vector2( 61, 52 )
+
+[node name="StartRun" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StartRun"]
+position = Vector2( 143, 47 )
+shape = SubResource( 1 )
+
+[connection signal="body_entered" from="StartRun" to="." method="_on_StartRun_body_entered"]
