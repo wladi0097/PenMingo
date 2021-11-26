@@ -55,5 +55,5 @@ func startNewRun():
 	switchToNextRoom()
 
 func switchToNextRoom():
-	get_tree().change_scssssene(roomsThisrun[0])
+	get_tree().change_scene(roomsThisrun[0])
 	roomsThisrun.remove(0)

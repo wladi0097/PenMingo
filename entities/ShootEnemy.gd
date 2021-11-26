@@ -4,7 +4,7 @@ enum ENEMY_TYPE {regular, shotgun}
 export(ENEMY_TYPE) var currentType = ENEMY_TYPE.regular
 
 var knockback = 2
-var speed = 50
+var speed = 30
 var hp = 10
 var shotgunSpread =  0.3
 onready var animations := $AnimationPlayer

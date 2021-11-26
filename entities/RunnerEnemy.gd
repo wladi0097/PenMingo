@@ -1,6 +1,6 @@
 extends KinematicBody2D
 
-var speed = 120
+var speed = 110
 var shotKnockback = 10
 var afterAttackKnockback = 30
 var hp = 5

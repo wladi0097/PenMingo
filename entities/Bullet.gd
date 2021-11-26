@@ -6,7 +6,9 @@ onready var muzSprite := $muzSprite
 onready var collisionSprite := $CollisionSprite
 onready var playerShootSprite := $playerShootSprite
 onready var enemyShootSprite := $enemyShootSprite
-var speed = 200
+var enemySpeed = 100
+var playerSpeed = 120
+var speed = 0
 var dmg = 1
 
 func _ready():
@@ -21,6 +23,12 @@ func _ready():
 func fire(fromPosition, fromRotiation, toRotation):
 	position = fromPosition
 	rotation_degrees = fromRotiation
+	
+	if isFromEnemy:
+		speed = enemySpeed
+	else: 
+		speed = playerSpeed
+	
 	apply_impulse(Vector2(),Vector2(speed, 0).rotated(toRotation))
 
 func _on_Node2D_body_entered(body: Node2D):
