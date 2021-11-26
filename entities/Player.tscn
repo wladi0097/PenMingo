@@ -291,7 +291,7 @@ script = ExtResource( 2 )
 
 [node name="Camera2D" type="Camera2D" parent="."]
 current = true
-zoom = Vector2( 0.4, 0.4 )
+zoom = Vector2( 0.5, 0.5 )
 smoothing_enabled = true
 
 [node name="PickupTextAnimationPlayer" type="AnimationPlayer" parent="."]
@@ -320,6 +320,7 @@ visible = false
 visible = false
 position = Vector2( 0, -6 )
 frames = SubResource( 22 )
+frame = 1
 playing = true
 
 [node name="flamingoIdle" type="AnimatedSprite" parent="FlamingoSprite"]
