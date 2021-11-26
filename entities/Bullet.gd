@@ -41,10 +41,12 @@ func _on_Node2D_body_entered(body: Node2D):
 	$collisionDieTimer.start()
 
 func _on_Timer_timeout():
-	self.queue_free()
+	if !isFromEnemy:
+		self.queue_free()
 
 func _on_muz_timeout():
 	muzSprite.hide()
 
 func _on_collisionDieTimer_timeout():
 	self.queue_free()
+		

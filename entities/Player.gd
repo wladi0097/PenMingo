@@ -29,6 +29,7 @@ onready var upgradeAudio := $upgradeAudio
 onready var healAudio := $healAudio
 onready var slideTimeAnimationPlayer := $SliderTimeAnimation/AnimationPlayer
 onready var sliderTimeAnimationContainer := $SliderTimeAnimation
+onready var slideAnimations := $SlideAnimationPlayer
 
 onready var penguinShootLoopAudio := $penguinShootLoop
 onready var penguinShotTimer := $penguinShotTimer
@@ -88,8 +89,10 @@ func showFlamingoSettings():
 	penguinSpriteCollection.hide()
 	pass
 	
-func slide():	
+func slide():
 	if switchTimer.is_stopped():
+		slideAnimations.play("slide")
+		canBeHitByBullets(false)
 		slideTimeAnimationPlayer.play("progress")
 		switchTimer.start()
 		invincibleTimerAfterSwitch.start()
@@ -98,7 +101,6 @@ func slide():
 			showFlamingoSettings()
 		else:
 			showPenguinSettings()
-		animations.play("switch")
 		slideAudio.play()
 		movement(15)
 
@@ -162,7 +164,8 @@ func movement(extraSpeed = 1):
 			trail_instance = trail.instance()
 			trail_instance.addPoint(position)
 			
-		self.move_and_slide(motion * movementSpeed * extraSpeed, Vector2( 0, 0 ), false, 4,  0.785398, false)
+		var caluclatedSpeed = motion * movementSpeed * extraSpeed
+		self.move_and_slide(caluclatedSpeed, Vector2(0, 0), false, 4,  0.785398, false)
 		checkCollisionsWithRigidBodies()
 		
 		if extraSpeed > 1:
@@ -237,7 +240,7 @@ func die():
 func heal():
 	healAudio.play()
 	
-	if currentHp <= maxHp:
+	if currentHp < maxHp:
 		currentHp += 1
 		updateHpBox()
 		
@@ -249,6 +252,9 @@ func upgrade(): # power up
 func showPickUpText(content):
 	pickupText.text = content
 	pickupTextAnimationPlayer.play("pickup")
+	
+func canBeHitByBullets(value):
+	set_collision_mask_bit(5, value)
 	
 onready var hpContainer := $CanvasLayer/Control/HpContainer
 onready var hpFilledIcon := $CanvasLayer/Control/preload/HpFilled
@@ -266,3 +272,6 @@ func updateHpBox():
 
 func _on_Restart_button_down():
 	GLOBAL.loadLevel()
+
+func _on_InvincibleTimerAfterSwitch_timeout():
+	canBeHitByBullets(true)

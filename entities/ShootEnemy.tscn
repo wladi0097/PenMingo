@@ -145,6 +145,7 @@ script = ExtResource( 2 )
 [node name="regularAttackSprite" type="AnimatedSprite" parent="."]
 visible = false
 frames = SubResource( 5 )
+frame = 1
 playing = true
 
 [node name="regularMoveSprite" type="AnimatedSprite" parent="."]
@@ -156,7 +157,6 @@ playing = true
 [node name="shotgunAttackSprite" type="AnimatedSprite" parent="."]
 visible = false
 frames = SubResource( 16 )
-frame = 1
 playing = true
 
 [node name="shotgunMoveSprite" type="AnimatedSprite" parent="."]

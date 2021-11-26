@@ -97,6 +97,8 @@ texture = ExtResource( 8 )
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Navigation2D/Exit/StaticBody2D"]
 shape = SubResource( 4 )
 
+[node name="NavigationPolygonInstance" type="NavigationPolygonInstance" parent="Navigation2D"]
+
 [node name="Player" parent="Navigation2D" instance=ExtResource( 1 )]
 position = Vector2( 34, 36 )
 
