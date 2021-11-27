@@ -23,6 +23,8 @@ var currentUpgrades = []
 var currentMap
 var currentRoomReward = null # Set by loadNextRoomWithReward and handled by MapPoint
 var neededRewardsCount = 13 # Amount of points in map
+var currentMaxHp = 5
+var currentHp = 5
 
 func _ready():
 	randomize()
@@ -70,7 +72,12 @@ func loadEntryRoom():
 	currentMap.disable()
 	get_tree().change_scene(entryRoom)
 
+func resetStatValues():
+	currentMaxHp = 5
+	currentHp = 5
+
 func startNewRun():
+	resetStatValues()
 	buildUpgradeSelection()
 	buildRoomSelection()
 	buildRewardSelection()
@@ -108,7 +115,6 @@ func addMap():
 		get_node("Map").queue_free()
 	
 	var instance = load("res://worlds/Map.tscn").instance()
-#	call_deferred("add_child", instance)
 	add_child(instance)
 	currentMap = instance
 

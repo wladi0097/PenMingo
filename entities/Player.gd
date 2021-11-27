@@ -1,10 +1,8 @@
 extends KinematicBody2D
 class_name Player
 
-var maxHp = 5
 var isDead = false
 var canMove = true
-export var currentHp = 5
 var movementSpeed := 150
 var penguinShotSpread := 0.3
 var penguinShotRandomSpread := 0.08
@@ -219,11 +217,11 @@ func hit(body, dmg):
 	if !hitCooldown.is_stopped() || !invincibleTimerAfterSwitch.is_stopped(): return
 	hitCooldown.start()
 	
-	currentHp -= 1
+	CURRENT_RUN.currentHp -= 1
 	
-	if currentHp == 0:
+	if CURRENT_RUN.currentHp == 0:
 		die()
-	elif currentHp > 0:
+	elif CURRENT_RUN.currentHp > 0:
 		hitAnimationPlayer.play("hit")
 		updateHpBox()
 		
@@ -238,8 +236,8 @@ func die():
 func heal():
 	healAudio.play()
 	
-	if currentHp < maxHp:
-		currentHp += 1
+	if CURRENT_RUN.currentHp < CURRENT_RUN.currentMaxHp:
+		CURRENT_RUN.currentHp += 1
 		updateHpBox()
 		
 func upgrade(): # power up
@@ -260,9 +258,9 @@ func updateHpBox():
 		hpContainer.remove_child(child)
 		child.queue_free()
 	
-	for i in range(currentHp):
+	for i in range(CURRENT_RUN.currentHp):
 		hpContainer.add_child(hpFilledIcon.duplicate())
-	for i in range(maxHp - currentHp):
+	for i in range(CURRENT_RUN.currentMaxHp - CURRENT_RUN.currentHp):
 		hpContainer.add_child(hpEmptyIcon.duplicate())
 
 
