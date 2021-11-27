@@ -32,13 +32,14 @@ position = Vector2( 134, 87 )
 script = ExtResource( 3 )
 
 [node name="background" type="Sprite" parent="."]
-scale = Vector2( 1.125, 1.125 )
+modulate = Color( 0.823529, 0.823529, 0.823529, 1 )
+scale = Vector2( 1.75, 1.75 )
 texture = ExtResource( 4 )
 
 [node name="Press" type="Sprite" parent="."]
 visible = false
 position = Vector2( 14, -11 )
-scale = Vector2( 1.0323, 1.0323 )
+scale = Vector2( 1.0451, 1.0451 )
 texture = ExtResource( 2 )
 
 [node name="Lock" type="Sprite" parent="."]

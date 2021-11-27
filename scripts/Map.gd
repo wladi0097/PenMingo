@@ -3,16 +3,19 @@ extends Node2D
 var isEnabled = false
 onready var camera = $Player/Camera2D
 onready var points = $points
+onready var mapBorder = $mapBorder
 
 func _ready():
 	hide()
 
 func disable():
+	mapBorder.set_collision_mask_bit(0 , false)
 	isEnabled = false
 	camera.current = false
 	hide()
 
 func enable():
+	mapBorder.set_collision_mask_bit(0 , true)
 	isEnabled = true
 	camera.current = true
 	show()

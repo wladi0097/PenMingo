@@ -1,9 +1,10 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://scripts/MapPoint.tscn" type="PackedScene" id=1]
 [ext_resource path="res://assets/player/FlamingoMoving.png" type="Texture" id=2]
 [ext_resource path="res://scripts/Map.gd" type="Script" id=3]
-[ext_resource path="res://assets/sprites/Map.png" type="Texture" id=4]
+[ext_resource path="res://assets/sprites/MapZoo.png" type="Texture" id=4]
+[ext_resource path="res://assets/sprites/square.png" type="Texture" id=5]
 
 [sub_resource type="AtlasTexture" id=2]
 atlas = ExtResource( 2 )
@@ -27,8 +28,21 @@ height = 8.0
 [node name="Map" type="Node2D"]
 script = ExtResource( 3 )
 
-[node name="Sprite" type="Sprite" parent="."]
+[node name="background" type="Sprite" parent="."]
+modulate = Color( 0.866667, 0.933333, 0.941176, 1 )
+scale = Vector2( 48.8125, 37.4375 )
+texture = ExtResource( 5 )
+
+[node name="mapSprite" type="Sprite" parent="."]
+scale = Vector2( 0.249023, 0.25 )
 texture = ExtResource( 4 )
+
+[node name="mapBorder" type="StaticBody2D" parent="."]
+collision_layer = 0
+collision_mask = 0
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="mapBorder"]
+polygon = PoolVector2Array( -255, 256, 254, 256, 255, -266, -263, -264, -261, 252, -136, 117, -161, 76, -196, 61, -220, 42, -240, 8, -255, -21, -256, -255, 188, -255, 172, -210, 172, -169, 195, -124, 218, -63, 212, -23, 195, 10, 190, 47, 196, 81, 195, 102, 174, 152, 173, 173, 201, 172, 217, 178, 220, 192, 164, 233, 141, 219, 106, 235, 70, 222, 53, 185, 39, 175, 29, 159, -6, 165, -47, 194, -81, 193, -112, 198, -132, 176, -137, 121 )
 
 [node name="points" type="Node2D" parent="."]
 
@@ -67,6 +81,10 @@ position = Vector2( -42, -115 )
 
 [node name="Point11" parent="points" instance=ExtResource( 1 )]
 position = Vector2( -108, -115 )
+
+[node name="Point16" parent="points" instance=ExtResource( 1 )]
+position = Vector2( -73, -167 )
+scale = Vector2( 2.09214, 2.09214 )
 
 [node name="Point12" parent="points" instance=ExtResource( 1 )]
 position = Vector2( -207, -90 )
