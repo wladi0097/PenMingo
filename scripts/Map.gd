@@ -4,6 +4,7 @@ var isEnabled = false
 onready var camera = $Player/Camera2D
 onready var points = $points
 onready var mapBorder = $mapBorder
+onready var player = $Player
 
 func _ready():
 	hide()
@@ -34,4 +35,4 @@ func _physics_process(delta):
 	if Input.is_action_pressed("left"):
 		motion.x -= 1
 		
-	$Player.move_and_slide(motion * 100)
+	player.move_and_slide(motion * 100)

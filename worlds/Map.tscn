@@ -51,7 +51,7 @@ isLocked = false
 nextPoints = [ NodePath("../Point5"), NodePath("../Point4") ]
 
 [node name="Point2" parent="points" instance=ExtResource( 1 )]
-position = Vector2( 144, 188 )
+position = Vector2( 143, 189 )
 isLocked = false
 isFinished = true
 
@@ -60,27 +60,35 @@ position = Vector2( 0, 105 )
 
 [node name="Point4" parent="points" instance=ExtResource( 1 )]
 position = Vector2( 0, 105 )
+nextPoints = [ NodePath("../Point15") ]
 
 [node name="Point5" parent="points" instance=ExtResource( 1 )]
 position = Vector2( 55, 21 )
+nextPoints = [ NodePath("../Point6"), NodePath("../Point7") ]
 
 [node name="Point6" parent="points" instance=ExtResource( 1 )]
 position = Vector2( 178, -35 )
+nextPoints = [ NodePath("../Point8") ]
 
 [node name="Point7" parent="points" instance=ExtResource( 1 )]
 position = Vector2( 114, -60 )
+nextPoints = [ NodePath("../Point8") ]
 
 [node name="Point8" parent="points" instance=ExtResource( 1 )]
 position = Vector2( 150, -120 )
+nextPoints = [ NodePath("../Point9") ]
 
 [node name="Point9" parent="points" instance=ExtResource( 1 )]
 position = Vector2( 57, -120 )
+nextPoints = [ NodePath("../Point10") ]
 
 [node name="Point10" parent="points" instance=ExtResource( 1 )]
 position = Vector2( -42, -115 )
+nextPoints = [ NodePath("../Point16") ]
 
 [node name="Point11" parent="points" instance=ExtResource( 1 )]
 position = Vector2( -108, -115 )
+nextPoints = [ NodePath("../Point16") ]
 
 [node name="Point16" parent="points" instance=ExtResource( 1 )]
 position = Vector2( -73, -167 )
@@ -88,19 +96,25 @@ scale = Vector2( 2.09214, 2.09214 )
 
 [node name="Point12" parent="points" instance=ExtResource( 1 )]
 position = Vector2( -207, -90 )
+nextPoints = [ NodePath("../Point11") ]
 
 [node name="Point13" parent="points" instance=ExtResource( 1 )]
 position = Vector2( -133, -34 )
+nextPoints = [ NodePath("../Point12"), NodePath("../Point14") ]
 
 [node name="Point14" parent="points" instance=ExtResource( 1 )]
 position = Vector2( -207, -30 )
 
 [node name="Point15" parent="points" instance=ExtResource( 1 )]
 position = Vector2( -84, 27 )
+nextPoints = [ NodePath("../Point13") ]
 
 [node name="Player" type="KinematicBody2D" parent="."]
 position = Vector2( 140, 188 )
 collision_mask = 0
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="Sprite2" type="AnimatedSprite" parent="Player"]
 frames = SubResource( 4 )
@@ -108,7 +122,7 @@ frame = 1
 playing = true
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
-zoom = Vector2( 0.5, 0.5 )
+zoom = Vector2( 0.4, 0.4 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
 position = Vector2( 1, 3 )

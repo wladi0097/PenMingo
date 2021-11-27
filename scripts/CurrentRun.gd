@@ -7,7 +7,7 @@ var upgradeText = ["Penguin tripple shot", "Flamingo explosive shot", "No more u
 
 enum REWARDS {HEALTH, UPGRADE}
 
-var allRooms = ["res://worlds/stage01_zoo/Room01.tscn", "res://worlds/stage01_zoo/Room02.tscn", "res://worlds/stage01_zoo/Room03.tscn"]
+var allRooms = ["res://worlds/stage01_zoo/Room01.tscn", "res://worlds/stage01_zoo/Room02.tscn"]
 var bossRoom = "res://worlds/stage01_zoo/Room01.tscn"
 var entryRoom := "res://worlds/stage01_zoo/Entry.tscn"
 
@@ -101,6 +101,7 @@ func addMap():
 		get_node("Map").queue_free()
 	
 	var instance = load("res://worlds/Map.tscn").instance()
+#	call_deferred("add_child", instance)
 	add_child(instance)
 	currentMap = instance
 

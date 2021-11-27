@@ -33,13 +33,16 @@ func _ready():
 		unlock()
 		
 func finished():
+	isPlayerOnPoint = false
 	isFinished = true
 	lockSprite.hide()
+	pressSprite.hide()
 	rewardsSprites.hide()
 	finishedSprite.show()
-	pressSprite.hide()
 
 func unlock():
+	if isFinished: return
+	
 	isLocked = false
 	lockSprite.hide()
 	rewardsSprites.show()
