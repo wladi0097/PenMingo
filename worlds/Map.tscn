@@ -38,7 +38,7 @@ scale = Vector2( 0.249023, 0.25 )
 texture = ExtResource( 4 )
 
 [node name="mapBorder" type="StaticBody2D" parent="."]
-collision_layer = 0
+collision_layer = 64
 collision_mask = 0
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="mapBorder"]
@@ -111,6 +111,7 @@ nextPoints = [ NodePath("../Point13") ]
 
 [node name="Player" type="KinematicBody2D" parent="."]
 position = Vector2( 140, 188 )
+collision_layer = 64
 collision_mask = 0
 __meta__ = {
 "_edit_lock_": true

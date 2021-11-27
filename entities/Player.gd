@@ -3,6 +3,7 @@ class_name Player
 
 var maxHp = 5
 var isDead = false
+var canMove = true
 export var currentHp = 5
 var movementSpeed := 150
 var penguinShotSpread := 0.3
@@ -25,7 +26,6 @@ onready var collision := $CollisionShape2D
 onready var penguinShotPosition := $penguinShot
 onready var slideAudio := $slideAudio
 onready var pickupTextAnimationPlayer := $PickupTextAnimationPlayer
-onready var upgradeAudio := $upgradeAudio
 onready var healAudio := $healAudio
 onready var slideTimeAnimationPlayer := $SliderTimeAnimation/AnimationPlayer
 onready var sliderTimeAnimationContainer := $SliderTimeAnimation
@@ -60,14 +60,14 @@ func _ready():
 	rng.randomize()
 
 func _physics_process(delta):
-	if isDead:
-		return
+	if isDead: return
+	if canMove: movement()
 
-	movement()
 	rotateSpriteAccoringToMouse()
+	self.look_at(get_global_mouse_position())
 
 func _input(event):
-	if isDead:
+	if isDead || !canMove:
 		return
 	
 	if event.is_action_pressed("action"):
@@ -172,8 +172,6 @@ func movement(extraSpeed = 1):
 			trail_instance.addPoint(position)
 			get_tree().get_root().call_deferred("add_child", trail_instance)
 	
-	self.look_at(get_global_mouse_position())
-	
 func checkCollisionsWithRigidBodies():
 	for i in get_slide_count():
 		var collision: KinematicCollision2D = get_slide_collision(i)
@@ -245,9 +243,7 @@ func heal():
 		updateHpBox()
 		
 func upgrade(): # power up
-	var newUpgrade = CURRENT_RUN.getRandomUpgrade()
-	upgradeAudio.play()
-	showPickUpText(CURRENT_RUN.getTextForUpgrade(newUpgrade))
+	CURRENT_RUN.showUpgradeSelectionScreen()
 	
 func showPickUpText(content):
 	pickupText.text = content

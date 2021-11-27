@@ -1,6 +1,8 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://scripts/FightStage.tscn" type="PackedScene" id=1]
+[ext_resource path="res://entities/Pickup.tscn" type="PackedScene" id=2]
+[ext_resource path="res://worlds/debugRoom.gd" type="Script" id=3]
 
 [sub_resource type="NavigationPolygon" id=1]
 vertices = PoolVector2Array( 349, -93, 348, 186, 274, 107, 270, -41, 3, -92, 178, -38, 3, 185, 182, 103 )
@@ -8,8 +10,10 @@ polygons = [ PoolIntArray( 0, 1, 2, 3 ), PoolIntArray( 4, 0, 3, 5 ), PoolIntArra
 outlines = [ PoolVector2Array( 3, -92, 349, -93, 348, 186, 3, 185 ), PoolVector2Array( 178, -38, 270, -41, 274, 107, 182, 103 ) ]
 
 [node name="Node2D" type="Node2D"]
+script = ExtResource( 3 )
 
 [node name="FightStage" parent="." instance=ExtResource( 1 )]
+noFightRoom = true
 
 [node name="Background" parent="FightStage/Navigation2D" index="1"]
 tile_data = PoolIntArray( -196608, 0, 0, -196607, 0, 0, -196606, 0, 0, -196605, 0, 0, -196604, 0, 0, -196603, 0, 0, -196602, 0, 0, -196601, 0, 0, -196600, 0, 0, -196599, 0, 0, -196598, 0, 0, -131072, 0, 0, -131071, 0, 0, -131070, 0, 0, -131069, 0, 0, -131068, 0, 0, -131067, 0, 0, -131066, 0, 0, -131065, 0, 0, -131064, 0, 0, -131063, 0, 0, -131062, 0, 0, -65536, 0, 0, -65535, 0, 0, -65534, 0, 0, -65533, 0, 0, -65532, 0, 0, -65531, 0, 0, -65528, 0, 0, -65527, 0, 0, -65526, 0, 0, 0, 0, 0, 1, 0, 0, 2, 0, 0, 3, 0, 0, 4, 0, 0, 5, 0, 0, 8, 0, 0, 9, 0, 0, 10, 0, 0, 65536, 0, 0, 65537, 0, 0, 65538, 0, 0, 65539, 0, 0, 65540, 0, 0, 65541, 0, 0, 65544, 0, 0, 65545, 0, 0, 65546, 0, 0, 131072, 0, 0, 131073, 0, 0, 131074, 0, 0, 131075, 0, 0, 131076, 0, 0, 131077, 0, 0, 131080, 0, 0, 131081, 0, 0, 131082, 0, 0, 196608, 0, 0, 196609, 0, 0, 196610, 0, 0, 196611, 0, 0, 196612, 0, 0, 196613, 0, 0, 196614, 0, 0, 196615, 0, 0, 196616, 0, 0, 196617, 0, 0, 196618, 0, 0, 262144, 0, 0, 262145, 0, 0, 262146, 0, 0, 262147, 0, 0, 262148, 0, 0, 262149, 0, 0, 262150, 0, 0, 262151, 0, 0, 262152, 0, 0, 262153, 0, 0, 262154, 0, 0, 327680, 0, 0, 327681, 0, 0, 327682, 0, 0, 327683, 0, 0, 327684, 0, 0, 327685, 0, 0, 327686, 0, 0, 327687, 0, 0, 327688, 0, 0, 327689, 0, 0, 327690, 0, 0 )
@@ -25,5 +29,10 @@ position = Vector2( -32, 160 )
 
 [node name="NavigationPolygonInstance" parent="FightStage/Navigation2D" index="6"]
 navpoly = SubResource( 1 )
+
+[node name="Pickup" parent="FightStage" instance=ExtResource( 2 )]
+position = Vector2( 104, 16 )
+reward = 1
+isCustomReward = true
 
 [editable path="FightStage"]

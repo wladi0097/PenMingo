@@ -1,5 +1,6 @@
 extends Node
 
+onready var upgradeSelectionScreen = $ChooseUpgrade
 var rng = RandomNumberGenerator.new()
 
 enum UPGRADES {TRIPPLE_SHOT, EXPLOSIVE_SHOT}
@@ -33,19 +34,25 @@ func getTextForUpgrade(upgradeName):
 func hasUpgrade(upgradeName):
 	return currentUpgrades.has(upgradeName)
 
-func getRandomUpgrade():
+func showUpgradeSelectionScreen():
+	upgradeSelectionScreen.showRewardSelection()
+
+func getTwoRandomUpgrades():
 	if upgradeSelection.size() == 0:
-		return -1
+		return [-1, -1]
+	elif upgradeSelection.size() == 1:
+		return [upgradeSelection[0], -1]
+	else:
+		return [upgradeSelection[0], upgradeSelection[1]]
 	
-	var upgrade = upgradeSelection[0]
+func upgradeSelected(upgrade):
+	upgradeSelection.remove(upgradeSelection.find(upgrade))
 	currentUpgrades.push_back(upgrade)
-	upgradeSelection.remove(0)
-	return upgrade
 	
 func getRandomReward():
 	if rewardSelection.size() == 0:
 		return REWARDS.HEALTH # fallback if rewards were not enough
-		
+	
 	var reward = rewardSelection[0]
 	rewardSelection.remove(0)
 	return reward
