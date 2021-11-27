@@ -1,9 +1,8 @@
 extends KinematicBody2D
 class_name Player
 
-var maxHp = 5
 var isDead = false
-export var currentHp = 5
+var canMove = true
 var movementSpeed := 150
 var penguinShotSpread := 0.3
 var penguinShotRandomSpread := 0.08
@@ -25,7 +24,6 @@ onready var collision := $CollisionShape2D
 onready var penguinShotPosition := $penguinShot
 onready var slideAudio := $slideAudio
 onready var pickupTextAnimationPlayer := $PickupTextAnimationPlayer
-onready var upgradeAudio := $upgradeAudio
 onready var healAudio := $healAudio
 onready var slideTimeAnimationPlayer := $SliderTimeAnimation/AnimationPlayer
 onready var sliderTimeAnimationContainer := $SliderTimeAnimation
@@ -60,14 +58,14 @@ func _ready():
 	rng.randomize()
 
 func _physics_process(delta):
-	if isDead:
-		return
+	if isDead: return
+	if canMove: movement()
 
-	movement()
 	rotateSpriteAccoringToMouse()
+	self.look_at(get_global_mouse_position())
 
 func _input(event):
-	if isDead:
+	if isDead || !canMove:
 		return
 	
 	if event.is_action_pressed("action"):
@@ -172,8 +170,6 @@ func movement(extraSpeed = 1):
 			trail_instance.addPoint(position)
 			get_tree().get_root().call_deferred("add_child", trail_instance)
 	
-	self.look_at(get_global_mouse_position())
-	
 func checkCollisionsWithRigidBodies():
 	for i in get_slide_count():
 		var collision: KinematicCollision2D = get_slide_collision(i)
@@ -221,11 +217,11 @@ func hit(body, dmg):
 	if !hitCooldown.is_stopped() || !invincibleTimerAfterSwitch.is_stopped(): return
 	hitCooldown.start()
 	
-	currentHp -= 1
+	CURRENT_RUN.currentHp -= 1
 	
-	if currentHp == 0:
+	if CURRENT_RUN.currentHp == 0:
 		die()
-	elif currentHp > 0:
+	elif CURRENT_RUN.currentHp > 0:
 		hitAnimationPlayer.play("hit")
 		updateHpBox()
 		
@@ -240,14 +236,12 @@ func die():
 func heal():
 	healAudio.play()
 	
-	if currentHp < maxHp:
-		currentHp += 1
+	if CURRENT_RUN.currentHp < CURRENT_RUN.currentMaxHp:
+		CURRENT_RUN.currentHp += 1
 		updateHpBox()
 		
 func upgrade(): # power up
-	var newUpgrade = CURRENT_RUN.getRandomUpgrade()
-	upgradeAudio.play()
-	showPickUpText(CURRENT_RUN.getTextForUpgrade(newUpgrade))
+	CURRENT_RUN.showUpgradeSelectionScreen()
 	
 func showPickUpText(content):
 	pickupText.text = content
@@ -264,9 +258,9 @@ func updateHpBox():
 		hpContainer.remove_child(child)
 		child.queue_free()
 	
-	for i in range(currentHp):
+	for i in range(CURRENT_RUN.currentHp):
 		hpContainer.add_child(hpFilledIcon.duplicate())
-	for i in range(maxHp - currentHp):
+	for i in range(CURRENT_RUN.currentMaxHp - CURRENT_RUN.currentHp):
 		hpContainer.add_child(hpEmptyIcon.duplicate())
 
 

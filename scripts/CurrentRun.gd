@@ -1,5 +1,6 @@
 extends Node
 
+onready var upgradeSelectionScreen = $ChooseUpgrade
 var rng = RandomNumberGenerator.new()
 
 enum UPGRADES {TRIPPLE_SHOT, EXPLOSIVE_SHOT}
@@ -7,7 +8,7 @@ var upgradeText = ["Penguin tripple shot", "Flamingo explosive shot", "No more u
 
 enum REWARDS {HEALTH, UPGRADE}
 
-var allRooms = ["res://worlds/stage01_zoo/Room01.tscn", "res://worlds/stage01_zoo/Room02.tscn", "res://worlds/stage01_zoo/Room03.tscn"]
+var allRooms = ["res://worlds/stage01_zoo/Room01.tscn", "res://worlds/stage01_zoo/Room02.tscn"]
 var bossRoom = "res://worlds/stage01_zoo/Room01.tscn"
 var entryRoom := "res://worlds/stage01_zoo/Entry.tscn"
 
@@ -22,6 +23,8 @@ var currentUpgrades = []
 var currentMap
 var currentRoomReward = null # Set by loadNextRoomWithReward and handled by MapPoint
 var neededRewardsCount = 13 # Amount of points in map
+var currentMaxHp = 5
+var currentHp = 5
 
 func _ready():
 	randomize()
@@ -33,19 +36,25 @@ func getTextForUpgrade(upgradeName):
 func hasUpgrade(upgradeName):
 	return currentUpgrades.has(upgradeName)
 
-func getRandomUpgrade():
+func showUpgradeSelectionScreen():
+	upgradeSelectionScreen.showRewardSelection()
+
+func getTwoRandomUpgrades():
 	if upgradeSelection.size() == 0:
-		return -1
+		return [-1, -1]
+	elif upgradeSelection.size() == 1:
+		return [upgradeSelection[0], -1]
+	else:
+		return [upgradeSelection[0], upgradeSelection[1]]
 	
-	var upgrade = upgradeSelection[0]
+func upgradeSelected(upgrade):
+	upgradeSelection.remove(upgradeSelection.find(upgrade))
 	currentUpgrades.push_back(upgrade)
-	upgradeSelection.remove(0)
-	return upgrade
 	
 func getRandomReward():
 	if rewardSelection.size() == 0:
 		return REWARDS.HEALTH # fallback if rewards were not enough
-		
+	
 	var reward = rewardSelection[0]
 	rewardSelection.remove(0)
 	return reward
@@ -63,7 +72,12 @@ func loadEntryRoom():
 	currentMap.disable()
 	get_tree().change_scene(entryRoom)
 
+func resetStatValues():
+	currentMaxHp = 5
+	currentHp = 5
+
 func startNewRun():
+	resetStatValues()
 	buildUpgradeSelection()
 	buildRoomSelection()
 	buildRewardSelection()

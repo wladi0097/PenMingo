@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Map.png-101e133673e6f6bdb639891bd400ea34.stex"
+path="res://.import/circle_empty.png-1e3fe8c0fd53a58dfb7be06910a1175f.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/Map.png"
-dest_files=[ "res://.import/Map.png-101e133673e6f6bdb639891bd400ea34.stex" ]
+source_file="res://assets/sprites/circle_empty.png"
+dest_files=[ "res://.import/circle_empty.png-1e3fe8c0fd53a58dfb7be06910a1175f.stex" ]
 
 [params]
 
@@ -20,7 +20,7 @@ compress/hdr_mode=0
 compress/bptc_ldr=0
 compress/normal_map=0
 flags/repeat=0
-flags/filter=true
+flags/filter=false
 flags/mipmaps=false
 flags/anisotropic=false
 flags/srgb=2

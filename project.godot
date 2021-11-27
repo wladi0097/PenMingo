@@ -117,6 +117,7 @@ E={
 2d_physics/layer_4="Enemy"
 2d_physics/layer_5="Player Bullet"
 2d_physics/layer_6="Enemy Bullet"
+2d_physics/layer_7="map internals"
 
 [physics]
 
