@@ -1,28 +1,28 @@
 extends Area2D
 
 onready var animations := $AnimationPlayer
-enum PICKUP_TYPE {health, upgrade}
-export(PICKUP_TYPE) var currentType = PICKUP_TYPE.upgrade
+export(CURRENT_RUN.REWARDS) var reward
+export(bool) var isCustomReward = false
 var rng = RandomNumberGenerator.new()
 
 func _ready():
-	match currentType:
-		PICKUP_TYPE.health:
+	if !isCustomReward:
+		reward = CURRENT_RUN.currentRoomReward
+		
+	match reward:
+		CURRENT_RUN.REWARDS.HEALTH:
 			$Sprites/Health.show()
-		PICKUP_TYPE.upgrade:
+		CURRENT_RUN.REWARDS.UPGRADE:
 			$Sprites/Upgrade.show()
 	
 	animations.play("float")
 	
-func chooseRandom():
-	rng.randomize()
-	currentType = rng.randi_range(0, PICKUP_TYPE.size() -1)
 
 func _on_Health_body_entered(body):
-	match currentType:
-		PICKUP_TYPE.health:
+	match reward:
+		CURRENT_RUN.REWARDS.HEALTH:
 			body.heal()
-		PICKUP_TYPE.upgrade:
+		CURRENT_RUN.REWARDS.UPGRADE:
 			body.upgrade()
 	
 	queue_free()

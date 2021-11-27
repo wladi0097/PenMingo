@@ -48,14 +48,16 @@ tile_data = PoolIntArray( -131066, 12, 0, -65526, 536870951, 0, -65520, 12, 0, 1
 [node name="Exit" parent="FightStage/Navigation2D" index="9"]
 position = Vector2( 480, 160 )
 
-[node name="Player" parent="FightStage/Navigation2D" index="10"]
+[node name="Player" parent="FightStage/Navigation2D" index="11"]
 position = Vector2( 352, 544 )
 
 [node name="Pickup" parent="FightStage" instance=ExtResource( 5 )]
 position = Vector2( 243, 147 )
-currentType = 0
+isCustomReward = true
 
 [node name="Pickup2" parent="FightStage" instance=ExtResource( 5 )]
 position = Vector2( 317, 148 )
+reward = 1
+isCustomReward = true
 
 [editable path="FightStage"]

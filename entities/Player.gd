@@ -271,7 +271,7 @@ func updateHpBox():
 
 
 func _on_Restart_button_down():
-	GLOBAL.loadLevel()
+	CURRENT_RUN.PlayerClickedRestart()
 
 func _on_InvincibleTimerAfterSwitch_timeout():
 	canBeHitByBullets(true)

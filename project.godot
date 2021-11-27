@@ -45,7 +45,7 @@ _global_script_class_icons={
 [application]
 
 config/name="PenMingo"
-run/main_scene="res://worlds/debugRoom.tscn"
+run/main_scene="res://worlds/Lobby.tscn"
 config/icon="res://icon.png"
 
 [autoload]

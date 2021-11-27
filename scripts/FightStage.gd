@@ -50,7 +50,6 @@ func endOfFight():
 func spawnReward():
 	var instance = pickupItem.instance()
 	
-	instance.chooseRandom()
 	instance.global_position = rewardPosition.global_position
 	add_child(instance)
 	
@@ -75,4 +74,5 @@ func showFightText(content):
 
 func _on_Exit_body_entered(body):
 	if roomcleared:
-		CURRENT_RUN.switchToNextRoom()
+		CURRENT_RUN.switchToMap()
+		queue_free()
