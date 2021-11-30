@@ -32,7 +32,7 @@ navpoly = SubResource( 1 )
 
 [node name="Pickup" parent="FightStage" instance=ExtResource( 2 )]
 position = Vector2( 104, 16 )
-reward = 1
+reward = 2
 isCustomReward = true
 
 [editable path="FightStage"]

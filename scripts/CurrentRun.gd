@@ -3,12 +3,17 @@ extends Node
 onready var upgradeSelectionScreen = $ChooseUpgrade
 var rng = RandomNumberGenerator.new()
 
+enum STATUPGRADES {
+	 PENGUIN_FASTER_BULLETS, PENGUIN_FASTER_SHOOT, PENGUIN_MORE_DAMAGE, PENGUIN_MORE_RANGE, FLAMINGO_MORE_DAMAGE,
+	 FLAMINGO_FASTER_SHOOT, MOVEMENT_SPEED
+	}
+
 enum UPGRADES {TRIPPLE_SHOT, EXPLOSIVE_SHOT}
 var upgradeText = ["Penguin tripple shot", "Flamingo explosive shot", "No more upgrades :-("]
 
-enum REWARDS {HEALTH, UPGRADE}
+enum REWARDS {HEALTH, UPGRADE, MAX_HEALTH}
 
-var allRooms = ["res://worlds/stage01_zoo/Room01.tscn", "res://worlds/stage01_zoo/Room02.tscn"]
+var allRooms = ["res://worlds/stage01_zoo/Room01.tscn", "res://worlds/stage01_zoo/Room02.tscn", "res://worlds/stage01_zoo/Room03.tscn", "res://worlds/stage01_zoo/Room04.tscn"]
 var bossRoom = "res://worlds/stage01_zoo/Room01.tscn"
 var entryRoom := "res://worlds/stage01_zoo/Entry.tscn"
 
@@ -23,8 +28,17 @@ var currentUpgrades = []
 var currentMap
 var currentRoomReward = null # Set by loadNextRoomWithReward and handled by MapPoint
 var neededRewardsCount = 13 # Amount of points in map
+
+# Player stats:
 var currentMaxHp = 5
 var currentHp = 5
+var currentPenguinBulletSpeed = 1
+var currentPenguinShootSpeed := 0.4
+var currentPenguinDamage = 0.4
+var currentPenguinRange = 0.4
+var currentFlamingoDamage = 5
+var currentFlamingoShootSpeed := 1
+var currentMovementSpeed := 150
 
 func _ready():
 	randomize()
@@ -96,6 +110,11 @@ func buildUpgradeSelection():
 func buildRewardSelection():
 	var newRewardSelection = []
 	var rewardsLeft = neededRewardsCount
+	
+	var maxHealthContainer = rng.randi_range(2, 3)
+	rewardsLeft -= maxHealthContainer
+	for i in range(maxHealthContainer):
+		newRewardSelection.push_back(REWARDS.MAX_HEALTH)
 	
 	var upgrades = floor(rewardsLeft / 3)
 	rewardsLeft -= upgrades

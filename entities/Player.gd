@@ -3,7 +3,6 @@ class_name Player
 
 var isDead = false
 var canMove = true
-var movementSpeed := 150
 var penguinShotSpread := 0.3
 var penguinShotRandomSpread := 0.08
 var penguinShotPositionRandomSpread := 5
@@ -56,6 +55,11 @@ func _ready():
 	AudioServer.set_bus_mute(2, false)
 	updateHpBox()
 	rng.randomize()
+	updateStats()
+	
+func updateStats():
+	penguinShotTimer.wait_time = CURRENT_RUN.currentPenguinShootSpeed
+	flamingoShotTimer.wait_time = CURRENT_RUN.currentFlamingoShootSpeed
 
 func _physics_process(delta):
 	if isDead: return
@@ -162,7 +166,7 @@ func movement(extraSpeed = 1):
 			trail_instance = trail.instance()
 			trail_instance.addPoint(position)
 			
-		var caluclatedSpeed = motion * movementSpeed * extraSpeed
+		var caluclatedSpeed = motion * CURRENT_RUN.currentMovementSpeed * extraSpeed
 		self.move_and_slide(caluclatedSpeed, Vector2(0, 0), false, 4,  0.785398, false)
 		checkCollisionsWithRigidBodies()
 		
@@ -240,8 +244,10 @@ func heal():
 		CURRENT_RUN.currentHp += 1
 		updateHpBox()
 		
-func upgrade(): # power up
-	CURRENT_RUN.showUpgradeSelectionScreen()
+func addMaxHealth():
+	healAudio.play()
+	CURRENT_RUN.currentMaxHp += 1
+	updateHpBox()
 	
 func showPickUpText(content):
 	pickupText.text = content

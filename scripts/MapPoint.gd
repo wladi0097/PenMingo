@@ -22,6 +22,8 @@ func _ready():
 			$Rewards/health.show()
 		CURRENT_RUN.REWARDS.UPGRADE:
 			$Rewards/upgrade.show()
+		CURRENT_RUN.REWARDS.MAX_HEALTH:
+			$Rewards/maxHealth.show()
 	
 	animations.play("Press")
 	

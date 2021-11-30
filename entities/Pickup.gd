@@ -14,15 +14,18 @@ func _ready():
 			$Sprites/Health.show()
 		CURRENT_RUN.REWARDS.UPGRADE:
 			$Sprites/Upgrade.show()
-	
+		CURRENT_RUN.REWARDS.MAX_HEALTH:
+			$Sprites/MaxHealth.show()
 	animations.play("float")
 	
 
 func _on_Health_body_entered(body):
 	match reward:
 		CURRENT_RUN.REWARDS.HEALTH:
-			body.heal()
+			GLOBAL.player.heal()
 		CURRENT_RUN.REWARDS.UPGRADE:
-			body.upgrade()
+			CURRENT_RUN.showUpgradeSelectionScreen()
+		CURRENT_RUN.REWARDS.MAX_HEALTH:
+			GLOBAL.player.addMaxHealth()
 	
 	queue_free()

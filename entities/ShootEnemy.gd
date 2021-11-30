@@ -4,7 +4,8 @@ enum ENEMY_TYPE {regular, shotgun}
 export(ENEMY_TYPE) var currentType = ENEMY_TYPE.regular
 
 var knockback = 2
-var speed = 30
+var speed = 50
+var speedWhileShooting = 15
 var hp = 10
 var shotgunSpread =  0.3
 onready var animations := $AnimationPlayer
@@ -47,16 +48,18 @@ func shotgunShoot():
 	shoot(rotation + shotgunSpread)
 	shoot(rotation - shotgunSpread)
 
-func followUntilPlayerIsVisible(delta):
+func followUntilPlayerIsVisible(delta, movementSpeed):
 	var path = navigation.get_simple_path(self.position, GLOBAL.player.position)
 	path.remove(0)
-	move_and_slide(self.position.direction_to(path[0]).normalized() * speed)
+	move_and_slide(self.position.direction_to(path[0]).normalized() * movementSpeed)
 
 func _physics_process(delta):
 	rotateSpriteAccoringToPlayer()
 	look_at(GLOBAL.player.global_position)
 	
 	var collision = checkPlayerVisible.get_collider()
+	var movementSpeed = 0
+		
 	if collision is KinematicBody2D:
 		if currentType == ENEMY_TYPE.regular:
 			regularAttackSprite.show()
@@ -71,15 +74,15 @@ func _physics_process(delta):
 				regularShoot()
 			elif currentType == ENEMY_TYPE.shotgun:
 				shotgunShoot()
+		followUntilPlayerIsVisible(delta, speedWhileShooting)
 	else:
+		followUntilPlayerIsVisible(delta, speed)
 		if currentType == ENEMY_TYPE.regular:
 			regularAttackSprite.hide()
 			regulatMoveSprite.show()
 		else:
 			shotgunAttackprite.hide()
 			shotgunMoveSprite.show()
-		
-		followUntilPlayerIsVisible(delta)
 		
 func rotateSpriteAccoringToPlayer():
 	if GLOBAL.player.global_position.x < global_position.x:
