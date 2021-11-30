@@ -45,13 +45,14 @@ _global_script_class_icons={
 [application]
 
 config/name="PenMingo"
-run/main_scene="res://worlds/Lobby.tscn"
+run/main_scene="res://scripts/MainMenu.tscn"
 config/icon="res://icon.png"
 
 [autoload]
 
 GLOBAL="*res://global.gd"
 CURRENT_RUN="*res://scripts/CurrentRun.tscn"
+LOADING_TRANSITION="*res://scripts/LoadingTransition.tscn"
 
 [display]
 
