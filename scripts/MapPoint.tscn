@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://assets/sprites/hp_filled.png" type="Texture" id=1]
 [ext_resource path="res://assets/sprites/pressE.png" type="Texture" id=2]
@@ -7,7 +7,8 @@
 [ext_resource path="res://assets/sprites/lock.png" type="Texture" id=5]
 [ext_resource path="res://assets/sprites/ok.png" type="Texture" id=6]
 [ext_resource path="res://assets/sprites/powerUp.png" type="Texture" id=7]
-[ext_resource path="res://assets/sprites/hp_empty.png" type="Texture" id=8]
+[ext_resource path="res://assets/sprites/hp_add.png" type="Texture" id=8]
+[ext_resource path="res://assets/sprites/stat_upgrade.png" type="Texture" id=9]
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 13.1529
@@ -65,6 +66,10 @@ texture = ExtResource( 7 )
 [node name="maxHealth" type="Sprite" parent="Rewards"]
 visible = false
 texture = ExtResource( 8 )
+
+[node name="statUpgrade" type="Sprite" parent="Rewards"]
+visible = false
+texture = ExtResource( 9 )
 
 [node name="Area2D" type="Area2D" parent="."]
 collision_layer = 0

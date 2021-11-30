@@ -151,7 +151,7 @@ playing = true
 [node name="regularMoveSprite" type="AnimatedSprite" parent="."]
 visible = false
 frames = SubResource( 13 )
-frame = 2
+frame = 4
 playing = true
 
 [node name="shotgunAttackSprite" type="AnimatedSprite" parent="."]
@@ -162,7 +162,7 @@ playing = true
 [node name="shotgunMoveSprite" type="AnimatedSprite" parent="."]
 visible = false
 frames = SubResource( 23 )
-frame = 2
+frame = 4
 playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

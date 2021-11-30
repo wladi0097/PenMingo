@@ -247,7 +247,12 @@ func heal():
 func addMaxHealth():
 	healAudio.play()
 	CURRENT_RUN.currentMaxHp += 1
+	heal()
 	updateHpBox()
+	
+func addStatUpgrade():
+	var statUpgrade = CURRENT_RUN.applyRandomStatusUpgrade()
+	showPickUpText(CURRENT_RUN.getTextForStatusUpgrade(statUpgrade))
 	
 func showPickUpText(content):
 	pickupText.text = content

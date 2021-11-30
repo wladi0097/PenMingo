@@ -5,14 +5,13 @@ onready var line := $Line2D
 onready var animations := $AnimationPlayer
 onready var muzSprite := $muzSprite
 onready var explosionArea := $ExplosionArea
-var dmg = 5
-var speed = 600
 var isExplodingBullet = false # set by player unlock
+var explosiveBulletDmgModifier = 0.7
 
 func fire(fromPosition, fromRotiation, toRotation):
 	position = fromPosition
 	rotation_degrees = fromRotiation
-	apply_impulse(Vector2(),Vector2(speed, 0).rotated(toRotation))
+	apply_impulse(Vector2(),Vector2(CURRENT_RUN.currentFlamingoBulletSpeed, 0).rotated(toRotation))
 
 func explode():
 	sleeping = true
@@ -21,14 +20,14 @@ func explode():
 	
 	for body in explosionArea.get_overlapping_bodies():
 		if body is KinematicBody2D:
-			body.hit(self, dmg)
+			body.hit(self, floor(CURRENT_RUN.currentFlamingoDamage * explosiveBulletDmgModifier))
 	
 	yield(animations, "animation_finished")
 	queue_free()
 	
 func regularShot(body):
 	if body is KinematicBody2D:
-		body.hit(self, dmg)
+		body.hit(self, CURRENT_RUN.currentFlamingoDamage)
 	queue_free()
 
 func _on_SniperBullet_body_entered(body):

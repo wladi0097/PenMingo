@@ -7,11 +7,12 @@ enum STATUPGRADES {
 	 PENGUIN_FASTER_BULLETS, PENGUIN_FASTER_SHOOT, PENGUIN_MORE_DAMAGE, PENGUIN_MORE_RANGE, FLAMINGO_MORE_DAMAGE,
 	 FLAMINGO_FASTER_SHOOT, MOVEMENT_SPEED
 	}
+var statusUpgradeText = ["Penguin faster bullets", "Penguin faster shot", "Penguin more damage", "penguin more range", "flamingo more damage", "flamingo faster shot", "faster movement speed"]
 
 enum UPGRADES {TRIPPLE_SHOT, EXPLOSIVE_SHOT}
 var upgradeText = ["Penguin tripple shot", "Flamingo explosive shot", "No more upgrades :-("]
 
-enum REWARDS {HEALTH, UPGRADE, MAX_HEALTH}
+enum REWARDS {HEALTH, UPGRADE, MAX_HEALTH, STAT_UPGRADE}
 
 var allRooms = ["res://worlds/stage01_zoo/Room01.tscn", "res://worlds/stage01_zoo/Room02.tscn", "res://worlds/stage01_zoo/Room03.tscn", "res://worlds/stage01_zoo/Room04.tscn"]
 var bossRoom = "res://worlds/stage01_zoo/Room01.tscn"
@@ -22,27 +23,40 @@ var upgradeSelection = []
 var rewardSelection = []
 
 var roomsThisrun = []
-var currentRoom = 0
 var currentUpgrades = []
 
 var currentMap
 var currentRoomReward = null # Set by loadNextRoomWithReward and handled by MapPoint
 var neededRewardsCount = 13 # Amount of points in map
 
-# Player stats:
-var currentMaxHp = 5
-var currentHp = 5
-var currentPenguinBulletSpeed = 1
-var currentPenguinShootSpeed := 0.4
-var currentPenguinDamage = 0.4
-var currentPenguinRange = 0.4
-var currentFlamingoDamage = 5
-var currentFlamingoShootSpeed := 1
-var currentMovementSpeed := 150
+# Player stats: SET BY resetStatValues
+var currentMaxHp
+var currentHp 
+var currentPenguinShootSpeed
+var currentFlamingoShootSpeed
+var currentMovementSpeed
+var currentPenguinBulletSpeed
+var currentPenguinDamage
+var currentPenguinRange
+var currentFlamingoDamage
+var currentFlamingoBulletSpeed
 
 func _ready():
 	randomize()
+	resetStatValues()
 	rng.randomize()
+	
+func resetStatValues():
+	currentMaxHp = 5
+	currentHp = 5
+	currentPenguinShootSpeed = 0.4
+	currentFlamingoShootSpeed = 1
+	currentMovementSpeed = 150
+	currentFlamingoDamage = 5
+	currentFlamingoBulletSpeed = 400
+	currentPenguinBulletSpeed = 120
+	currentPenguinDamage = 1
+	currentPenguinRange = 2
 	
 func getTextForUpgrade(upgradeName):
 	return upgradeText[upgradeName]
@@ -60,6 +74,30 @@ func getTwoRandomUpgrades():
 		return [upgradeSelection[0], -1]
 	else:
 		return [upgradeSelection[0], upgradeSelection[1]]
+
+func getTextForStatusUpgrade(upgradeName):
+	return statusUpgradeText[upgradeName]
+	
+func applyRandomStatusUpgrade():
+	var statusUpgrade = rng.randi_range(0, STATUPGRADES.size() - 1)
+	
+	match statusUpgrade:
+		STATUPGRADES.PENGUIN_FASTER_BULLETS:
+			currentPenguinBulletSpeed += 30
+		STATUPGRADES.PENGUIN_FASTER_SHOOT:
+			currentPenguinShootSpeed *= 0.9
+		STATUPGRADES.PENGUIN_MORE_DAMAGE:
+			currentPenguinDamage += 0.5
+		STATUPGRADES.PENGUIN_MORE_RANGE:
+			currentPenguinRange += 1
+		STATUPGRADES.FLAMINGO_MORE_DAMAGE:
+			currentFlamingoDamage *= 1.2
+		STATUPGRADES.FLAMINGO_FASTER_SHOOT:
+			currentFlamingoShootSpeed *= 0.8
+		STATUPGRADES.MOVEMENT_SPEED:
+			currentMovementSpeed += 15
+	
+	return statusUpgrade
 	
 func upgradeSelected(upgrade):
 	upgradeSelection.remove(upgradeSelection.find(upgrade))
@@ -86,10 +124,6 @@ func loadEntryRoom():
 	currentMap.disable()
 	get_tree().change_scene(entryRoom)
 
-func resetStatValues():
-	currentMaxHp = 5
-	currentHp = 5
-
 func startNewRun():
 	resetStatValues()
 	buildUpgradeSelection()
@@ -104,6 +138,7 @@ func buildRoomSelection():
 	roomsThisrun.shuffle()
 	
 func buildUpgradeSelection():
+	currentUpgrades = []
 	upgradeSelection = range(UPGRADES.size())
 	upgradeSelection.shuffle()
 	
@@ -121,8 +156,12 @@ func buildRewardSelection():
 	for i in range(upgrades):
 		newRewardSelection.push_back(REWARDS.UPGRADE)
 	
-	var health = rewardsLeft
-	for i in range(health):
+	var statUpgrades = floor(rewardsLeft / 2)
+	rewardsLeft -= statUpgrades
+	for i in range(statUpgrades):
+		newRewardSelection.push_back(REWARDS.STAT_UPGRADE)
+	
+	for i in range(rewardsLeft):
 		newRewardSelection.push_back(REWARDS.HEALTH)
 	
 	newRewardSelection.shuffle()
