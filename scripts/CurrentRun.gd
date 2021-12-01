@@ -116,6 +116,10 @@ func loadNextRoomWithReward(reward = REWARDS.HEALTH):
 		buildRoomSelection()
 	
 	currentRoomReward = reward
+	
+	LOADING_TRANSITION.start()
+	yield(LOADING_TRANSITION, "animation_finished")
+	
 	currentMap.disable()
 	get_tree().change_scene(roomsThisrun[0])
 	roomsThisrun.remove(0)
@@ -182,3 +186,6 @@ func PlayerClickedRestart():
 
 func switchToMap():
 	currentMap.enable()
+	
+	LOADING_TRANSITION.end()
+	yield(LOADING_TRANSITION, "animation_finished")

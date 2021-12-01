@@ -20,12 +20,14 @@ var startFightTexts = ["Fight!", "Go Go Go", "Start Fight", "READY ? FIGHT!", "D
 var endFightTexts = ["Good Job", "Too easy", "Fight finished", "<- Continue ->", "Doors open"]
 
 func _ready():
+	LOADING_TRANSITION.end()
+	yield(LOADING_TRANSITION, "animation_finished")
+		
 	if noFightRoom:
 		allowToExit()
 		spawnReward()
 	else:
 		startOfFight()
-
 
 func startOfFight():
 	showFightText(startFightTexts[rng.randi_range(0, startFightTexts.size() -1)])
@@ -74,5 +76,8 @@ func showFightText(content):
 
 func _on_Exit_body_entered(body):
 	if roomcleared:
+		LOADING_TRANSITION.start()
+		yield(LOADING_TRANSITION, "animation_finished")
+		
 		CURRENT_RUN.switchToMap()
 		queue_free()
