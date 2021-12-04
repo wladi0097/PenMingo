@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/birds-in-the-forest-wind-noise-of-leaves-10088.mp3-ecda9696b479edbb4f3d6321aa56f595.mp3str"
+
+[deps]
+
+source_file="res://assets/audio/birds-in-the-forest-wind-noise-of-leaves-10088.mp3"
+dest_files=[ "res://.import/birds-in-the-forest-wind-noise-of-leaves-10088.mp3-ecda9696b479edbb4f3d6321aa56f595.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

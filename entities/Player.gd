@@ -11,7 +11,9 @@ var flamingoShotKnockback := 10
 var rng = RandomNumberGenerator.new()
 onready var regularBullet := preload("res://entities/Bullet.tscn")
 onready var sniperBullet := preload("res://entities/SniperBullet.tscn")
+onready var spinDmg := preload("res://entities/SpinDmg.tscn")
 onready var trail := preload("res://entities/Trail.tscn")
+onready var surroundEntity := preload("res://entities/surroundEntity.tscn")
 
 onready var camera := $Camera2D
 onready var animations := $AnimationPlayer
@@ -50,17 +52,27 @@ onready var pickupText := $CanvasLayer/Control/PickUpText
 
 func _ready():
 	GLOBAL.player = self
+	rng.randomize()
+	
+	enableAllSound()
+	updateHpBox()
+	updateStats()
+	addUpgrades()
+
+func enableAllSound():
 	AudioServer.set_bus_effect_enabled(1, 0, false)
 	AudioServer.set_bus_volume_db(1, 1)
 	AudioServer.set_bus_mute(2, false)
-	updateHpBox()
-	rng.randomize()
-	updateStats()
-	
+
 func updateStats():
 	penguinShotTimer.wait_time = CURRENT_RUN.currentPenguinShootSpeed
 	flamingoShotTimer.wait_time = CURRENT_RUN.currentFlamingoShootSpeed
 
+func addUpgrades():
+	if CURRENT_RUN.hasUpgrade(CURRENT_RUN.UPGRADES.DEFENSE_SURROUNDING):
+		var surroundEntity_instance = surroundEntity.instance()
+		add_child(surroundEntity_instance)
+		
 func _physics_process(delta):
 	if isDead: return
 	if canMove: movement()
@@ -83,16 +95,19 @@ func showPenguinSettings():
 	currentplayerType = PLAYER_TYPES.PENGUIN
 	flamingoSpriteCollection.hide()
 	penguinSpriteCollection.show()
-	pass
 	
 func showFlamingoSettings():
 	currentplayerType = PLAYER_TYPES.FLAMINGO
 	flamingoSpriteCollection.show()
 	penguinSpriteCollection.hide()
-	pass
 	
 func slide():
 	if switchTimer.is_stopped():
+		if CURRENT_RUN.hasUpgrade(CURRENT_RUN.UPGRADES.DASH_DAMAGE):
+			var spinDmg_instance = spinDmg.instance()
+			spinDmg_instance.global_position = global_position
+			get_tree().get_root().call_deferred("add_child", spinDmg_instance)
+		
 		slideAnimations.play("slide")
 		canBeHitByBullets(false)
 		slideTimeAnimationPlayer.play("progress")
@@ -142,6 +157,9 @@ func flamingoShot():
 	shootSingleBullet(sniperBullet, rotation)
 
 	animations.play("shootFlamingo")
+	
+	if CURRENT_RUN.hasUpgrade(CURRENT_RUN.UPGRADES.FLAMINGO_BACK_SHOOT):
+		shootSingleBullet(regularBullet, fmod(rotation + PI, 2*PI))
 
 func movement(extraSpeed = 1):
 	var motion = Vector2()

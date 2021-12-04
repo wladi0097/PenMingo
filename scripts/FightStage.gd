@@ -20,16 +20,29 @@ var startFightTexts = ["Fight!", "Go Go Go", "Start Fight", "READY ? FIGHT!", "D
 var endFightTexts = ["Good Job", "Too easy", "Fight finished", "<- Continue ->", "Doors open"]
 
 func _ready():
+	playRandomSongOrPreSelected()
 	LOADING_TRANSITION.end()
 	yield(LOADING_TRANSITION, "animation_finished")
-		
+
 	if noFightRoom:
 		allowToExit()
 		spawnReward()
 	else:
 		startOfFight()
 
+func playRandomSongOrPreSelected():
+	rng.randomize()
+	var songToPlay: AudioStreamPlayer
+	
+	if $OverrideRandomSong.get_child_count() > 0:
+		songToPlay = $OverrideRandomSong.get_child(0)
+	else:
+		songToPlay = $Songs.get_child(rng.randi_range(0, $Songs.get_child_count() - 1))
+	
+	songToPlay.play()
+
 func startOfFight():
+	waves = rng.randi_range(1, 2)
 	showFightText(startFightTexts[rng.randi_range(0, startFightTexts.size() -1)])
 	spawnEnemies()
 

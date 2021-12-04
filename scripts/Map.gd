@@ -5,16 +5,25 @@ onready var camera = $Player/Camera2D
 onready var points = $points
 onready var mapBorder = $mapBorder
 onready var player = $Player
+onready var audio = $AudioStreamPlayer
 
 func _ready():
 	hide()
 
 func disable():
+	audio.stop()
+	player.set_collision_layer_bit(6, false)
+	player.set_collision_mask_bit(6, false)
+	mapBorder.set_collision_layer_bit(6, false)
 	isEnabled = false
 	camera.current = false
 	hide()
 
 func enable():
+	audio.play()
+	player.set_collision_layer_bit(6, true)
+	player.set_collision_mask_bit(6, true)
+	mapBorder.set_collision_layer_bit(6, true)
 	isEnabled = true
 	camera.current = true
 	show()

@@ -1,9 +1,10 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://scripts/LoadingTransition.gd" type="Script" id=1]
 [ext_resource path="res://assets/fonts/main_small.tres" type="DynamicFont" id=2]
 [ext_resource path="res://assets/player/FlamingoMenu1.png" type="Texture" id=3]
 [ext_resource path="res://assets/player/FlamingoMenu0.png" type="Texture" id=4]
+[ext_resource path="res://assets/audio/slide.wav" type="AudioStream" id=5]
 
 [sub_resource type="AnimatedTexture" id=2]
 frames = 2
@@ -220,7 +221,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0, 0.8 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
-"values": [ Vector2( 0, 0 ), Vector2( 1280, 0 ) ]
+"values": [ Vector2( 0, 0 ), Vector2( 1500, 0 ) ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("Control/block2:rect_position")
@@ -232,7 +233,7 @@ tracks/1/keys = {
 "times": PoolRealArray( 0.1, 0.8 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
-"values": [ Vector2( 0, 144 ), Vector2( 1280, 144 ) ]
+"values": [ Vector2( 0, 144 ), Vector2( 1500, 144 ) ]
 }
 tracks/2/type = "value"
 tracks/2/path = NodePath("Control/block3:rect_position")
@@ -244,7 +245,7 @@ tracks/2/keys = {
 "times": PoolRealArray( 0.2, 0.8 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
-"values": [ Vector2( 0, 288 ), Vector2( 1280, 288 ) ]
+"values": [ Vector2( 0, 288 ), Vector2( 1500, 288 ) ]
 }
 tracks/3/type = "value"
 tracks/3/path = NodePath("Control/block4:rect_position")
@@ -256,7 +257,7 @@ tracks/3/keys = {
 "times": PoolRealArray( 0.3, 0.8 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
-"values": [ Vector2( 0, 432 ), Vector2( 1280, 432 ) ]
+"values": [ Vector2( 0, 432 ), Vector2( 1500, 432 ) ]
 }
 tracks/4/type = "value"
 tracks/4/path = NodePath("Control/block5:rect_position")
@@ -268,7 +269,7 @@ tracks/4/keys = {
 "times": PoolRealArray( 0.4, 0.8 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
-"values": [ Vector2( 0, 576 ), Vector2( 1280, 576 ) ]
+"values": [ Vector2( 0, 576 ), Vector2( 1500, 576 ) ]
 }
 tracks/5/type = "value"
 tracks/5/path = NodePath("Control/block1/innerBlock1:rect_size")
@@ -441,7 +442,7 @@ __meta__ = {
 [node name="block2" type="ColorRect" parent="Control"]
 margin_left = -1280.0
 margin_top = 144.0
-margin_right = -0.0891113
+margin_right = -0.0893555
 margin_bottom = 288.0
 rect_min_size = Vector2( 0, 144 )
 size_flags_horizontal = 3
@@ -489,7 +490,7 @@ __meta__ = {
 [node name="block4" type="ColorRect" parent="Control"]
 margin_left = -1280.0
 margin_top = 432.0
-margin_right = 0.0307617
+margin_right = 0.0305176
 margin_bottom = 576.0
 rect_min_size = Vector2( 0, 144 )
 size_flags_horizontal = 3
@@ -578,5 +579,9 @@ valign = 1
 playback_speed = 1.2
 anims/transition0 = SubResource( 1 )
 anims/transition1 = SubResource( 3 )
+
+[node name="switchAudioPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 5 )
+pitch_scale = 0.5
 
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]

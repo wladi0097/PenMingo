@@ -9,11 +9,13 @@
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 5, 5 )
 
-[node name="Node2D" type="RigidBody2D"]
+[node name="Bullet" type="RigidBody2D"]
 collision_layer = 0
 gravity_scale = 0.0
 contacts_reported = 1
 contact_monitor = true
+linear_damp = 0.0
+angular_damp = 0.0
 script = ExtResource( 1 )
 
 [node name="playerShootSprite" type="Sprite" parent="."]
@@ -31,7 +33,6 @@ shape = SubResource( 1 )
 
 [node name="destorySelfTimer" type="Timer" parent="."]
 wait_time = 2.0
-autostart = true
 
 [node name="muzSprite" type="Sprite" parent="."]
 texture = ExtResource( 2 )

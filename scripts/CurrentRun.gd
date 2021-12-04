@@ -9,8 +9,8 @@ enum STATUPGRADES {
 	}
 var statusUpgradeText = ["Penguin faster bullets", "Penguin faster shot", "Penguin more damage", "penguin more range", "flamingo more damage", "flamingo faster shot", "faster movement speed"]
 
-enum UPGRADES {TRIPPLE_SHOT, EXPLOSIVE_SHOT}
-var upgradeText = ["Penguin tripple shot", "Flamingo explosive shot", "No more upgrades :-("]
+enum UPGRADES {TRIPPLE_SHOT, EXPLOSIVE_SHOT, FLAMINGO_BACK_SHOOT, FLAMINGO_BULLET_FOLLOWS_MOUSE, DASH_DAMAGE,  DEFENSE_SURROUNDING, CRIT_DMG, PENGUIN_BOUNCY_BULLET}
+var upgradeText = ["Penguin tripple shot", "Flamingo explosive shot", "Penguin got your back!", "Flamingo mind control", "Fire Dash", "Little defense Friend", "This game has crit damage ? (3% btw)", "Penguin bouncy bullets", "No more upgrades :-("]
 
 enum REWARDS {HEALTH, UPGRADE, MAX_HEALTH, STAT_UPGRADE}
 
@@ -48,11 +48,11 @@ func _ready():
 	
 func resetStatValues():
 	currentMaxHp = 5
-	currentHp = 5
-	currentPenguinShootSpeed = 0.4
+	currentHp = 4
+	currentPenguinShootSpeed = 0.3
 	currentFlamingoShootSpeed = 1
 	currentMovementSpeed = 150
-	currentFlamingoDamage = 5
+	currentFlamingoDamage = 4
 	currentFlamingoBulletSpeed = 400
 	currentPenguinBulletSpeed = 120
 	currentPenguinDamage = 1
