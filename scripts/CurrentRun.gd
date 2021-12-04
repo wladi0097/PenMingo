@@ -1,6 +1,7 @@
 extends Node
 
 onready var upgradeSelectionScreen = $ChooseUpgrade
+onready var upgradeAudio = $UpgradeAudio
 var rng = RandomNumberGenerator.new()
 
 enum STATUPGRADES {
@@ -68,6 +69,7 @@ func showUpgradeSelectionScreen():
 	upgradeSelectionScreen.showRewardSelection()
 
 func getTwoRandomUpgrades():
+	$UpgradeAudio.play()
 	if upgradeSelection.size() == 0:
 		return [-1, -1]
 	elif upgradeSelection.size() == 1:
@@ -79,6 +81,7 @@ func getTextForStatusUpgrade(upgradeName):
 	return statusUpgradeText[upgradeName]
 	
 func applyRandomStatusUpgrade():
+	$UpgradeAudio.play()
 	var statusUpgrade = rng.randi_range(0, STATUPGRADES.size() - 1)
 	
 	match statusUpgrade:
