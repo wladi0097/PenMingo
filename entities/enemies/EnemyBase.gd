@@ -32,6 +32,11 @@ func getPathToPlayer():
 	var path = navigation.get_simple_path(self.position, GLOBAL.player.position)
 	path.remove(0)
 	return self.position.direction_to(path[0]).normalized()
+	
+func getAngleToPlayer():
+	var path = navigation.get_simple_path(self.position, GLOBAL.player.position)
+	path.remove(0)
+	return path[0].angle_to_point(self.position)
 
 func hit(bullet, dmg):
 	animations.play("hit")
