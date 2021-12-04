@@ -9,11 +9,11 @@ var penguinShotPositionRandomSpread := 5
 var penguinShotKnockback := 1
 var flamingoShotKnockback := 10
 var rng = RandomNumberGenerator.new()
-onready var regularBullet := preload("res://entities/Bullet.tscn")
-onready var sniperBullet := preload("res://entities/SniperBullet.tscn")
-onready var spinDmg := preload("res://entities/SpinDmg.tscn")
-onready var trail := preload("res://entities/Trail.tscn")
-onready var surroundEntity := preload("res://entities/surroundEntity.tscn")
+onready var regularBullet := preload("res://entities/attacks/Bullet.tscn")
+onready var sniperBullet := preload("res://entities/attacks/SniperBullet.tscn")
+onready var spinDmg := preload("res://entities/attacks/SpinDmg.tscn")
+onready var trail := preload("res://entities/attacks/Trail.tscn")
+onready var surroundEntity := preload("res://entities/attacks/surroundEntity.tscn")
 
 onready var camera := $Camera2D
 onready var animations := $AnimationPlayer

@@ -9,8 +9,8 @@
 [ext_resource path="res://assets/audio/songs/chill2.mp3" type="AudioStream" id=7]
 [ext_resource path="res://entities/Pickup.tscn" type="PackedScene" id=8]
 [ext_resource path="res://assets/sprites/pickupTutorial.png" type="Texture" id=9]
-[ext_resource path="res://entities/ExplosiveBarrel.tscn" type="PackedScene" id=10]
-[ext_resource path="res://entities/TankBoss.tscn" type="PackedScene" id=11]
+[ext_resource path="res://entities/props/ExplosiveBarrel.tscn" type="PackedScene" id=10]
+[ext_resource path="res://entities/enemies/TankBoss.tscn" type="PackedScene" id=11]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 32.5, 79.5 )

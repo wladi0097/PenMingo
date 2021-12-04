@@ -23,12 +23,13 @@ func _ready():
 	var instance: KinematicBody2D
 	match spawnEnemy:
 		ENEMIES.regularShooter:
-			instance = load("res://entities/ShootEnemy.tscn").instance()
+			instance = load("res://entities/enemies/ShootEnemy.tscn").instance()
 		ENEMIES.shotgunShooter:
-			instance = load("res://entities/ShootEnemy.tscn").instance()
+			instance = load("res://entities/enemies/ShootEnemy.tscn").instance()
 			instance.currentType = 1
 		ENEMIES.regularDrone:
-			instance= load("res://entities/RunnerEnemy.tscn").instance()
+			instance= load("res://entities/enemies/RunnerEnemy.tscn").instance()
+			
 			
 	instance.global_position = global_position
 	

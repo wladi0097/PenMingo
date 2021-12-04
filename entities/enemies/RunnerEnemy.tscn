@@ -1,0 +1,104 @@
+[gd_scene load_steps=14 format=2]
+
+[ext_resource path="res://entities/enemies/EnemyBase.tscn" type="PackedScene" id=1]
+[ext_resource path="res://assets/sprites/bulletCollision.png" type="Texture" id=2]
+[ext_resource path="res://assets/audio/copter.mp3" type="AudioStream" id=3]
+[ext_resource path="res://assets/enemies/drone.png" type="Texture" id=4]
+[ext_resource path="res://entities/enemies/RunnerEnemy.gd" type="Script" id=5]
+
+[sub_resource type="AtlasTexture" id=1]
+atlas = ExtResource( 4 )
+region = Rect2( 0, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=2]
+atlas = ExtResource( 4 )
+region = Rect2( 16, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=3]
+atlas = ExtResource( 4 )
+region = Rect2( 32, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=4]
+atlas = ExtResource( 4 )
+region = Rect2( 48, 0, 16, 16 )
+
+[sub_resource type="SpriteFrames" id=5]
+animations = [ {
+"frames": [ SubResource( 1 ), SubResource( 2 ), SubResource( 3 ), SubResource( 4 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+} ]
+
+[sub_resource type="CircleShape2D" id=6]
+
+[sub_resource type="CircleShape2D" id=7]
+radius = 12.0
+
+[sub_resource type="Animation" id=8]
+resource_name = "afterAttack"
+step = 0.01
+tracks/0/type = "value"
+tracks/0/path = NodePath("AnimatedSprite:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.467267, 0.5 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ 0.0, 360.0, 0.0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("attackSprite:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.01, 0.1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ false, true, false ]
+}
+
+[node name="RunnerEnemy" instance=ExtResource( 1 )]
+script = ExtResource( 5 )
+hp = 4
+hitKnockBack = 10
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="." index="2"]
+frames = SubResource( 5 )
+frame = 1
+playing = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." index="3"]
+shape = SubResource( 6 )
+
+[node name="AttackSprite" type="Sprite" parent="attackSprite" index="0"]
+position = Vector2( 8, 0 )
+scale = Vector2( 1, 2 )
+texture = ExtResource( 2 )
+
+[node name="rotorSound" type="AudioStreamPlayer2D" parent="." index="6"]
+stream = ExtResource( 3 )
+volume_db = -5.0
+autoplay = true
+bus = "Effects"
+
+[node name="PlayerEnter" type="Area2D" parent="." index="7"]
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerEnter" index="0"]
+shape = SubResource( 7 )
+
+[node name="AfterAttackCooldown" type="Timer" parent="." index="8"]
+wait_time = 0.5
+one_shot = true
+
+[node name="afterAttackAnimation" type="AnimationPlayer" parent="." index="9"]
+anims/afterAttack = SubResource( 8 )
+
+[connection signal="body_entered" from="PlayerEnter" to="." method="_on_PlayerEnter_body_entered"]

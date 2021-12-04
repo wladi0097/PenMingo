@@ -12,7 +12,7 @@ _global_script_classes=[ {
 "base": "RigidBody2D",
 "class": "Bullet",
 "language": "GDScript",
-"path": "res://entities/Bullet.gd"
+"path": "res://entities/attacks/Bullet.gd"
 }, {
 "base": "Node2D",
 "class": "FightStage",
@@ -32,7 +32,7 @@ _global_script_classes=[ {
 "base": "RigidBody2D",
 "class": "SniperBullet",
 "language": "GDScript",
-"path": "res://entities/SniperBullet.gd"
+"path": "res://entities/attacks/SniperBullet.gd"
 } ]
 _global_script_class_icons={
 "Bullet": "",
