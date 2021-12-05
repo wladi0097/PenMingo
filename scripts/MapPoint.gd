@@ -5,6 +5,8 @@ export var isFinished = false
 export(Array, NodePath) var nextPoints
 export(CURRENT_RUN.REWARDS) var reward
 export(bool) var isCustomReward = false
+export(Resource) var specificRoom
+export(Texture) var customRewardIcon
 
 onready var animations = $PressAnimationPlayer
 onready var pressSprite = $Press
@@ -17,15 +19,18 @@ func _ready():
 	if !isCustomReward:
 		reward = CURRENT_RUN.getRandomReward()
 	
-	match reward:
-		CURRENT_RUN.REWARDS.HEALTH:
-			$Rewards/health.show()
-		CURRENT_RUN.REWARDS.UPGRADE:
-			$Rewards/upgrade.show()
-		CURRENT_RUN.REWARDS.MAX_HEALTH:
-			$Rewards/maxHealth.show()
-		CURRENT_RUN.REWARDS.STAT_UPGRADE:
-			$Rewards/statUpgrade.show()
+	if customRewardIcon:
+		$Rewards/customReward.texture = customRewardIcon
+	else:
+		match reward:
+			CURRENT_RUN.REWARDS.HEALTH:
+				$Rewards/health.show()
+			CURRENT_RUN.REWARDS.UPGRADE:
+				$Rewards/upgrade.show()
+			CURRENT_RUN.REWARDS.MAX_HEALTH:
+				$Rewards/maxHealth.show()
+			CURRENT_RUN.REWARDS.STAT_UPGRADE:
+				$Rewards/statUpgrade.show()
 	
 	animations.play("Press")
 	
@@ -56,7 +61,11 @@ func locked():
 	
 func _input(event):
 	if isPlayerOnPoint && event.is_action_pressed("E"):
-		CURRENT_RUN.loadNextRoomWithReward(reward)
+		if specificRoom != null:
+			CURRENT_RUN.loadSpecificRoomWithReward(specificRoom, reward)
+		else: 
+			CURRENT_RUN.loadNextRoomWithReward(reward)
+		
 		finished()
 		
 		for nodePoint in nextPoints:

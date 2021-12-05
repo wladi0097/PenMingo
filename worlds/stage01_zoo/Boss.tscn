@@ -30,6 +30,7 @@ navpoly = SubResource( 1 )
 
 [node name="TankBoss" parent="FightStage/Navigation2D" index="7" instance=ExtResource( 2 )]
 position = Vector2( 112, 304 )
+isBoss = true
 
 [node name="Player" parent="FightStage/Navigation2D" index="8"]
 position = Vector2( 50, 452 )

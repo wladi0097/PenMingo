@@ -71,6 +71,8 @@ texture = ExtResource( 8 )
 visible = false
 texture = ExtResource( 9 )
 
+[node name="customReward" type="Sprite" parent="Rewards"]
+
 [node name="Area2D" type="Area2D" parent="."]
 collision_layer = 0
 collision_mask = 64

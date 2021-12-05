@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://scripts/FightStage.tscn" type="PackedScene" id=1]
 [ext_resource path="res://entities/Pickup.tscn" type="PackedScene" id=2]
 [ext_resource path="res://worlds/debugRoom.gd" type="Script" id=3]
+[ext_resource path="res://entities/attacks/Bomb.tscn" type="PackedScene" id=4]
 
 [sub_resource type="NavigationPolygon" id=1]
 vertices = PoolVector2Array( 349, -93, 348, 186, 274, 107, 270, -41, 3, -92, 178, -38, 3, 185, 182, 103 )
@@ -33,5 +34,7 @@ navpoly = SubResource( 1 )
 position = Vector2( 104, 16 )
 reward = 2
 isCustomReward = true
+
+[node name="Bomb" parent="." instance=ExtResource( 4 )]
 
 [editable path="FightStage"]

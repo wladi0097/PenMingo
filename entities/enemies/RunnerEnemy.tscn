@@ -68,6 +68,9 @@ script = ExtResource( 5 )
 hp = 4
 hitKnockBack = 10
 
+[node name="hpBox" parent="." index="0"]
+position = Vector2( -5, -12 )
+
 [node name="AnimatedSprite" type="AnimatedSprite" parent="." index="2"]
 frames = SubResource( 5 )
 frame = 1
@@ -75,11 +78,6 @@ playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." index="3"]
 shape = SubResource( 6 )
-
-[node name="AttackSprite" type="Sprite" parent="attackSprite" index="0"]
-position = Vector2( 8, 0 )
-scale = Vector2( 1, 2 )
-texture = ExtResource( 2 )
 
 [node name="rotorSound" type="AudioStreamPlayer2D" parent="." index="6"]
 stream = ExtResource( 3 )
@@ -100,5 +98,10 @@ one_shot = true
 
 [node name="afterAttackAnimation" type="AnimationPlayer" parent="." index="9"]
 anims/afterAttack = SubResource( 8 )
+
+[node name="AttackSprite" type="Sprite" parent="attackSprite" index="0"]
+position = Vector2( 8, 0 )
+scale = Vector2( 1, 2 )
+texture = ExtResource( 2 )
 
 [connection signal="body_entered" from="PlayerEnter" to="." method="_on_PlayerEnter_body_entered"]

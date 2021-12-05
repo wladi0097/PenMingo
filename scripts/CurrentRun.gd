@@ -127,6 +127,14 @@ func loadNextRoomWithReward(reward = REWARDS.HEALTH):
 	get_tree().change_scene(roomsThisrun[0])
 	roomsThisrun.remove(0)
 	
+func loadSpecificRoomWithReward(roomToLoad, reward = REWARDS.HEALTH):
+	currentRoomReward = reward
+	
+	LOADING_TRANSITION.start()
+	yield(LOADING_TRANSITION, "animation_finished")
+	currentMap.disable()
+	get_tree().change_scene_to(roomToLoad)
+	
 func loadEntryRoom():
 	currentMap.disable()
 	get_tree().change_scene(entryRoom)

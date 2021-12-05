@@ -2,15 +2,18 @@ extends "res://entities/enemies/EnemyBase.gd"
 
 var moveSpeed = 50
 var curveSpeed = 0.02
+var shotSpread = 0.3
 onready var head := $Head
-var rng = RandomNumberGenerator.new()
 onready var stateAnimations := $StatesAnimationplayer
+onready var followStateShootTimer := $FollowStateShootTimer
+onready var stationaryStateShootTimer := $StationaryStateShootTimer
+onready var tankShootFrom := $Head/TankShootFrom
 
 enum STATES {STATIONARY, FOLLOW, RAM}
 var currentState = STATES.STATIONARY
 
 func _ready():
-	_on_SwitchState_timeout()
+	pass
 
 func _physics_process(delta):
 	if currentState != STATES.RAM:
@@ -18,6 +21,12 @@ func _physics_process(delta):
 
 	if currentState != STATES.STATIONARY:
 		moveAtPlayer()
+		
+	if currentState == STATES.FOLLOW:
+		followShoot()
+	
+	if currentState == STATES.STATIONARY:
+		stationaryShoot()
 
 func lookAtPlayer():
 	head.rotation = lerp_angle(head.rotation, GLOBAL.player.global_position.angle_to_point(head.global_position) - rotation, 0.03)
@@ -27,10 +36,18 @@ func moveAtPlayer():
 	self.move_and_slide(Vector2(1, 0).rotated(self.rotation) * moveSpeed)
 
 func followShoot():
-	pass
+	if followStateShootTimer.is_stopped():
+		followStateShootTimer.start()
+		var shootRotation = head.global_position.direction_to(tankShootFrom.global_position).angle()
+		spawnBullet(tankShootFrom.global_position, shootRotation)
+		spawnBullet(tankShootFrom.global_position, shootRotation + shotSpread)
+		spawnBullet(tankShootFrom.global_position, shootRotation - shotSpread)
 
 func stationaryShoot():
-	pass
+	if stationaryStateShootTimer.is_stopped():
+		stationaryStateShootTimer.start()
+		for i in range(0, 360, rng.randi_range(15, 20)):
+			spawnBullet(global_position, deg2rad(i))
 
 func _on_SwitchState_timeout():
 	match currentState:
@@ -59,3 +76,8 @@ func _on_SwitchState_timeout():
 			pass
 		STATES.STATIONARY:
 			pass
+
+
+func _on_RamDamage_body_entered(body):
+	if currentState == STATES.RAM:
+		body.hit(self, 1)

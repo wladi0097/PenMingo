@@ -1,0 +1,19 @@
+[gd_resource type="SpriteFrames" load_steps=10 format=2]
+
+[ext_resource path="res://assets/smoke/explosion/explosion05.png" type="Texture" id=1]
+[ext_resource path="res://assets/smoke/explosion/explosion02.png" type="Texture" id=2]
+[ext_resource path="res://assets/smoke/explosion/explosion08.png" type="Texture" id=3]
+[ext_resource path="res://assets/smoke/explosion/explosion07.png" type="Texture" id=4]
+[ext_resource path="res://assets/smoke/explosion/explosion03.png" type="Texture" id=5]
+[ext_resource path="res://assets/smoke/explosion/explosion00.png" type="Texture" id=6]
+[ext_resource path="res://assets/smoke/explosion/explosion01.png" type="Texture" id=7]
+[ext_resource path="res://assets/smoke/explosion/explosion04.png" type="Texture" id=8]
+[ext_resource path="res://assets/smoke/explosion/explosion06.png" type="Texture" id=9]
+
+[resource]
+animations = [ {
+"frames": [ ExtResource( 6 ), ExtResource( 7 ), ExtResource( 2 ), ExtResource( 5 ), ExtResource( 8 ), ExtResource( 1 ), ExtResource( 9 ), ExtResource( 4 ), ExtResource( 3 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+} ]

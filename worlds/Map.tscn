@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://scripts/MapPoint.tscn" type="PackedScene" id=1]
 [ext_resource path="res://assets/player/FlamingoMoving.png" type="Texture" id=2]
@@ -9,6 +9,8 @@
 [ext_resource path="res://assets/sprites/penguin_hand.png" type="Texture" id=7]
 [ext_resource path="res://assets/tilesets/background.png" type="Texture" id=8]
 [ext_resource path="res://assets/tilesets/grass/Gras.tres" type="Texture" id=9]
+[ext_resource path="res://worlds/stage01_zoo/Boss.tscn" type="PackedScene" id=10]
+[ext_resource path="res://assets/sprites/enemyBullet.png" type="Texture" id=11]
 
 [sub_resource type="AtlasTexture" id=8]
 atlas = ExtResource( 8 )
@@ -138,6 +140,7 @@ polygon = PoolVector2Array( -255, 256, 254, 256, 255, -266, -263, -264, -261, 25
 [node name="points" type="Node2D" parent="."]
 
 [node name="Point" parent="points" instance=ExtResource( 1 )]
+scale = Vector2( 1, 1.0025 )
 isLocked = false
 nextPoints = [ NodePath("../Point5"), NodePath("../Point4") ]
 
@@ -184,6 +187,8 @@ nextPoints = [ NodePath("../Point16") ]
 [node name="Point16" parent="points" instance=ExtResource( 1 )]
 position = Vector2( -73, -167 )
 scale = Vector2( 2.09214, 2.09214 )
+specificRoom = ExtResource( 10 )
+customRewardIcon = ExtResource( 11 )
 
 [node name="Point12" parent="points" instance=ExtResource( 1 )]
 position = Vector2( -207, -90 )

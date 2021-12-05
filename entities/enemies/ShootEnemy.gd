@@ -9,7 +9,6 @@ var shotgunSpread =  0.3
 onready var checkPlayerVisible := $checkPlayerVisible
 onready var shotCooldown := $shotCooldown
 onready var shotPosition := $shotPosition
-onready var regularBullet := preload("res://entities/attacks/Bullet.tscn")
 onready var shootAudio := $shootAudio
 
 func _ready():
@@ -20,20 +19,15 @@ func _ready():
 		$movementSprite/shotgunMoveSprite.show()
 		$attackSprite/shotgunAttackSprite.show()
 
-func spawnBullet(new_rotation):
-	var bullet_instance = regularBullet.instance()
-	bullet_instance.isFromEnemy = true
-	bullet_instance.fire(shotPosition.global_position, self.rotation_degrees, new_rotation)
-	get_tree().get_root().call_deferred("add_child", bullet_instance)
-	shootAudio.play()
-
 func regularShoot():
-	spawnBullet(rotation)
+	shootAudio.play()
+	spawnBullet(shotPosition.global_position, rotation)
 	
 func shotgunShoot():
-	spawnBullet(rotation)
-	spawnBullet(rotation + shotgunSpread)
-	spawnBullet(rotation - shotgunSpread)
+	shootAudio.play()
+	spawnBullet(shotPosition.global_position, rotation)
+	spawnBullet(shotPosition.global_position, rotation + shotgunSpread)
+	spawnBullet(shotPosition.global_position, rotation - shotgunSpread)
 	
 func shoot():
 	if shotCooldown.is_stopped():

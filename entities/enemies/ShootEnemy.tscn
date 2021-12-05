@@ -72,6 +72,10 @@ animations = [ {
 "speed": 8.0
 } ]
 
+[sub_resource type="CapsuleShape2D" id=28]
+radius = 9.0
+height = 18.0
+
 [sub_resource type="AtlasTexture" id=3]
 atlas = ExtResource( 3 )
 region = Rect2( 0, 0, 16, 32 )
@@ -104,34 +108,20 @@ animations = [ {
 "speed": 3.0
 } ]
 
-[sub_resource type="CapsuleShape2D" id=28]
-radius = 9.0
-height = 18.0
-
 [node name="ShootEnemy" instance=ExtResource( 1 )]
 script = ExtResource( 7 )
+
+[node name="hpBox" parent="." index="0"]
+position = Vector2( -5, -20 )
 
 [node name="regularMoveSprite" type="AnimatedSprite" parent="movementSprite" index="0"]
 visible = false
 frames = SubResource( 24 )
-frame = 2
 playing = true
 
 [node name="shotgunMoveSprite" type="AnimatedSprite" parent="movementSprite" index="1"]
 visible = false
 frames = SubResource( 25 )
-frame = 2
-playing = true
-
-[node name="regularAttackSprite" type="AnimatedSprite" parent="attackSprite" index="0"]
-visible = false
-frames = SubResource( 26 )
-playing = true
-
-[node name="shotgunAttackSprite" type="AnimatedSprite" parent="attackSprite" index="1"]
-visible = false
-frames = SubResource( 27 )
-frame = 1
 playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." index="4"]
@@ -154,3 +144,14 @@ one_shot = true
 stream = ExtResource( 4 )
 volume_db = -5.0
 bus = "Effects"
+
+[node name="regularAttackSprite" type="AnimatedSprite" parent="attackSprite" index="0"]
+visible = false
+frames = SubResource( 26 )
+frame = 1
+playing = true
+
+[node name="shotgunAttackSprite" type="AnimatedSprite" parent="attackSprite" index="1"]
+visible = false
+frames = SubResource( 27 )
+playing = true
