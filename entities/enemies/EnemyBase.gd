@@ -1,6 +1,7 @@
 extends KinematicBody2D
 
 onready var regularBullet := preload("res://entities/attacks/Bullet.tscn")
+onready var bomb := preload("res://entities/attacks/Bomb.tscn")
 onready var navigation : Navigation2D = find_parent("Navigation2D")
 onready var animations := $AnimationPlayer
 onready var movementSprite := $movementSprite
@@ -31,7 +32,7 @@ func _ready():
 	showMovement()
 
 func die():
-	find_parent("FightStage").enemyDied()
+	find_parent("FightStage").enemyDied(self)
 	queue_free()
 
 func showAttack():
@@ -44,10 +45,13 @@ func showMovement():
 	movementSprite.show()
 	attackSprite.hide()
 
-func getPathToPlayer():
+func getPathToPlayer() -> Vector2:
 	var path = navigation.get_simple_path(self.position, GLOBAL.player.position)
-	path.remove(0)
-	return self.position.direction_to(path[0]).normalized()
+	if path.size() > 0:
+		path.remove(0)
+		return self.position.direction_to(path[0]).normalized()
+	else:
+		return Vector2.ZERO
 	
 func getAngleToPlayer():
 	var path = navigation.get_simple_path(self.position, GLOBAL.player.position)
@@ -92,3 +96,8 @@ func spawnBullet(from, to, selfRotation = self.rotation_degrees):
 	bullet_instance.isFromEnemy = true
 	bullet_instance.fire(from, selfRotation, to)
 	get_tree().get_root().call_deferred("add_child", bullet_instance)
+	
+func spawnBomb(spawnPosition = GLOBAL.player.global_position):
+	var bomb_instance = bomb.instance()
+	bomb_instance.global_position = spawnPosition
+	get_tree().get_root().call_deferred("add_child", bomb_instance)

@@ -8,14 +8,17 @@ onready var stateAnimations := $StatesAnimationplayer
 onready var followStateShootTimer := $FollowStateShootTimer
 onready var stationaryStateShootTimer := $StationaryStateShootTimer
 onready var tankShootFrom := $Head/TankShootFrom
+var isIdle = true
 
 enum STATES {STATIONARY, FOLLOW, RAM}
-var currentState = STATES.STATIONARY
+var currentState = STATES.RAM
 
 func _ready():
 	pass
 
 func _physics_process(delta):
+	if isIdle: return
+	
 	if currentState != STATES.RAM:
 		lookAtPlayer()
 
@@ -49,7 +52,12 @@ func stationaryShoot():
 		for i in range(0, 360, rng.randi_range(15, 20)):
 			spawnBullet(global_position, deg2rad(i))
 
-func _on_SwitchState_timeout():
+func getRandomState():
+	var statesWithoutCurrent = range(0, STATES.size() -1, 1)
+	statesWithoutCurrent.remove(currentState)
+	return statesWithoutCurrent[rng.randi_range(0, statesWithoutCurrent.size() -1)]
+
+func switchStateTo(newState = null):
 	match currentState:
 		STATES.RAM:
 			stateAnimations.play_backwards("RamState")
@@ -59,7 +67,10 @@ func _on_SwitchState_timeout():
 		STATES.STATIONARY:
 			pass
 	
-	currentState = rng.randi_range(0, STATES.size() -1)
+	if newState == null:
+		newState = getRandomState()
+	
+	currentState = newState
 	
 	# reset to default
 	moveSpeed = 50
@@ -77,7 +88,21 @@ func _on_SwitchState_timeout():
 		STATES.STATIONARY:
 			pass
 
+func _on_SwitchState_timeout():
+	switchStateTo()
 
 func _on_RamDamage_body_entered(body):
 	if currentState == STATES.RAM:
 		body.hit(self, 1)
+
+func _on_ShootBombTimer_timeout():
+	spawnBomb()
+
+func _on_WakeUp_body_entered(body):
+	if isIdle:
+		isIdle = false
+		switchStateTo(STATES.RAM)
+		$AnimatedSprite.play()
+		$SwitchState.start()
+		$ShootBombTimer.start()
+	

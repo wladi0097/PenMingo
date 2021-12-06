@@ -260,7 +260,12 @@ func heal():
 	
 	if CURRENT_RUN.currentHp < CURRENT_RUN.currentMaxHp:
 		CURRENT_RUN.currentHp += 1
-		updateHpBox()
+	
+	# just heal a second time xD
+	if CURRENT_RUN.currentHp < CURRENT_RUN.currentMaxHp:
+		CURRENT_RUN.currentHp += 1
+	
+	updateHpBox()
 		
 func addMaxHealth():
 	healAudio.play()

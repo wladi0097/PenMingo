@@ -110,6 +110,7 @@ animations = [ {
 
 [node name="ShootEnemy" instance=ExtResource( 1 )]
 script = ExtResource( 7 )
+hp = 8
 
 [node name="hpBox" parent="." index="0"]
 position = Vector2( -5, -20 )

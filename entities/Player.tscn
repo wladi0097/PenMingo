@@ -131,7 +131,8 @@ tracks/1/keys = {
 
 [sub_resource type="Animation" id=28]
 resource_name = "slide"
-length = 0.3
+length = 0.6
+step = 0.05
 tracks/0/type = "value"
 tracks/0/path = NodePath("..:modulate")
 tracks/0/interp = 1
@@ -139,7 +140,7 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.0128745, 0.259522, 0.299501 ),
+"times": PoolRealArray( 0, 0.0128745, 0.55, 0.6 ),
 "transitions": PoolRealArray( 1, 1, 1, 1 ),
 "update": 0,
 "values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0.454902 ), Color( 1, 1, 1, 0.454902 ), Color( 1, 1, 1, 1 ) ]
@@ -246,7 +247,8 @@ animations = [ {
 
 [sub_resource type="Animation" id=27]
 resource_name = "progress"
-length = 0.8
+length = 1.2
+step = 0.05
 tracks/0/type = "value"
 tracks/0/path = NodePath("SliderTimeAnimation/progress:points")
 tracks/0/interp = 1
@@ -254,7 +256,7 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.2, 0.4, 0.6, 0.8 ),
+"times": PoolRealArray( 0, 0.2, 0.4, 0.6, 1.2 ),
 "transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
 "update": 1,
 "values": [ PoolVector2Array( 0, 0, 0, 0 ), PoolVector2Array( 3, 0, 0, 0 ), PoolVector2Array( 6, 0, 0, 0 ), PoolVector2Array( 9, 0, 0, 0 ), PoolVector2Array( 10, 0, 0, 0 ) ]
@@ -266,7 +268,7 @@ tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0, 0.0522208, 0.8 ),
+"times": PoolRealArray( 0, 0.0522208, 1.2 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 1,
 "values": [ false, true, false ]
@@ -278,7 +280,7 @@ tracks/2/loop_wrap = true
 tracks/2/imported = false
 tracks/2/enabled = true
 tracks/2/keys = {
-"times": PoolRealArray( 0.00746011, 0.104442, 0.7, 0.8 ),
+"times": PoolRealArray( 0.00746011, 0.104442, 1.15, 1.2 ),
 "transitions": PoolRealArray( 1, 1, 1, 1 ),
 "update": 0,
 "values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
@@ -323,12 +325,12 @@ visible = false
 visible = false
 position = Vector2( 0, -6 )
 frames = SubResource( 22 )
-frame = 1
 playing = true
 
 [node name="flamingoIdle" type="AnimatedSprite" parent="FlamingoSprite"]
 position = Vector2( 0, -6 )
 frames = SubResource( 19 )
+frame = 1
 playing = true
 
 [node name="flamingoAttack" type="Sprite" parent="FlamingoSprite"]
@@ -342,25 +344,23 @@ texture = ExtResource( 12 )
 visible = false
 position = Vector2( 0, -6 )
 frames = SubResource( 13 )
-frame = 1
 playing = true
 
 [node name="penguinIdle" type="AnimatedSprite" parent="PenguinSprite"]
 position = Vector2( -5.36442e-07, -6 )
 frames = SubResource( 7 )
-frame = 1
 playing = true
 
 [node name="penguinAttack" type="AnimatedSprite" parent="PenguinSprite"]
 visible = false
 position = Vector2( 0, -6 )
 frames = SubResource( 16 )
+frame = 1
 playing = true
 
 [node name="penguinIdleBackpack" type="AnimatedSprite" parent="PenguinSprite"]
 position = Vector2( 0, -6 )
 frames = SubResource( 10 )
-frame = 1
 playing = true
 
 [node name="penguinShot" type="Position2D" parent="."]
@@ -374,7 +374,7 @@ one_shot = true
 one_shot = true
 
 [node name="switchTimer" type="Timer" parent="."]
-wait_time = 0.8
+wait_time = 1.2
 one_shot = true
 
 [node name="HitCooldown" type="Timer" parent="."]
@@ -382,7 +382,7 @@ wait_time = 0.8
 one_shot = true
 
 [node name="InvincibleTimerAfterSwitch" type="Timer" parent="."]
-wait_time = 0.3
+wait_time = 0.6
 one_shot = true
 
 [node name="penguinShootLoop" type="AudioStreamPlayer" parent="."]

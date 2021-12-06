@@ -3,7 +3,7 @@ extends "res://entities/enemies/EnemyBase.gd"
 enum ENEMY_TYPE {regular, shotgun}
 export(ENEMY_TYPE) var currentType = ENEMY_TYPE.regular
 
-var speed = 50
+var speed = 30
 var speedWhileShooting = 15
 var shotgunSpread =  0.3
 onready var checkPlayerVisible := $checkPlayerVisible

@@ -115,7 +115,7 @@ func getRandomReward():
 	return reward
 	
 func loadNextRoomWithReward(reward = REWARDS.HEALTH):
-	if roomsThisrun.size() == 0:
+	if roomsThisrun.size() <= 0:
 		buildRoomSelection()
 	
 	currentRoomReward = reward
@@ -180,8 +180,12 @@ func buildRewardSelection():
 		newRewardSelection.push_back(REWARDS.HEALTH)
 	
 	newRewardSelection.shuffle()
+	
+	# first reward should never be health
+	if newRewardSelection[0] == REWARDS.HEALTH:
+		newRewardSelection[0] = REWARDS.STAT_UPGRADE
+	
 	rewardSelection = newRewardSelection
-	print(rewardSelection)
 	
 func addMap():
 	if has_node("Map"):
