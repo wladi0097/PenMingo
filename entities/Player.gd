@@ -120,6 +120,7 @@ func slide():
 			showPenguinSettings()
 		slideAudio.play()
 		movement(15)
+		CURRENT_RUN.thisRunSwitchedPlayers += 1
 
 func shootSingleBullet(bulletType, new_rotation, allowRandomShots = false):
 	var shootPositon = penguinShotPosition.global_position

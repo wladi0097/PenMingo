@@ -32,6 +32,7 @@ func _ready():
 	showMovement()
 
 func die():
+	CURRENT_RUN.thisRunKilledEnemies += 1
 	find_parent("FightStage").enemyDied(self)
 	queue_free()
 
@@ -66,6 +67,7 @@ func updateHpBar():
 	bossHpBar.value = percent
 
 func hit(bullet, dmg):
+	CURRENT_RUN.thisRunDealthDamage += dmg
 	animations.play("hit")
 	
 	if hitKnockBack > 0:

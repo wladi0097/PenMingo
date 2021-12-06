@@ -1,4 +1,4 @@
-[gd_scene load_steps=43 format=2]
+[gd_scene load_steps=44 format=2]
 
 [ext_resource path="res://assets/player/PenguinAttack.png" type="Texture" id=1]
 [ext_resource path="res://entities/Player.gd" type="Script" id=2]
@@ -286,6 +286,14 @@ tracks/2/keys = {
 "values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
 }
 
+[sub_resource type="StyleBoxFlat" id=29]
+draw_center = false
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color( 0.960784, 0.960784, 0.960784, 1 )
+
 [node name="Player" type="KinematicBody2D"]
 collision_layer = 4
 collision_mask = 43
@@ -330,7 +338,6 @@ playing = true
 [node name="flamingoIdle" type="AnimatedSprite" parent="FlamingoSprite"]
 position = Vector2( 0, -6 )
 frames = SubResource( 19 )
-frame = 1
 playing = true
 
 [node name="flamingoAttack" type="Sprite" parent="FlamingoSprite"]
@@ -344,11 +351,13 @@ texture = ExtResource( 12 )
 visible = false
 position = Vector2( 0, -6 )
 frames = SubResource( 13 )
+frame = 1
 playing = true
 
 [node name="penguinIdle" type="AnimatedSprite" parent="PenguinSprite"]
 position = Vector2( -5.36442e-07, -6 )
 frames = SubResource( 7 )
+frame = 1
 playing = true
 
 [node name="penguinAttack" type="AnimatedSprite" parent="PenguinSprite"]
@@ -361,6 +370,7 @@ playing = true
 [node name="penguinIdleBackpack" type="AnimatedSprite" parent="PenguinSprite"]
 position = Vector2( 0, -6 )
 frames = SubResource( 10 )
+frame = 1
 playing = true
 
 [node name="penguinShot" type="Position2D" parent="."]
@@ -410,7 +420,7 @@ volume_db = 2.0
 
 [node name="SliderTimeAnimation" type="Node2D" parent="."]
 visible = false
-modulate = Color( 1, 1, 1, 0 )
+modulate = Color( 1, 1, 1, 0.0430144 )
 
 [node name="background" type="Line2D" parent="SliderTimeAnimation"]
 position = Vector2( -5, 12 )
@@ -420,7 +430,7 @@ default_color = Color( 0.329412, 0.329412, 0.329412, 1 )
 
 [node name="progress" type="Line2D" parent="SliderTimeAnimation"]
 position = Vector2( -5, 12 )
-points = PoolVector2Array( 10, 0, 0, 0 )
+points = PoolVector2Array( 0, 0, 0, 0 )
 width = 1.0
 default_color = Color( 0.72549, 0.72549, 0.72549, 1 )
 
@@ -434,7 +444,6 @@ anims/progress = SubResource( 27 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 __meta__ = {
-"_edit_lock_": true,
 "_edit_use_anchors_": false
 }
 
@@ -442,7 +451,6 @@ __meta__ = {
 margin_right = 212.0
 margin_bottom = 50.0
 __meta__ = {
-"_edit_lock_": true,
 "_edit_use_anchors_": false
 }
 
@@ -492,7 +500,6 @@ __meta__ = {
 
 [node name="Death" type="ColorRect" parent="CanvasLayer"]
 visible = false
-modulate = Color( 1, 1, 1, 0 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 color = Color( 0.184314, 0.188235, 0.211765, 0.929412 )
@@ -510,7 +517,8 @@ margin_top = -334.0
 margin_right = 118.0
 margin_bottom = -296.0
 custom_fonts/font = ExtResource( 15 )
-text = "Restart"
+custom_styles/normal = SubResource( 29 )
+text = "To Lobby"
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -526,7 +534,7 @@ margin_right = 128.0
 margin_bottom = -32.0
 custom_colors/font_color = Color( 0.556863, 0, 0, 1 )
 custom_fonts/font = ExtResource( 13 )
-text = "You died"
+text = "You Died"
 __meta__ = {
 "_edit_use_anchors_": false
 }

@@ -42,11 +42,24 @@ var currentPenguinRange
 var currentFlamingoDamage
 var currentFlamingoBulletSpeed
 
+# Stats about the run:
+var thisRunDealthDamage = 0
+var thisRunKilledEnemies = 0
+var thisRunTimerStarted = 0
+var thisRunSwitchedPlayers = 0
+
 func _ready():
 	randomize()
 	resetStatValues()
+	resetRunStats()
 	rng.randomize()
-	
+
+func resetRunStats():
+	thisRunDealthDamage = 0
+	thisRunKilledEnemies = 0
+	thisRunTimerStarted = 0
+	thisRunSwitchedPlayers = 0
+
 func resetStatValues():
 	currentMaxHp = 5
 	currentHp = 4
@@ -141,12 +154,14 @@ func loadEntryRoom():
 
 func startNewRun():
 	resetStatValues()
+	resetRunStats()
 	buildUpgradeSelection()
 	buildRoomSelection()
 	buildRewardSelection()
 	
 	addMap()
 	loadEntryRoom()
+	thisRunTimerStarted = OS.get_system_time_secs()
 	
 func buildRoomSelection():
 	roomsThisrun = allRooms.duplicate(true)

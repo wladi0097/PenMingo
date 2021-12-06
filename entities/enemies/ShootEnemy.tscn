@@ -118,11 +118,13 @@ position = Vector2( -5, -20 )
 [node name="regularMoveSprite" type="AnimatedSprite" parent="movementSprite" index="0"]
 visible = false
 frames = SubResource( 24 )
+frame = 5
 playing = true
 
 [node name="shotgunMoveSprite" type="AnimatedSprite" parent="movementSprite" index="1"]
 visible = false
 frames = SubResource( 25 )
+frame = 5
 playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." index="4"]
@@ -149,10 +151,10 @@ bus = "Effects"
 [node name="regularAttackSprite" type="AnimatedSprite" parent="attackSprite" index="0"]
 visible = false
 frames = SubResource( 26 )
-frame = 1
 playing = true
 
 [node name="shotgunAttackSprite" type="AnimatedSprite" parent="attackSprite" index="1"]
 visible = false
 frames = SubResource( 27 )
+frame = 1
 playing = true
