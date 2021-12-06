@@ -15,7 +15,7 @@ var upgradeText = ["Penguin tripple shot", "Flamingo explosive shot", "Penguin g
 
 enum REWARDS {HEALTH, UPGRADE, MAX_HEALTH, STAT_UPGRADE}
 
-var allRooms = ["res://worlds/stage01_zoo/Room01.tscn", "res://worlds/stage01_zoo/Room02.tscn", "res://worlds/stage01_zoo/Room03.tscn", "res://worlds/stage01_zoo/Room04.tscn"]
+var allRooms = ["res://worlds/stage01_zoo/Room01.tscn", "res://worlds/stage01_zoo/Room02.tscn", "res://worlds/stage01_zoo/Room03.tscn", "res://worlds/stage01_zoo/Room04.tscn", "res://worlds/stage01_zoo/Room05.tscn", "res://worlds/stage01_zoo/Room06.tscn"]
 var bossRoom = "res://worlds/stage01_zoo/Room01.tscn"
 var entryRoom := "res://worlds/stage01_zoo/Entry.tscn"
 
