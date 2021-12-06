@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/PUNCH_INTENSE_HEAVY_03.wav-de8e44674a8c8b1684e5c1e603d3b694.sample"
+
+[deps]
+
+source_file="res://assets/audio/PUNCH_INTENSE_HEAVY_03.wav"
+dest_files=[ "res://.import/PUNCH_INTENSE_HEAVY_03.wav-de8e44674a8c8b1684e5c1e603d3b694.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

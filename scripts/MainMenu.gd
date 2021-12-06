@@ -28,6 +28,7 @@ func _on_OptionsButton_button_down():
 
 func _on_HSlider_value_changed(value):
 	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Master"), value)
+	$SwitchAudio.play()
 
 func _on_optionsBack_button_down():
 	$SwitchScenePlayer.play_backwards("toOptions")

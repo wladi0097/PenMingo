@@ -8,7 +8,11 @@ onready var stateAnimations := $StatesAnimationplayer
 onready var followStateShootTimer := $FollowStateShootTimer
 onready var stationaryStateShootTimer := $StationaryStateShootTimer
 onready var tankShootFrom := $Head/TankShootFrom
+onready var shootSound := $shootSound
+onready var tankSound := $tankSounds
+onready var shootExplosionSound := $shootExplosionSound
 var isIdle = true
+
 
 enum STATES {STATIONARY, FOLLOW, RAM}
 var currentState = STATES.RAM
@@ -41,6 +45,7 @@ func moveAtPlayer():
 func followShoot():
 	if followStateShootTimer.is_stopped():
 		followStateShootTimer.start()
+		shootSound.play()
 		var shootRotation = head.global_position.direction_to(tankShootFrom.global_position).angle()
 		spawnBullet(tankShootFrom.global_position, shootRotation)
 		spawnBullet(tankShootFrom.global_position, shootRotation + shotSpread)
@@ -49,6 +54,7 @@ func followShoot():
 func stationaryShoot():
 	if stationaryStateShootTimer.is_stopped():
 		stationaryStateShootTimer.start()
+		shootSound.play()
 		for i in range(0, 360, rng.randi_range(15, 20)):
 			spawnBullet(global_position, deg2rad(i))
 
@@ -75,6 +81,7 @@ func switchStateTo(newState = null):
 	# reset to default
 	moveSpeed = 50
 	curveSpeed = 0.02
+	tankSound.pitch_scale = 1
 	
 	# set accoring to state
 	match currentState:
@@ -83,6 +90,7 @@ func switchStateTo(newState = null):
 			stateAnimations.play("RamState")
 			moveSpeed = 300
 			curveSpeed = 0.04
+			tankSound.pitch_scale = 1.5
 		STATES.FOLLOW:
 			pass
 		STATES.STATIONARY:
@@ -96,6 +104,7 @@ func _on_RamDamage_body_entered(body):
 		body.hit(self, 1)
 
 func _on_ShootBombTimer_timeout():
+	shootExplosionSound.play()
 	spawnBomb()
 
 func _on_WakeUp_body_entered(body):

@@ -61,7 +61,6 @@ func getAngleToPlayer():
 
 func updateHpBar():
 	var percent = (hp * 100 / maxHp) / 10
-	prints(hp, maxHp)
 	
 	hpBar.points = [Vector2.ZERO, Vector2(percent, 0)]
 	bossHpBar.value = percent

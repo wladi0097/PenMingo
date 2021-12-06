@@ -1,10 +1,13 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://assets/enemies/TankBody-Sheet.png" type="Texture" id=1]
 [ext_resource path="res://assets/enemies/TankHead.png" type="Texture" id=2]
 [ext_resource path="res://entities/enemies/TankBoss.gd" type="Script" id=3]
 [ext_resource path="res://assets/enemies/tankSpikes.png" type="Texture" id=4]
 [ext_resource path="res://entities/enemies/EnemyBase.tscn" type="PackedScene" id=5]
+[ext_resource path="res://assets/audio/tank.mp3" type="AudioStream" id=6]
+[ext_resource path="res://assets/audio/GUNPis_Pistol Fire Longer Tail_05.wav" type="AudioStream" id=7]
+[ext_resource path="res://assets/audio/explosion_shot.wav" type="AudioStream" id=8]
 
 [sub_resource type="RectangleShape2D" id=10]
 extents = Vector2( 6, 26 )
@@ -112,6 +115,17 @@ collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="WakeUp" index="0"]
 shape = SubResource( 11 )
+
+[node name="tankSounds" type="AudioStreamPlayer2D" parent="." index="17"]
+stream = ExtResource( 6 )
+autoplay = true
+
+[node name="shootSound" type="AudioStreamPlayer2D" parent="." index="18"]
+stream = ExtResource( 7 )
+volume_db = -5.0
+
+[node name="shootExplosionSound" type="AudioStreamPlayer2D" parent="." index="19"]
+stream = ExtResource( 8 )
 
 [connection signal="body_entered" from="RamState/RamDamage" to="." method="_on_RamDamage_body_entered"]
 [connection signal="timeout" from="SwitchState" to="." method="_on_SwitchState_timeout"]

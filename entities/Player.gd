@@ -24,6 +24,7 @@ onready var invincibleTimerAfterSwitch := $InvincibleTimerAfterSwitch
 onready var collision := $CollisionShape2D
 onready var penguinShotPosition := $penguinShot
 onready var slideAudio := $slideAudio
+onready var hitAudio := $hitAudio
 onready var pickupTextAnimationPlayer := $PickupTextAnimationPlayer
 onready var healAudio := $healAudio
 onready var slideTimeAnimationPlayer := $SliderTimeAnimation/AnimationPlayer
@@ -134,8 +135,7 @@ func shootSingleBullet(bulletType, new_rotation, allowRandomShots = false):
 	get_tree().get_root().call_deferred("add_child", bullet_instance)
 	
 func penguinShot():
-	if !penguinShotTimer.is_stopped():
-		return
+	if !penguinShotTimer.is_stopped(): return
 	penguinShotTimer.start()
 	
 	if !penguinShootLoopAudio.playing:
@@ -242,6 +242,7 @@ func hit(body, dmg):
 	
 	CURRENT_RUN.currentHp -= 1
 	
+	hitAudio.play()
 	if CURRENT_RUN.currentHp == 0:
 		die()
 	elif CURRENT_RUN.currentHp > 0:

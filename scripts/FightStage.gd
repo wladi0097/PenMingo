@@ -35,6 +35,7 @@ func _ready():
 		allowToExit()
 		spawnReward()
 	elif isBossFightRoom:
+		aliveEnemies = 1
 		$SpawnEnemiesPeriodicallyForBossFights.start()
 	else:
 		startOfFight()
@@ -57,17 +58,12 @@ func spawnIntialEnemies():
 	# maximumEnemiesAtOnce
 	var points = getAllEnemySpawnPoints()
 	if (points.size() < maximumEnemiesAtOnce):
-		maximumEnemiesAtOnce = points.length
+		maximumEnemiesAtOnce = points.size()
 	for point in points.slice(0, maximumEnemiesAtOnce - 1):
 		addRandomEnemyInstanceToScene(point.global_position)
 		
 func spawnEnemyAtRandomPosition():
 	addRandomEnemyInstanceToScene(getAllEnemySpawnPoints()[0].global_position)
-		
-func spawnEnemiesRandomly():
-	for point in getAllEnemySpawnPoints():
-		if rng.randi_range(0, 1) == 1:
-			addRandomEnemyInstanceToScene(point.global_position)
 
 func getAllEnemySpawnPoints() -> Array:
 	var spawnPointsInScene = []
@@ -106,7 +102,7 @@ func allowToExit():
 func enemyDied(entity):
 	aliveEnemies -= 1
 	
-	if enemiesToKillBeforeClear > 0:
+	if !isBossFightRoom && enemiesToKillBeforeClear > 0:
 		spawnEnemyAtRandomPosition()
 	
 	if aliveEnemies == 0:
@@ -126,4 +122,5 @@ func _on_Exit_body_entered(body):
 		queue_free()
 
 func _on_SpawnEnemiesPeriodicallyForBossFights_timeout():
-	spawnEnemiesRandomly()
+	if !roomcleared:
+		spawnEnemyAtRandomPosition()

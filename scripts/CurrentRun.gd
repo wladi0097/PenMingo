@@ -63,7 +63,7 @@ func resetRunStats():
 func resetStatValues():
 	currentMaxHp = 5
 	currentHp = 4
-	currentPenguinShootSpeed = 0.3
+	currentPenguinShootSpeed = 0.45
 	currentFlamingoShootSpeed = 1
 	currentMovementSpeed = 150
 	currentFlamingoDamage = 4
@@ -162,6 +162,7 @@ func startNewRun():
 	addMap()
 	loadEntryRoom()
 	thisRunTimerStarted = OS.get_system_time_secs()
+	GLOBAL.allRunsAttemts += 1
 	
 func buildRoomSelection():
 	roomsThisrun = allRooms.duplicate(true)

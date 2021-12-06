@@ -118,13 +118,13 @@ position = Vector2( -5, -20 )
 [node name="regularMoveSprite" type="AnimatedSprite" parent="movementSprite" index="0"]
 visible = false
 frames = SubResource( 24 )
-frame = 5
+frame = 4
 playing = true
 
 [node name="shotgunMoveSprite" type="AnimatedSprite" parent="movementSprite" index="1"]
 visible = false
 frames = SubResource( 25 )
-frame = 5
+frame = 4
 playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." index="4"]

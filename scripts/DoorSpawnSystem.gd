@@ -36,7 +36,6 @@ func closeUp():
 		sprite.global_transform = w.global_transform
 		sprite.scale.x = (spriteSize * w.shape.extents.x / 2000) * sprite.scale.x
 		sprite.scale.y = (spriteSize * w.shape.extents.y / 2000) * sprite.scale.y
-		print(spriteSize, w.shape.extents.x)
 		sprite.visible = true
 		
 		wallContainer.add_child(sprite)

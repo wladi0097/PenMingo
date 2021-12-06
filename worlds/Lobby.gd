@@ -18,10 +18,8 @@ func cleanTimeString(time):
 	return "0" + str(time) if time < 10 else str(time)
 
 func showLabelContent():
-	
-	
 	var newText = "            Your Run\n"
-	newText += "Died After: " + getTimeEnd() + " sec \n"
+	newText += "Died After: " + getTimeEnd() + " min \n"
 	newText += "Dealt damage: " + str(CURRENT_RUN.thisRunDealthDamage) + " hits\n"
 	newText += "Killed " + str(CURRENT_RUN.thisRunKilledEnemies) + " enemies\n"
 	newText += "Switched animal " + str(CURRENT_RUN.thisRunSwitchedPlayers) + " times\n"

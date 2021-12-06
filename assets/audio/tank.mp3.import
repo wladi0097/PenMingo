@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/tank.mp3-eddb777dd9396f23a6104ae580412cd9.mp3str"
+
+[deps]
+
+source_file="res://assets/audio/tank.mp3"
+dest_files=[ "res://.import/tank.mp3-eddb777dd9396f23a6104ae580412cd9.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

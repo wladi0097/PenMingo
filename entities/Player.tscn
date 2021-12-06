@@ -1,4 +1,4 @@
-[gd_scene load_steps=44 format=2]
+[gd_scene load_steps=45 format=2]
 
 [ext_resource path="res://assets/player/PenguinAttack.png" type="Texture" id=1]
 [ext_resource path="res://entities/Player.gd" type="Script" id=2]
@@ -16,6 +16,7 @@
 [ext_resource path="res://assets/audio/slide.wav" type="AudioStream" id=14]
 [ext_resource path="res://assets/fonts/main_small.tres" type="DynamicFont" id=15]
 [ext_resource path="res://assets/audio/death.mp3" type="AudioStream" id=16]
+[ext_resource path="res://assets/audio/PUNCH_DESIGNED_HEAVY_86.wav" type="AudioStream" id=17]
 [ext_resource path="res://assets/audio/health.wav" type="AudioStream" id=18]
 
 [sub_resource type="Animation" id=26]
@@ -333,6 +334,7 @@ visible = false
 visible = false
 position = Vector2( 0, -6 )
 frames = SubResource( 22 )
+frame = 1
 playing = true
 
 [node name="flamingoIdle" type="AnimatedSprite" parent="FlamingoSprite"]
@@ -364,7 +366,6 @@ playing = true
 visible = false
 position = Vector2( 0, -6 )
 frames = SubResource( 16 )
-frame = 1
 playing = true
 
 [node name="penguinIdleBackpack" type="AnimatedSprite" parent="PenguinSprite"]
@@ -398,7 +399,7 @@ one_shot = true
 [node name="penguinShootLoop" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 3 )
 volume_db = -4.0
-pitch_scale = 0.6
+pitch_scale = 0.5
 bus = "Effects"
 
 [node name="flamingoShoot" type="AudioStreamPlayer" parent="."]
@@ -417,6 +418,10 @@ volume_db = 2.0
 [node name="healAudio" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 18 )
 volume_db = 2.0
+
+[node name="hitAudio" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 17 )
+volume_db = -10.0
 
 [node name="SliderTimeAnimation" type="Node2D" parent="."]
 visible = false

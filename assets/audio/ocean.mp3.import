@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/ocean.mp3-db056de99b21bc68468789ecb8515192.mp3str"
+
+[deps]
+
+source_file="res://assets/audio/ocean.mp3"
+dest_files=[ "res://.import/ocean.mp3-db056de99b21bc68468789ecb8515192.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0
