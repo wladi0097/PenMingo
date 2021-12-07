@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/MortarEnemy-Sheet.png-4666303ba3100026af418f79c4d5ea64.stex"
+path="res://.import/MortarEnemyAttack.png-7068805207974adf64b3e05e169446eb.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/enemies/MortarEnemy-Sheet.png"
-dest_files=[ "res://.import/MortarEnemy-Sheet.png-4666303ba3100026af418f79c4d5ea64.stex" ]
+source_file="res://assets/enemies/MortarEnemyAttack.png"
+dest_files=[ "res://.import/MortarEnemyAttack.png-7068805207974adf64b3e05e169446eb.stex" ]
 
 [params]
 
@@ -20,7 +20,7 @@ compress/hdr_mode=0
 compress/bptc_ldr=0
 compress/normal_map=0
 flags/repeat=0
-flags/filter=true
+flags/filter=false
 flags/mipmaps=false
 flags/anisotropic=false
 flags/srgb=2

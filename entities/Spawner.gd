@@ -7,7 +7,7 @@ var rng = RandomNumberGenerator.new()
 var spawnNode
 
 var enemies = []
-enum ENEMIES {regularShooter, shotgunShooter, assaultShooter, regularDrone}
+enum ENEMIES {regularShooter, shotgunShooter, assaultShooter, mortarEnemy, regularDrone}
 export(ENEMIES) var spawnEnemy = ENEMIES.regularShooter
 
 func chooseRandomEnemy():
@@ -30,6 +30,8 @@ func _ready():
 		ENEMIES.assaultShooter:
 			instance = load("res://entities/enemies/ShootEnemy.tscn").instance()
 			instance.currentType = 2
+		ENEMIES.mortarEnemy:
+			instance= load("res://entities/enemies/MortarEnemy.tscn").instance()
 		ENEMIES.regularDrone:
 			instance= load("res://entities/enemies/RunnerEnemy.tscn").instance()
 			
