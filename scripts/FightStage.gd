@@ -1,9 +1,9 @@
 extends Node2D
 class_name FightStage
 
-export(int) var minAmountOfEnemies = 6
-export(int) var maxAmountOfEnemies = 12
-export(int) var maximumEnemiesAtOnce = 5
+export(int) var minAmountOfEnemies = 8
+export(int) var maxAmountOfEnemies = 15
+export(int) var maximumEnemiesAtOnce = 7
 export(bool) var noFightRoom = false
 export var isBossFightRoom = false
 
@@ -92,14 +92,15 @@ func spawnReward():
 	var instance = pickupItem.instance()
 	
 	instance.global_position = rewardPosition.global_position
-	add_child(instance)
+	call_deferred("add_child", instance)
 	
 func allowToExit():
 	roomcleared = true
+	CURRENT_RUN.thisRunClearedRooms += 1
 	exitBlocker.hide()
 
 # will be called from the child enemy
-func enemyDied(entity):
+func enemyDied(_entity):
 	aliveEnemies -= 1
 	
 	if !isBossFightRoom && enemiesToKillBeforeClear > 0:
@@ -113,7 +114,7 @@ func showFightText(content):
 	fightText.text = content
 	animations.play("showFightText")
 
-func _on_Exit_body_entered(body):
+func _on_Exit_body_entered(_body):
 	if roomcleared:
 		LOADING_TRANSITION.start()
 		yield(LOADING_TRANSITION, "animation_finished")

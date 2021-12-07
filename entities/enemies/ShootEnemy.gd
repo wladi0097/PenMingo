@@ -3,7 +3,7 @@ extends "res://entities/enemies/EnemyBase.gd"
 enum ENEMY_TYPE {regular, shotgun, assault}
 export(ENEMY_TYPE) var currentType = ENEMY_TYPE.regular
 
-var speed = 30
+var speed = 40
 var speedWhileShooting = 15
 var shotgunSpread =  0.3
 onready var checkPlayerVisible := $checkPlayerVisible
@@ -48,7 +48,7 @@ func shoot():
 			ENEMY_TYPE.shotgun:
 				shotgunShoot()
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	if checkPlayerVisible.get_collider() is KinematicBody2D:
 		showAttack()
 		shoot()

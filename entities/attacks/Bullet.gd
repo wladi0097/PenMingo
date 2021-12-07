@@ -19,6 +19,14 @@ func _ready():
 	else: # is from player
 		if CURRENT_RUN.hasUpgrade(CURRENT_RUN.UPGRADES.PENGUIN_BOUNCY_BULLET):
 			isBouncyBullet = true
+			
+		if CURRENT_RUN.hasUpgrade(CURRENT_RUN.UPGRADES.PENGUIN_BIGGER_BULLET):
+			playerShootSprite.scale = Vector2(2, 2)
+			$mainCollision.scale = Vector2(2, 2)
+		
+		if CURRENT_RUN.hasUpgrade(CURRENT_RUN.UPGRADES.PENGUIN_SMALLER_BULLET):
+			playerShootSprite.scale = Vector2(0.8, 0.8)
+			$mainCollision.scale = Vector2(0.8, 0.8)
 		
 		destroySelfTimer.wait_time = CURRENT_RUN.currentPenguinRange
 		set_collision_mask_bit(3, true)
@@ -35,8 +43,10 @@ func fire(fromPosition, fromRotiation, toRotation):
 	var speed
 	if isFromEnemy:
 		speed = enemySpeed
-	else: 
+	else:
 		speed = CURRENT_RUN.currentPenguinBulletSpeed
+		if CURRENT_RUN.hasUpgrade(CURRENT_RUN.UPGRADES.PENGUIN_DOUBLE_DAMAGE_HALF_SPEED):
+			speed /= 2
 	
 	apply_impulse(Vector2(),Vector2(speed, 0).rotated(toRotation))
 
@@ -46,6 +56,9 @@ func _on_Node2D_body_entered(body: Node2D):
 			body.hit(self, 1)
 		else:
 			var dmg = CURRENT_RUN.currentPenguinDamage
+			
+			if CURRENT_RUN.hasUpgrade(CURRENT_RUN.UPGRADES.PENGUIN_DOUBLE_DAMAGE_HALF_SPEED):
+				dmg *= 2
 			
 			if CURRENT_RUN.hasUpgrade(CURRENT_RUN.UPGRADES.CRIT_DMG) && randi() % 100 <= 3: # is crit
 				dmg *= 2
@@ -57,7 +70,7 @@ func _on_Node2D_body_entered(body: Node2D):
 			removeBulletWithEffects()
 
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	if isBouncyBullet &&  linear_velocity.length() < 100:
 		linear_velocity = linear_velocity.normalized() * 100
 

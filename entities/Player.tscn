@@ -335,6 +335,7 @@ visible = false
 visible = false
 position = Vector2( 0, -6 )
 frames = SubResource( 22 )
+frame = 1
 playing = true
 
 [node name="flamingoIdle" type="AnimatedSprite" parent="FlamingoSprite"]
@@ -365,7 +366,6 @@ playing = true
 visible = false
 position = Vector2( 0, -6 )
 frames = SubResource( 16 )
-frame = 1
 playing = true
 
 [node name="penguinIdleBackpack" type="AnimatedSprite" parent="PenguinSprite"]
@@ -393,6 +393,10 @@ one_shot = true
 
 [node name="InvincibleTimerAfterSwitch" type="Timer" parent="."]
 wait_time = 0.6
+one_shot = true
+
+[node name="PoopBomb" type="Timer" parent="."]
+wait_time = 1.5
 one_shot = true
 
 [node name="penguinShootLoop" type="AudioStreamPlayer" parent="."]
@@ -544,4 +548,5 @@ __meta__ = {
 }
 
 [connection signal="timeout" from="InvincibleTimerAfterSwitch" to="." method="_on_InvincibleTimerAfterSwitch_timeout"]
+[connection signal="timeout" from="PoopBomb" to="." method="_on_PoopBomb_timeout"]
 [connection signal="button_down" from="CanvasLayer/Death/Restart" to="." method="_on_Restart_button_down"]

@@ -13,14 +13,13 @@ onready var tankSound := $tankSounds
 onready var shootExplosionSound := $shootExplosionSound
 var isIdle = true
 
-
 enum STATES {STATIONARY, FOLLOW, RAM}
 var currentState = STATES.RAM
 
 func _ready():
 	pass
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	if isIdle: return
 	
 	if currentState != STATES.RAM:
@@ -59,7 +58,7 @@ func stationaryShoot():
 			spawnBullet(global_position, deg2rad(i))
 
 func getRandomState():
-	var statesWithoutCurrent = range(0, STATES.size() -1, 1)
+	var statesWithoutCurrent = range(0, STATES.size())
 	statesWithoutCurrent.remove(currentState)
 	return statesWithoutCurrent[rng.randi_range(0, statesWithoutCurrent.size() -1)]
 
@@ -107,7 +106,7 @@ func _on_ShootBombTimer_timeout():
 	shootExplosionSound.play()
 	spawnBomb()
 
-func _on_WakeUp_body_entered(body):
+func _on_WakeUp_body_entered(_body):
 	if isIdle:
 		isIdle = false
 		switchStateTo(STATES.RAM)

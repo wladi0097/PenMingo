@@ -1,6 +1,6 @@
 extends RigidBody2D
 
-var dmg = 9
+var dmg = 4
 onready var animations := $AnimationPlayer
 onready var explosionArea := $ExplosionArea
 
@@ -9,7 +9,7 @@ func explode():
 	
 	for body in explosionArea.get_overlapping_bodies():
 		if body is KinematicBody2D:
-			if body is Player:
+			if body.name == "Player":
 				body.hit(self, 1)
 			else:
 				body.hit(self, dmg)

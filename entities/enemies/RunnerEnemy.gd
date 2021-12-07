@@ -5,7 +5,7 @@ onready var afterAttackAnimation := $afterAttackAnimation
 var speed = 110
 var afterAttackKnockback = 30
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	if afterAttackCooldown.is_stopped():
 		move_and_slide(getPathToPlayer() * speed)
 

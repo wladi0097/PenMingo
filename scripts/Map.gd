@@ -28,7 +28,7 @@ func enable():
 	camera.current = true
 	show()
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	if !isEnabled: return
 	
 	var motion = Vector2()

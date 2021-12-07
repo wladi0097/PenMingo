@@ -10,7 +10,7 @@ var explosiveBulletDmgModifier = 0.7
 var bulletFollowsMouseStrngth = 70
 var originalDirection
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	if CURRENT_RUN.hasUpgrade(CURRENT_RUN.UPGRADES.FLAMINGO_BULLET_FOLLOWS_MOUSE):
 		linear_velocity = GLOBAL.player.global_position.direction_to(get_global_mouse_position()).normalized() * CURRENT_RUN.currentFlamingoBulletSpeed
 		look_at(global_position + linear_velocity)

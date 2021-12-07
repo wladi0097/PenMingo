@@ -21,10 +21,10 @@ func _ready():
 	animations.play("float")
 	
 
-func _on_Health_body_entered(body):
+func _on_Health_body_entered(_body):
 	match reward:
 		CURRENT_RUN.REWARDS.HEALTH:
-			GLOBAL.player.heal()
+			GLOBAL.player.heal(2)
 		CURRENT_RUN.REWARDS.UPGRADE:
 			CURRENT_RUN.showUpgradeSelectionScreen()
 		CURRENT_RUN.REWARDS.MAX_HEALTH:

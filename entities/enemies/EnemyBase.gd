@@ -21,9 +21,11 @@ export var isBoss = false
 
 var isAttacking = false
 var maxHp = hp
+var isDead = false
 
 func _ready():
 	if isBoss:
+		$CanvasLayer/BossHpBox/name.text = displayName
 		bossHpBox.show()
 		hpBox.hide()
 	
@@ -32,9 +34,11 @@ func _ready():
 	showMovement()
 
 func die():
-	CURRENT_RUN.thisRunKilledEnemies += 1
-	find_parent("FightStage").enemyDied(self)
-	queue_free()
+	if !isDead:
+		isDead = true
+		CURRENT_RUN.thisRunKilledEnemies += 1
+		find_parent("FightStage").enemyDied(self)
+		queue_free()
 
 func showAttack():
 	isAttacking = true
@@ -77,7 +81,7 @@ func hit(bullet, dmg):
 	if hp <= 0:
 		die()
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	if lookAtPlayer:
 		rotateSpriteAccoringToPlayer()
 		look_at(GLOBAL.player.global_position)

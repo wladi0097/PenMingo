@@ -14,6 +14,7 @@ onready var sniperBullet := preload("res://entities/attacks/SniperBullet.tscn")
 onready var spinDmg := preload("res://entities/attacks/SpinDmg.tscn")
 onready var trail := preload("res://entities/attacks/Trail.tscn")
 onready var surroundEntity := preload("res://entities/attacks/surroundEntity.tscn")
+onready var explosiveBarrel := preload("res://entities/props/ExplosiveBarrel.tscn")
 
 onready var camera := $Camera2D
 onready var animations := $AnimationPlayer
@@ -74,7 +75,10 @@ func addUpgrades():
 		var surroundEntity_instance = surroundEntity.instance()
 		add_child(surroundEntity_instance)
 		
-func _physics_process(delta):
+	if CURRENT_RUN.hasUpgrade(CURRENT_RUN.UPGRADES.POOPING_EXPLOSVIE_BARREL):
+		$PoopBomb.start()
+		
+func _physics_process(_delta):
 	if isDead: return
 	if canMove: movement()
 
@@ -159,6 +163,9 @@ func flamingoShot():
 
 	animations.play("shootFlamingo")
 	
+	if CURRENT_RUN.hasUpgrade(CURRENT_RUN.UPGRADES.FLAMINGO_SECOND_SHOT):
+		shootSingleBullet(sniperBullet, rng.randf_range(0, PI*2))
+	
 	if CURRENT_RUN.hasUpgrade(CURRENT_RUN.UPGRADES.FLAMINGO_BACK_SHOOT):
 		shootSingleBullet(regularBullet, fmod(rotation + PI, 2*PI))
 
@@ -195,9 +202,9 @@ func movement(extraSpeed = 1):
 	
 func checkCollisionsWithRigidBodies():
 	for i in get_slide_count():
-		var collision: KinematicCollision2D = get_slide_collision(i)
-		if collision.collider is RigidBody2D:
-			collision.collider.apply_central_impulse(-collision.normal)
+		var checkCollision: KinematicCollision2D = get_slide_collision(i)
+		if checkCollision.collider is RigidBody2D:
+			checkCollision.collider.apply_central_impulse(-checkCollision.normal)
 
 func handlePenguinShot():
 	if currentplayerType == PLAYER_TYPES.PENGUIN:
@@ -236,7 +243,7 @@ func rotateSpriteAccoringToMouse():
 		collision.position.y = -1
 		sliderTimeAnimationContainer.scale.y = 1
 
-func hit(body, dmg):
+func hit(_body, _dmg):
 	if !hitCooldown.is_stopped() || !invincibleTimerAfterSwitch.is_stopped(): return
 	hitCooldown.start()
 	
@@ -257,15 +264,12 @@ func die():
 	$DeathAnimationPlayer.play("die")
 	$deathAudio.play()
 	
-func heal():
+func heal(times = 1):
 	healAudio.play()
 	
-	if CURRENT_RUN.currentHp < CURRENT_RUN.currentMaxHp:
-		CURRENT_RUN.currentHp += 1
-	
-	# just heal a second time xD
-	if CURRENT_RUN.currentHp < CURRENT_RUN.currentMaxHp:
-		CURRENT_RUN.currentHp += 1
+	for _i in range(times):
+		if CURRENT_RUN.currentHp < CURRENT_RUN.currentMaxHp:
+			CURRENT_RUN.currentHp += 1
 	
 	updateHpBox()
 		
@@ -294,9 +298,9 @@ func updateHpBox():
 		hpContainer.remove_child(child)
 		child.queue_free()
 	
-	for i in range(CURRENT_RUN.currentHp):
+	for _i in range(CURRENT_RUN.currentHp):
 		hpContainer.add_child(hpFilledIcon.duplicate())
-	for i in range(CURRENT_RUN.currentMaxHp - CURRENT_RUN.currentHp):
+	for _i in range(CURRENT_RUN.currentMaxHp - CURRENT_RUN.currentHp):
 		hpContainer.add_child(hpEmptyIcon.duplicate())
 
 
@@ -305,3 +309,9 @@ func _on_Restart_button_down():
 
 func _on_InvincibleTimerAfterSwitch_timeout():
 	canBeHitByBullets(true)
+
+func _on_PoopBomb_timeout():
+	var explosiveBarrel_instance = explosiveBarrel.instance()
+	explosiveBarrel_instance.global_position = global_position + (-global_position.direction_to(get_global_mouse_position()) * 10)
+	get_tree().get_root().call_deferred("add_child", explosiveBarrel_instance)
+	

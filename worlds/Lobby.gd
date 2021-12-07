@@ -3,7 +3,7 @@ extends Node2D
 func _ready():
 	showLabelContent()
 
-func _on_StartRun_body_entered(body):
+func _on_StartRun_body_entered(_body):
 	CURRENT_RUN.startNewRun()
 	queue_free()
 
@@ -18,7 +18,8 @@ func getTimeEnd():
 func showLabelContent():
 	var newText = "            Your Run\n"
 	newText += "Died After: " + getTimeEnd() + " min \n"
-	newText += "Dealt damage: " + str(CURRENT_RUN.thisRunDealthDamage) + " hits\n"
+	newText += "Dealt damage: " + str(CURRENT_RUN.thisRunDealthDamage) + " dmg\n"
+	newText += "Rooms cleared: " + str(CURRENT_RUN.thisRunClearedRooms) + "\n"
 	newText += "Killed " + str(CURRENT_RUN.thisRunKilledEnemies) + " enemies\n"
 	newText += "Switched animal " + str(CURRENT_RUN.thisRunSwitchedPlayers) + " times\n"
 	$Label.text = newText

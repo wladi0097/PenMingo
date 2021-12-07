@@ -10,8 +10,9 @@ enum STATUPGRADES {
 	}
 var statusUpgradeText = ["Penguin faster bullets", "Penguin faster shot", "Penguin more damage", "penguin more range", "flamingo more damage", "flamingo faster shot", "faster movement speed"]
 
-enum UPGRADES {TRIPPLE_SHOT, EXPLOSIVE_SHOT, FLAMINGO_BACK_SHOOT, FLAMINGO_BULLET_FOLLOWS_MOUSE, DASH_DAMAGE,  DEFENSE_SURROUNDING, CRIT_DMG, PENGUIN_BOUNCY_BULLET}
-var upgradeText = ["Penguin tripple shot", "Flamingo explosive shot", "Penguin got your back!", "Flamingo mind control", "Fire Dash", "Little defense Friend", "This game has crit damage ? (3% btw)", "Penguin bouncy bullets", "No more upgrades :-("]
+enum UPGRADES {TRIPPLE_SHOT, EXPLOSIVE_SHOT, FLAMINGO_BACK_SHOOT, FLAMINGO_BULLET_FOLLOWS_MOUSE, DASH_DAMAGE,  DEFENSE_SURROUNDING, CRIT_DMG, PENGUIN_BOUNCY_BULLET, POOPING_EXPLOSVIE_BARREL, FLAMINGO_SECOND_SHOT, PENGUIN_DOUBLE_DAMAGE_HALF_SPEED, PENGUIN_BIGGER_BULLET, PENGUIN_SMALLER_BULLET}
+var upgradeText = ["Penguin tripple shot", "Flamingo explosive shot", "Penguin got your back!", "Flamingo mind control", "Fire Dash", "Little defense Friend", "This game has crit damage ? (3% btw)", "Penguin bouncy bullets", "What did i eat?", "Drunken flamingo", "Penguin double damage & half speed", "Penguin bigger bullet", "Penguin smaller bullet", "No more upgrades :-("]
+var debugUpgrades = []
 
 enum REWARDS {HEALTH, UPGRADE, MAX_HEALTH, STAT_UPGRADE}
 
@@ -47,6 +48,7 @@ var thisRunDealthDamage = 0
 var thisRunKilledEnemies = 0
 var thisRunTimerStarted = 0
 var thisRunSwitchedPlayers = 0
+var thisRunClearedRooms = 0
 
 func _ready():
 	randomize()
@@ -59,6 +61,7 @@ func resetRunStats():
 	thisRunKilledEnemies = 0
 	thisRunTimerStarted = 0
 	thisRunSwitchedPlayers = 0
+	thisRunClearedRooms = 0
 
 func resetStatValues():
 	currentMaxHp = 5
@@ -101,7 +104,7 @@ func applyRandomStatusUpgrade():
 		STATUPGRADES.PENGUIN_FASTER_BULLETS:
 			currentPenguinBulletSpeed += 30
 		STATUPGRADES.PENGUIN_FASTER_SHOOT:
-			currentPenguinShootSpeed *= 0.9
+			currentPenguinShootSpeed *= 0.90
 		STATUPGRADES.PENGUIN_MORE_DAMAGE:
 			currentPenguinDamage += 0.5
 		STATUPGRADES.PENGUIN_MORE_RANGE:
@@ -174,26 +177,26 @@ func buildUpgradeSelection():
 	upgradeSelection.shuffle()
 	
 func buildRewardSelection():
-	var newRewardSelection = []
+	var newRewardSelection = debugUpgrades.duplicate()
 	var rewardsLeft = neededRewardsCount
 	
 	var maxHealthContainer = rng.randi_range(2, 3)
 	rewardsLeft -= maxHealthContainer
-	for i in range(maxHealthContainer):
+	for _i in range(maxHealthContainer):
 		newRewardSelection.push_back(REWARDS.MAX_HEALTH)
 	
-	var upgrades = floor(rewardsLeft / 3)
+	var upgrades = rng.randi_range(3, 5)
 	rewardsLeft -= upgrades
-	for i in range(upgrades):
+	for _i in range(upgrades):
 		newRewardSelection.push_back(REWARDS.UPGRADE)
 	
-	var statUpgrades = floor(rewardsLeft / 2)
-	rewardsLeft -= statUpgrades
-	for i in range(statUpgrades):
-		newRewardSelection.push_back(REWARDS.STAT_UPGRADE)
-	
-	for i in range(rewardsLeft):
+	var healUpgrades = floor(rewardsLeft / 2)
+	rewardsLeft -= healUpgrades
+	for _i in range(healUpgrades):
 		newRewardSelection.push_back(REWARDS.HEALTH)
+		
+	for _i in range(rewardsLeft):
+		newRewardSelection.push_back(REWARDS.STAT_UPGRADE)
 	
 	newRewardSelection.shuffle()
 	

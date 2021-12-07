@@ -7,12 +7,35 @@ var rng = RandomNumberGenerator.new()
 var spawnNode
 
 var enemies = []
-enum ENEMIES {regularShooter, shotgunShooter, assaultShooter, mortarEnemy, regularDrone}
+# <easy  ---  hard>
+enum ENEMIES {regularShooter, regularDrone, mortarEnemy, shotgunShooter, assaultShooter}
 export(ENEMIES) var spawnEnemy = ENEMIES.regularShooter
 
-func chooseRandomEnemy():
+var easyMode = [60, 20, 10, 5, 5]
+var normalMode = [20, 20, 20, 20, 20]
+var hardMode = [5, 10, 30, 25, 30]
+
+func getModeByClearedRooms():
+	if CURRENT_RUN.thisRunClearedRooms <= 2: return easyMode
+	elif CURRENT_RUN.thisRunClearedRooms <= 4: return normalMode
+	else: return hardMode
+
+func getEnemyByPercentage():
 	rng.randomize()
-	spawnEnemy = rng.randi_range(0, ENEMIES.size() - 1)
+	
+	var mode = getModeByClearedRooms()
+	var e = rng.randi_range(0, 100)
+	
+	prints("mode",mode, "rand", e)
+	
+	if e <= mode[0]: return ENEMIES.regularShooter
+	elif e <= mode[0] + mode[1]: return ENEMIES.regularDrone
+	elif e <= mode[0] + mode[1] + mode[2]: return ENEMIES.mortarEnemy
+	elif e <= mode[0] + mode[1] + mode[2] + mode[3]: return ENEMIES.shotgunShooter
+	else: return ENEMIES.assaultShooter
+
+func chooseRandomEnemy():
+	spawnEnemy = getEnemyByPercentage()
 
 func _ready():
 	yield(get_tree().create_timer(rng.randf_range(0, 3)), "timeout")

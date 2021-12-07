@@ -18,12 +18,13 @@ func cleanTimeString(time):
 func showGameStats():
 	var newText = "Your Run\n"
 	newText += "* Your Time: " + getTimeEnd() + " min \n"
-	newText += "* Attempts: " + str(GLOBAL.allRunsAttemts) + "\n"
-	newText += "* Dealt damage: " + str(CURRENT_RUN.thisRunDealthDamage) + " hits\n"
+	newText += "* Attempt: " + str(GLOBAL.allRunsAttemts) + "\n"
+	newText += "* Rooms cleared: " + str(CURRENT_RUN.thisRunClearedRooms) + "\n"
+	newText += "* Dealt damage: " + str(CURRENT_RUN.thisRunDealthDamage) + " dmg\n"
 	newText += "* Killed " + str(CURRENT_RUN.thisRunKilledEnemies) + " enemies\n"
 	newText += "* Switched animal " + str(CURRENT_RUN.thisRunSwitchedPlayers) + " times\n"	
 	$GameStats.text = newText
 
 
-func _on_Area2D_body_entered(body):
+func _on_Area2D_body_entered(_body):
 	get_tree().change_scene("res://scripts/MainMenu.tscn")

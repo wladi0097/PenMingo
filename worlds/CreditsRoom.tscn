@@ -29,8 +29,8 @@ position = Vector2( -408, -328 )
 [node name="Camera2D" parent="FightStage/Navigation2D/Player" index="0"]
 offset_h = 1.0
 
-[node name="flamingoMove" parent="FightStage/Navigation2D/Player/FlamingoSprite" index="0"]
-frame = 1
+[node name="penguinAttack" parent="FightStage/Navigation2D/Player/PenguinSprite" index="2"]
+frame = 0
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="FightStage/OverrideRandomSong" index="0"]
 stream = ExtResource( 2 )
