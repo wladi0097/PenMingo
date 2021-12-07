@@ -335,7 +335,6 @@ visible = false
 visible = false
 position = Vector2( 0, -6 )
 frames = SubResource( 22 )
-frame = 1
 playing = true
 
 [node name="flamingoIdle" type="AnimatedSprite" parent="FlamingoSprite"]
@@ -366,6 +365,7 @@ playing = true
 visible = false
 position = Vector2( 0, -6 )
 frames = SubResource( 16 )
+frame = 1
 playing = true
 
 [node name="penguinIdleBackpack" type="AnimatedSprite" parent="PenguinSprite"]

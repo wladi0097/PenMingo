@@ -130,16 +130,16 @@ func getRandomReward():
 	rewardSelection.remove(0)
 	return reward
 	
-func loadNextRoomWithReward(reward = REWARDS.HEALTH):
-	if roomsThisrun.size() <= 0:
-		buildRoomSelection()
-	
+func loadNextRoomWithReward(reward = REWARDS.HEALTH):	
 	currentRoomReward = reward
 	
 	LOADING_TRANSITION.start()
 	yield(LOADING_TRANSITION, "animation_finished")
-	
 	currentMap.disable()
+	
+	if roomsThisrun.size() <= 0:
+		buildRoomSelection()
+
 	get_tree().change_scene(roomsThisrun[0])
 	roomsThisrun.remove(0)
 	
