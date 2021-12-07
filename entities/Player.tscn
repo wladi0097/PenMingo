@@ -304,6 +304,7 @@ script = ExtResource( 2 )
 current = true
 zoom = Vector2( 0.5, 0.5 )
 smoothing_enabled = true
+smoothing_speed = 10.0
 
 [node name="PickupTextAnimationPlayer" type="AnimationPlayer" parent="."]
 root_node = NodePath("../Camera2D")
@@ -334,12 +335,12 @@ visible = false
 visible = false
 position = Vector2( 0, -6 )
 frames = SubResource( 22 )
-frame = 1
 playing = true
 
 [node name="flamingoIdle" type="AnimatedSprite" parent="FlamingoSprite"]
 position = Vector2( 0, -6 )
 frames = SubResource( 19 )
+frame = 1
 playing = true
 
 [node name="flamingoAttack" type="Sprite" parent="FlamingoSprite"]
@@ -353,25 +354,23 @@ texture = ExtResource( 12 )
 visible = false
 position = Vector2( 0, -6 )
 frames = SubResource( 13 )
-frame = 1
 playing = true
 
 [node name="penguinIdle" type="AnimatedSprite" parent="PenguinSprite"]
 position = Vector2( -5.36442e-07, -6 )
 frames = SubResource( 7 )
-frame = 1
 playing = true
 
 [node name="penguinAttack" type="AnimatedSprite" parent="PenguinSprite"]
 visible = false
 position = Vector2( 0, -6 )
 frames = SubResource( 16 )
+frame = 1
 playing = true
 
 [node name="penguinIdleBackpack" type="AnimatedSprite" parent="PenguinSprite"]
 position = Vector2( 0, -6 )
 frames = SubResource( 10 )
-frame = 1
 playing = true
 
 [node name="penguinShot" type="Position2D" parent="."]
