@@ -29,7 +29,19 @@ position = Vector2( -408, -328 )
 [node name="Camera2D" parent="FightStage/Navigation2D/Player" index="0"]
 offset_h = 1.0
 
-[node name="penguinAttack" parent="FightStage/Navigation2D/Player/PenguinSprite" index="2"]
+[node name="flamingoMove" parent="FightStage/Navigation2D/Player/FlamingoSprite" index="0"]
+frame = 1
+
+[node name="flamingoIdle" parent="FightStage/Navigation2D/Player/FlamingoSprite" index="1"]
+frame = 0
+
+[node name="penguinMove" parent="FightStage/Navigation2D/Player/PenguinSprite" index="0"]
+frame = 1
+
+[node name="penguinIdle" parent="FightStage/Navigation2D/Player/PenguinSprite" index="1"]
+frame = 1
+
+[node name="penguinIdleBackpack" parent="FightStage/Navigation2D/Player/PenguinSprite" index="3"]
 frame = 1
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="FightStage/OverrideRandomSong" index="0"]

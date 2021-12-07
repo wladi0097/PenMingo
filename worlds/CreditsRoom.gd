@@ -5,11 +5,12 @@ func _ready():
 	showGameStats()
 
 func getTimeEnd():
-	var timeEnd = OS.get_system_time_secs() - CURRENT_RUN.thisRunTimerStarted
-	var m = floor(timeEnd / 60)
-	var s = timeEnd % 60
-	
-	return cleanTimeString(s/60)+":"+cleanTimeString(s)
+	var timeEnd = OS.get_system_time_msecs() - CURRENT_RUN.thisRunTimerStarted
+	var minutes = int(timeEnd / 60 / 1000)
+	var seconds = int(timeEnd / 1000) % 60
+	var miliseconds = int(timeEnd) % 1000
+
+	return ("%02d" % minutes) + (":%02d" % seconds) + (":%03d" % miliseconds)
 
 func cleanTimeString(time):
 	return "0" + str(time) if time < 10 else str(time)

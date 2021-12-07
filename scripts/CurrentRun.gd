@@ -161,7 +161,7 @@ func startNewRun():
 	
 	addMap()
 	loadEntryRoom()
-	thisRunTimerStarted = OS.get_system_time_secs()
+	thisRunTimerStarted = OS.get_system_time_msecs()
 	GLOBAL.allRunsAttemts += 1
 	
 func buildRoomSelection():
