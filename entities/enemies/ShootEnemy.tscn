@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=2]
+[gd_scene load_steps=41 format=2]
 
 [ext_resource path="res://entities/enemies/EnemyBase.tscn" type="PackedScene" id=1]
 [ext_resource path="res://assets/enemies/ShootEnemy2Attack.png" type="Texture" id=2]
@@ -7,6 +7,8 @@
 [ext_resource path="res://assets/enemies/ShootEnemy2Moving.png" type="Texture" id=5]
 [ext_resource path="res://assets/enemies/ShootEnemy1Moving.png" type="Texture" id=6]
 [ext_resource path="res://entities/enemies/ShootEnemy.gd" type="Script" id=7]
+[ext_resource path="res://assets/enemies/ShootEnemy3Moving.png" type="Texture" id=8]
+[ext_resource path="res://assets/enemies/ShootEnemy3Attack.png" type="Texture" id=9]
 
 [sub_resource type="AtlasTexture" id=7]
 atlas = ExtResource( 6 )
@@ -72,6 +74,38 @@ animations = [ {
 "speed": 8.0
 } ]
 
+[sub_resource type="AtlasTexture" id=29]
+atlas = ExtResource( 8 )
+region = Rect2( 0, 0, 16, 32 )
+
+[sub_resource type="AtlasTexture" id=30]
+atlas = ExtResource( 8 )
+region = Rect2( 16, 0, 16, 32 )
+
+[sub_resource type="AtlasTexture" id=31]
+atlas = ExtResource( 8 )
+region = Rect2( 32, 0, 16, 32 )
+
+[sub_resource type="AtlasTexture" id=32]
+atlas = ExtResource( 8 )
+region = Rect2( 48, 0, 16, 32 )
+
+[sub_resource type="AtlasTexture" id=33]
+atlas = ExtResource( 8 )
+region = Rect2( 64, 0, 16, 32 )
+
+[sub_resource type="AtlasTexture" id=34]
+atlas = ExtResource( 8 )
+region = Rect2( 80, 0, 16, 32 )
+
+[sub_resource type="SpriteFrames" id=35]
+animations = [ {
+"frames": [ SubResource( 29 ), SubResource( 30 ), SubResource( 31 ), SubResource( 32 ), SubResource( 33 ), SubResource( 34 ) ],
+"loop": true,
+"name": "default",
+"speed": 8.0
+} ]
+
 [sub_resource type="CapsuleShape2D" id=28]
 radius = 9.0
 height = 18.0
@@ -108,6 +142,22 @@ animations = [ {
 "speed": 3.0
 } ]
 
+[sub_resource type="AtlasTexture" id=36]
+atlas = ExtResource( 9 )
+region = Rect2( 0, 0, 16, 32 )
+
+[sub_resource type="AtlasTexture" id=37]
+atlas = ExtResource( 9 )
+region = Rect2( 16, 0, 16, 32 )
+
+[sub_resource type="SpriteFrames" id=38]
+animations = [ {
+"frames": [ SubResource( 36 ), SubResource( 37 ) ],
+"loop": true,
+"name": "default",
+"speed": 3.0
+} ]
+
 [node name="ShootEnemy" instance=ExtResource( 1 )]
 script = ExtResource( 7 )
 hp = 8
@@ -118,13 +168,19 @@ position = Vector2( -5, -20 )
 [node name="regularMoveSprite" type="AnimatedSprite" parent="movementSprite" index="0"]
 visible = false
 frames = SubResource( 24 )
-frame = 4
+frame = 1
 playing = true
 
 [node name="shotgunMoveSprite" type="AnimatedSprite" parent="movementSprite" index="1"]
 visible = false
 frames = SubResource( 25 )
-frame = 4
+frame = 1
+playing = true
+
+[node name="assaultMoveSprite" type="AnimatedSprite" parent="movementSprite" index="2"]
+visible = false
+frames = SubResource( 35 )
+frame = 3
 playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." index="4"]
@@ -144,17 +200,29 @@ wait_time = 1.2
 one_shot = true
 
 [node name="shootAudio" type="AudioStreamPlayer2D" parent="." index="8"]
+visible = false
 stream = ExtResource( 4 )
 volume_db = -5.0
 bus = "Effects"
 
+[node name="attackSprite" parent="." index="9"]
+visible = true
+
 [node name="regularAttackSprite" type="AnimatedSprite" parent="attackSprite" index="0"]
 visible = false
 frames = SubResource( 26 )
+frame = 1
+speed_scale = 0.6
 playing = true
 
 [node name="shotgunAttackSprite" type="AnimatedSprite" parent="attackSprite" index="1"]
 visible = false
 frames = SubResource( 27 )
-frame = 1
+speed_scale = 0.6
+playing = true
+
+[node name="assaultAttackSprite" type="AnimatedSprite" parent="attackSprite" index="2"]
+visible = false
+frames = SubResource( 38 )
+speed_scale = 0.6
 playing = true
