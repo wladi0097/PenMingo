@@ -367,6 +367,7 @@ playing = true
 visible = false
 position = Vector2( 0, -6 )
 frames = SubResource( 16 )
+frame = 1
 playing = true
 
 [node name="penguinIdleBackpack" type="AnimatedSprite" parent="PenguinSprite"]
@@ -405,7 +406,7 @@ one_shot = true
 [node name="penguinShootLoop" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 3 )
 volume_db = -4.0
-pitch_scale = 0.5
+pitch_scale = 0.35
 bus = "Effects"
 
 [node name="flamingoShoot" type="AudioStreamPlayer" parent="."]
