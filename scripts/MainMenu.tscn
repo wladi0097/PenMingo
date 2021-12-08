@@ -263,6 +263,7 @@ __meta__ = {
 position = Vector2( 515, -43 )
 amount = 30
 lifetime = 3.0
+preprocess = 10.0
 speed_scale = 0.3
 initial_velocity = 200.0
 initial_velocity_random = 1.0

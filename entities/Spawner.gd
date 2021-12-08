@@ -7,13 +7,12 @@ var rng = RandomNumberGenerator.new()
 var spawnNode
 
 var enemies = []
-# <easy  ---  hard>
-enum ENEMIES {regularShooter, regularDrone, mortarEnemy, shotgunShooter, assaultShooter}
+enum ENEMIES {regularShooter,regularDrone, mortarEnemy, shotgunShooter, assaultShooter, shieldEnemy}
 export(ENEMIES) var spawnEnemy = ENEMIES.regularShooter
 
-var easyMode = [60, 20, 10, 5, 5]
-var normalMode = [20, 20, 20, 20, 20]
-var hardMode = [5, 10, 30, 25, 30]
+var easyMode = [50, 20, 10, 5, 5, 10]
+var normalMode = [20, 20, 20, 15, 15, 10]
+var hardMode = [5, 10, 25, 25, 25, 10]
 
 func getModeByClearedRooms():
 	if CURRENT_RUN.thisRunClearedRooms <= 2: return easyMode
@@ -32,7 +31,8 @@ func getEnemyByPercentage():
 	elif e <= mode[0] + mode[1]: return ENEMIES.regularDrone
 	elif e <= mode[0] + mode[1] + mode[2]: return ENEMIES.mortarEnemy
 	elif e <= mode[0] + mode[1] + mode[2] + mode[3]: return ENEMIES.shotgunShooter
-	else: return ENEMIES.assaultShooter
+	elif e <= mode[0] + mode[1] + mode[2] + mode[3] + mode[4]: return ENEMIES.assaultShooter
+	else: return ENEMIES.shieldEnemy
 
 func chooseRandomEnemy():
 	spawnEnemy = getEnemyByPercentage()
@@ -57,6 +57,8 @@ func _ready():
 			instance= load("res://entities/enemies/MortarEnemy.tscn").instance()
 		ENEMIES.regularDrone:
 			instance= load("res://entities/enemies/RunnerEnemy.tscn").instance()
+		ENEMIES.shieldEnemy:
+			instance= load("res://entities/enemies/ShieldEnemy.tscn").instance()
 			
 			
 	instance.global_position = global_position

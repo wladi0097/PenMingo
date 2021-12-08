@@ -59,9 +59,14 @@ func getPathToPlayer() -> Vector2:
 		return Vector2.ZERO
 	
 func getAngleToPlayer():
-	var path = navigation.get_simple_path(self.position, GLOBAL.player.position)
-	path.remove(0)
-	return path[0].angle_to_point(self.position)
+	var path = navigation.get_simple_path(self.position, GLOBAL.player.position)	
+	if path.size() > 0:
+		path.remove(0)
+		return path[0].angle_to_point(self.position)
+	else:
+		return 0.0
+	
+	
 
 func updateHpBar():
 	var percent = (hp * 100 / maxHp) / 10

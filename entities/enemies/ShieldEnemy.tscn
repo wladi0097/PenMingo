@@ -1,0 +1,258 @@
+[gd_scene load_steps=24 format=2]
+
+[ext_resource path="res://entities/enemies/EnemyBase.tscn" type="PackedScene" id=1]
+[ext_resource path="res://assets/enemies/ShieldEnemyMoving.png" type="Texture" id=2]
+[ext_resource path="res://assets/enemies/ShieldEnemyShield.png" type="Texture" id=3]
+[ext_resource path="res://assets/enemies/ShieldEnemyAttack.png" type="Texture" id=4]
+[ext_resource path="res://entities/enemies/ShieldEnemy.gd" type="Script" id=5]
+
+[sub_resource type="AtlasTexture" id=1]
+atlas = ExtResource( 3 )
+region = Rect2( 0, 0, 16, 32 )
+
+[sub_resource type="AtlasTexture" id=2]
+atlas = ExtResource( 3 )
+region = Rect2( 16, 0, 16, 32 )
+
+[sub_resource type="SpriteFrames" id=3]
+animations = [ {
+"frames": [ SubResource( 1 ), SubResource( 2 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+} ]
+
+[sub_resource type="RectangleShape2D" id=4]
+extents = Vector2( 3, 17 )
+
+[sub_resource type="RectangleShape2D" id=18]
+extents = Vector2( 11.5, 22 )
+
+[sub_resource type="AtlasTexture" id=5]
+atlas = ExtResource( 2 )
+region = Rect2( 0, 0, 16, 32 )
+
+[sub_resource type="AtlasTexture" id=6]
+atlas = ExtResource( 2 )
+region = Rect2( 16, 0, 16, 32 )
+
+[sub_resource type="AtlasTexture" id=7]
+atlas = ExtResource( 2 )
+region = Rect2( 32, 0, 16, 32 )
+
+[sub_resource type="AtlasTexture" id=8]
+atlas = ExtResource( 2 )
+region = Rect2( 48, 0, 16, 32 )
+
+[sub_resource type="AtlasTexture" id=9]
+atlas = ExtResource( 2 )
+region = Rect2( 64, 0, 16, 32 )
+
+[sub_resource type="AtlasTexture" id=10]
+atlas = ExtResource( 2 )
+region = Rect2( 80, 0, 16, 32 )
+
+[sub_resource type="SpriteFrames" id=11]
+animations = [ {
+"frames": [ SubResource( 5 ), SubResource( 6 ), SubResource( 7 ), SubResource( 8 ), SubResource( 9 ), SubResource( 10 ) ],
+"loop": true,
+"name": "default",
+"speed": 3.0
+} ]
+
+[sub_resource type="AtlasTexture" id=12]
+atlas = ExtResource( 4 )
+region = Rect2( 0, 0, 16, 32 )
+
+[sub_resource type="AtlasTexture" id=13]
+atlas = ExtResource( 4 )
+region = Rect2( 16, 0, 16, 32 )
+
+[sub_resource type="AtlasTexture" id=14]
+atlas = ExtResource( 4 )
+region = Rect2( 32, 0, 16, 32 )
+
+[sub_resource type="SpriteFrames" id=15]
+animations = [ {
+"frames": [ SubResource( 12 ), SubResource( 13 ), SubResource( 14 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+} ]
+
+[sub_resource type="Animation" id=16]
+resource_name = "attack"
+length = 2.0
+step = 0.05
+tracks/0/type = "value"
+tracks/0/path = NodePath("Shield/AnimatedSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5, 1.95 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 1, 0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Shield/AnimatedSprite:position")
+tracks/1/interp = 0
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.5, 2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 15, 0 ), Vector2( 10, 0 ), Vector2( 15, 0 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("attackSprite:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0.5, 2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("attackSprite/AnimatedSprite:frame")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0.5, 0.65, 0.8 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 1, 2 ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("movementSprite:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0.5, 2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("CPUParticles2D:emitting")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0.8 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath("Shield:collision_layer")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0, 0.5, 2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ 8, 0, 8 ]
+}
+tracks/7/type = "method"
+tracks/7/path = NodePath(".")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/keys = {
+"times": PoolRealArray( 0.85 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "damageEntitiesInFrontOfShield"
+} ]
+}
+
+[sub_resource type="CapsuleShape2D" id=17]
+radius = 6.0
+height = 22.0
+
+[node name="ShieldEnemy" instance=ExtResource( 1 )]
+script = ExtResource( 5 )
+hp = 6
+lookAtPlayer = false
+
+[node name="hpBox" parent="." index="0"]
+position = Vector2( -5, -19 )
+
+[node name="Shield" type="StaticBody2D" parent="." index="3"]
+collision_layer = 8
+collision_mask = 0
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="Shield" index="0"]
+position = Vector2( 15, 0 )
+frames = SubResource( 3 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Shield" index="1"]
+position = Vector2( 11, 0 )
+shape = SubResource( 4 )
+
+[node name="StartAttack" type="Area2D" parent="." index="4"]
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StartAttack" index="0"]
+position = Vector2( 18.5, 0 )
+shape = SubResource( 18 )
+
+[node name="movementSprite" parent="." index="5"]
+visible = false
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="movementSprite" index="0"]
+frames = SubResource( 11 )
+frame = 4
+playing = true
+
+[node name="attackSprite" parent="." index="6"]
+visible = true
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="attackSprite" index="0"]
+frames = SubResource( 15 )
+
+[node name="attackAnimationPlayer" type="AnimationPlayer" parent="." index="8"]
+anims/attack = SubResource( 16 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." index="9"]
+shape = SubResource( 17 )
+
+[node name="AttackTimer" type="Timer" parent="." index="10"]
+wait_time = 1.5
+one_shot = true
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="." index="11"]
+position = Vector2( 5, -3 )
+emitting = false
+amount = 20
+lifetime = 0.3
+one_shot = true
+explosiveness = 1.0
+emission_shape = 1
+emission_sphere_radius = 3.0
+gravity = Vector2( 100, 0 )
+initial_velocity = 164.89
+initial_velocity_random = 1.0
+scale_amount = 7.0
+scale_amount_random = 1.0
+color = Color( 1, 0, 0, 1 )
+
+[connection signal="body_entered" from="StartAttack" to="." method="_on_StartAttack_body_entered"]
