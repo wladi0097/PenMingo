@@ -172,12 +172,12 @@ func buildRoomSelection():
 	roomsThisrun.shuffle()
 	
 func buildUpgradeSelection():
-	currentUpgrades = []
+	currentUpgrades = debugUpgrades.duplicate()
 	upgradeSelection = range(UPGRADES.size())
 	upgradeSelection.shuffle()
 	
 func buildRewardSelection():
-	var newRewardSelection = debugUpgrades.duplicate()
+	var newRewardSelection = []
 	var rewardsLeft = neededRewardsCount
 	
 	var maxHealthContainer = rng.randi_range(2, 3)
