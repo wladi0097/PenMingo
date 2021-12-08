@@ -69,7 +69,7 @@ func resetStatValues():
 	currentPenguinShootSpeed = 0.45
 	currentFlamingoShootSpeed = 1
 	currentMovementSpeed = 150
-	currentFlamingoDamage = 4
+	currentFlamingoDamage = 3
 	currentFlamingoBulletSpeed = 400
 	currentPenguinBulletSpeed = 120
 	currentPenguinDamage = 1
@@ -86,6 +86,7 @@ func showUpgradeSelectionScreen():
 
 func getTwoRandomUpgrades():
 	$UpgradeAudio.play()
+	upgradeSelection.shuffle()
 	if upgradeSelection.size() == 0:
 		return [-1, -1]
 	elif upgradeSelection.size() == 1:
