@@ -109,7 +109,7 @@ one_shot = true
 one_shot = true
 
 [node name="ShootBombTimer" type="Timer" parent="." index="13"]
-wait_time = 3.0
+wait_time = 2.0
 
 [node name="WakeUp" type="Area2D" parent="." index="16"]
 collision_layer = 0

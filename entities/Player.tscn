@@ -340,7 +340,6 @@ playing = true
 [node name="flamingoIdle" type="AnimatedSprite" parent="FlamingoSprite"]
 position = Vector2( 0, -6 )
 frames = SubResource( 19 )
-frame = 1
 playing = true
 
 [node name="flamingoAttack" type="Sprite" parent="FlamingoSprite"]
@@ -354,11 +353,13 @@ texture = ExtResource( 12 )
 visible = false
 position = Vector2( 0, -6 )
 frames = SubResource( 13 )
+frame = 1
 playing = true
 
 [node name="penguinIdle" type="AnimatedSprite" parent="PenguinSprite"]
 position = Vector2( -5.36442e-07, -6 )
 frames = SubResource( 7 )
+frame = 1
 playing = true
 
 [node name="penguinAttack" type="AnimatedSprite" parent="PenguinSprite"]
@@ -371,6 +372,7 @@ playing = true
 [node name="penguinIdleBackpack" type="AnimatedSprite" parent="PenguinSprite"]
 position = Vector2( 0, -6 )
 frames = SubResource( 10 )
+frame = 1
 playing = true
 
 [node name="penguinShot" type="Position2D" parent="."]
@@ -381,6 +383,7 @@ wait_time = 0.4
 one_shot = true
 
 [node name="flamingoShotTimer" type="Timer" parent="."]
+wait_time = 1.3
 one_shot = true
 
 [node name="switchTimer" type="Timer" parent="."]
