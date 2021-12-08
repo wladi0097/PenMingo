@@ -11,4 +11,5 @@ func _on_destorySelfTimer_timeout():
 
 func _on_affectDamageTimer_timeout():
 	for enemy in checkEnemies.get_overlapping_bodies():
-		enemy.hit(self, 1)
+		if enemy.has_method("hit"):
+			enemy.hit(self, 1)

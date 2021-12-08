@@ -127,7 +127,7 @@ tracks/3/loop_wrap = true
 tracks/3/imported = false
 tracks/3/enabled = true
 tracks/3/keys = {
-"times": PoolRealArray( 0.5, 0.65, 0.8 ),
+"times": PoolRealArray( 0.5, 0.65, 1.05 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 1,
 "values": [ 0, 1, 2 ]
@@ -151,10 +151,10 @@ tracks/5/loop_wrap = true
 tracks/5/imported = false
 tracks/5/enabled = true
 tracks/5/keys = {
-"times": PoolRealArray( 0.8 ),
-"transitions": PoolRealArray( 1 ),
+"times": PoolRealArray( 1.05, 2 ),
+"transitions": PoolRealArray( 1, 1 ),
 "update": 1,
-"values": [ true ]
+"values": [ true, false ]
 }
 tracks/6/type = "value"
 tracks/6/path = NodePath("Shield:collision_layer")
@@ -175,7 +175,7 @@ tracks/7/loop_wrap = true
 tracks/7/imported = false
 tracks/7/enabled = true
 tracks/7/keys = {
-"times": PoolRealArray( 0.85 ),
+"times": PoolRealArray( 1.1 ),
 "transitions": PoolRealArray( 1 ),
 "values": [ {
 "args": [  ],
@@ -215,19 +215,13 @@ collision_mask = 4
 position = Vector2( 18.5, 0 )
 shape = SubResource( 18 )
 
-[node name="movementSprite" parent="." index="5"]
-visible = false
-
 [node name="AnimatedSprite" type="AnimatedSprite" parent="movementSprite" index="0"]
 frames = SubResource( 11 )
-frame = 1
 playing = true
-
-[node name="attackSprite" parent="." index="6"]
-visible = true
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="attackSprite" index="0"]
 frames = SubResource( 15 )
+frame = 2
 
 [node name="attackAnimationPlayer" type="AnimationPlayer" parent="." index="8"]
 anims/attack = SubResource( 16 )
