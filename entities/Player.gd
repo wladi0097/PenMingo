@@ -164,7 +164,6 @@ func flamingoShot():
 	animations.play("shootFlamingo")
 	
 	if CURRENT_RUN.hasUpgrade(CURRENT_RUN.UPGRADES.FLAMINGO_SECOND_SHOT):
-		print("yes")
 		shootSingleBullet(sniperBullet, deg2rad(rng.randi_range(0, 360)))
 	
 	if CURRENT_RUN.hasUpgrade(CURRENT_RUN.UPGRADES.FLAMINGO_BACK_SHOOT):

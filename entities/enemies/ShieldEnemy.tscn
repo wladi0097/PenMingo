@@ -220,7 +220,7 @@ visible = false
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="movementSprite" index="0"]
 frames = SubResource( 11 )
-frame = 4
+frame = 1
 playing = true
 
 [node name="attackSprite" parent="." index="6"]

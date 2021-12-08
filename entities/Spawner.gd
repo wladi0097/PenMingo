@@ -25,8 +25,6 @@ func getEnemyByPercentage():
 	var mode = getModeByClearedRooms()
 	var e = rng.randi_range(0, 100)
 	
-	prints("mode",mode, "rand", e)
-	
 	if e <= mode[0]: return ENEMIES.regularShooter
 	elif e <= mode[0] + mode[1]: return ENEMIES.regularDrone
 	elif e <= mode[0] + mode[1] + mode[2]: return ENEMIES.mortarEnemy
