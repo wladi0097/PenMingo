@@ -10,6 +10,7 @@ outlines = [ PoolVector2Array( -149, -275, -29, -273, -17, -242, 71, -237, 89, -
 [node name="Node2D" type="Node2D"]
 
 [node name="FightStage" parent="." instance=ExtResource( 1 )]
+maximumEnemiesAtOnce = 6
 
 [node name="Background-noaccess" parent="FightStage/Navigation2D" index="0"]
 position = Vector2( 0, 1 )
@@ -47,10 +48,7 @@ position = Vector2( 690, 0 )
 position = Vector2( 804, 112 )
 
 [node name="Position2D8" type="Position2D" parent="FightStage/Navigation2D/SpawnPositions" index="7"]
-position = Vector2( 58, -182 )
-
-[node name="Position2D9" type="Position2D" parent="FightStage/Navigation2D/SpawnPositions" index="8"]
-position = Vector2( 50, 198 )
+position = Vector2( 862, 1 )
 
 [node name="Exit" parent="FightStage/Navigation2D" index="5"]
 position = Vector2( 1090, 1 )
