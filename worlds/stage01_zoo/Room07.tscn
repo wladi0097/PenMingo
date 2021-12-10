@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://scripts/FightStage.tscn" type="PackedScene" id=1]
 [ext_resource path="res://assets/sprites/ZooAnimals/Cat.tscn" type="PackedScene" id=2]
+[ext_resource path="res://entities/Pickup.tscn" type="PackedScene" id=3]
 
 [sub_resource type="NavigationPolygon" id=1]
 vertices = PoolVector2Array( 625, 35, 702, 36, 697, 88, 626, 84, 71, 276, 7, 280, 13, -181, 627, -181, 128, 314, 280, 278, 625, 285, 508, 281, 495, 311, 439, 308, 404, 279, 268, 303 )
@@ -93,5 +94,14 @@ rotation = 0.0650167
 
 [node name="Player" parent="FightStage/Navigation2D" index="23"]
 position = Vector2( 22, 64 )
+
+[node name="Pickup" parent="." instance=ExtResource( 3 )]
+position = Vector2( 957, 851 )
+reward = 3
+isCustomReward = true
+
+[node name="Pickup2" parent="." instance=ExtResource( 3 )]
+position = Vector2( 958, 890 )
+isCustomReward = true
 
 [editable path="FightStage"]
