@@ -80,6 +80,15 @@ autostart = true
 scale = Vector2( 1.5, 1.75 )
 texture = ExtResource( 6 )
 
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+amount = 10
+gravity = Vector2( -100, 0 )
+initial_velocity = 40.0
+initial_velocity_random = 1.0
+scale_amount = 5.0
+scale_amount_random = 1.0
+color = Color( 1.2, 1.2, 1.2, 1 )
+
 [connection signal="body_entered" from="." to="." method="_on_SniperBullet_body_entered"]
 [connection signal="timeout" from="destroyTimer" to="." method="_on_destroyTimer_timeout"]
 [connection signal="timeout" from="MuzTimer" to="." method="_on_MuzTimer_timeout"]

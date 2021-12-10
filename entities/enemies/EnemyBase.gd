@@ -10,6 +10,7 @@ onready var hpBox := $hpBox
 onready var hpBar := $hpBox/hpBar
 onready var bossHpBox := $CanvasLayer/BossHpBox
 onready var bossHpBar := $CanvasLayer/BossHpBox/ProgressBar
+onready var hitPartickle := $HitPartickle
 var originalHpBoxPosition
 var rng = RandomNumberGenerator.new()
 
@@ -65,8 +66,6 @@ func getAngleToPlayer():
 		return path[0].angle_to_point(self.position)
 	else:
 		return 0.0
-	
-	
 
 func updateHpBar():
 	var percent = (hp * 100 / maxHp) / 10
@@ -78,8 +77,11 @@ func hit(bullet, dmg):
 	CURRENT_RUN.thisRunDealthDamage += dmg
 	animations.play("hit")
 	
+	var knockBackDirection: Vector2 = bullet.global_position.direction_to(self.global_position).normalized()
+	hitPartickle.emitting = true
+	
 	if hitKnockBack > 0:
-		move_and_collide(bullet.global_position.direction_to(self.global_position).normalized() * hitKnockBack)
+		move_and_collide(knockBackDirection * hitKnockBack)
 	
 	hp -= dmg
 	updateHpBar()
