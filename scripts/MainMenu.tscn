@@ -107,6 +107,9 @@ anchor_bottom = 1.0
 margin_bottom = 32.0
 texture = ExtResource( 13 )
 expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Penguin" type="TextureRect" parent="Control/Options"]
 modulate = Color( 0.690196, 0.698039, 1, 1 )
@@ -204,7 +207,7 @@ text = "Audio      "
 align = 1
 valign = 1
 
-[node name="HSlider" type="HSlider" parent="Control/Options/MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="SoundSlider" type="HSlider" parent="Control/Options/MarginContainer/VBoxContainer/HBoxContainer"]
 margin_left = 180.0
 margin_right = 880.0
 margin_bottom = 16.0
@@ -300,7 +303,7 @@ __meta__ = {
 }
 
 [node name="CPUParticles2D" type="CPUParticles2D" parent="Control/Main"]
-position = Vector2( 515, -43 )
+position = Vector2( 475, -41 )
 amount = 30
 lifetime = 3.0
 preprocess = 10.0
@@ -467,7 +470,7 @@ autoplay = true
 [node name="SwitchAudio" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 14 )
 
-[connection signal="value_changed" from="Control/Options/MarginContainer/VBoxContainer/HBoxContainer/HSlider" to="." method="_on_HSlider_value_changed"]
+[connection signal="value_changed" from="Control/Options/MarginContainer/VBoxContainer/HBoxContainer/SoundSlider" to="." method="_on_HSlider_value_changed"]
 [connection signal="toggled" from="Control/Options/MarginContainer/VBoxContainer/HBoxContainer2/toggleFullscreen" to="." method="_on_toggleFullscreen_toggled"]
 [connection signal="button_down" from="Control/Options/optionsBack" to="." method="_on_optionsBack_button_down"]
 [connection signal="mouse_entered" from="Control/Options/optionsBack" to="." method="_on_optionsBack_mouse_entered"]
