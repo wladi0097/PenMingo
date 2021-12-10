@@ -30,6 +30,20 @@ width = 2.0
 gradient = SubResource( 1 )
 end_cap_mode = 2
 
+[node name="Line2D2" type="Line2D" parent="."]
+position = Vector2( -24, 0 )
+points = PoolVector2Array( 0, 0, 15, 0, 30, 0 )
+width = 2.0
+default_color = Color( 0.686275, 0.686275, 0.686275, 0.156863 )
+end_cap_mode = 2
+
+[node name="Line2D3" type="Line2D" parent="."]
+position = Vector2( -56, 0 )
+points = PoolVector2Array( 0, 0, 15, 0, 30, 0 )
+width = 2.0
+default_color = Color( 0.686275, 0.686275, 0.686275, 0.0196078 )
+end_cap_mode = 2
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( 18, 0 )
 shape = SubResource( 2 )
