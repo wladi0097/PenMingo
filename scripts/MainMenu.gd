@@ -36,3 +36,7 @@ func _on_optionsBack_button_down():
 
 func _on_optionsBack_mouse_entered():
 	buttonHoverAudio.play()
+
+
+func _on_toggleFullscreen_toggled(button_pressed):
+	OS.window_fullscreen = button_pressed
