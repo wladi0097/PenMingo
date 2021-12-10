@@ -2,6 +2,10 @@ extends CanvasLayer
 
 onready var buttonHoverAudio := $ButtonHover
 onready var buttonClickAudio := $ButtonClick
+onready var soundSlider := $Control/Options/MarginContainer/VBoxContainer/HBoxContainer/SoundSlider
+
+func _ready():
+	soundSlider.value = AudioServer.get_bus_volume_db(AudioServer.get_bus_index("Master"))
 
 func _on_NewGameButton_button_down():
 	buttonClickAudio.play()
@@ -28,11 +32,15 @@ func _on_OptionsButton_button_down():
 
 func _on_HSlider_value_changed(value):
 	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Master"), value)
-	$SwitchAudio.play()
+	buttonHoverAudio.play()
 
 func _on_optionsBack_button_down():
+	GLOBAL.updateSaveState()
 	$SwitchScenePlayer.play_backwards("toOptions")
 	$SwitchAudio.play()
 
 func _on_optionsBack_mouse_entered():
 	buttonHoverAudio.play()
+
+func _on_toggleFullscreen_toggled(button_pressed):
+	OS.window_fullscreen = button_pressed

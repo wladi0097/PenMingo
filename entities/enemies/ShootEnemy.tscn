@@ -168,18 +168,19 @@ position = Vector2( -5, -20 )
 [node name="regularMoveSprite" type="AnimatedSprite" parent="movementSprite" index="0"]
 visible = false
 frames = SubResource( 24 )
-frame = 4
+frame = 5
 playing = true
 
 [node name="shotgunMoveSprite" type="AnimatedSprite" parent="movementSprite" index="1"]
 visible = false
 frames = SubResource( 25 )
-frame = 4
+frame = 5
 playing = true
 
 [node name="assaultMoveSprite" type="AnimatedSprite" parent="movementSprite" index="2"]
 visible = false
 frames = SubResource( 35 )
+frame = 1
 playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." index="4"]
@@ -210,18 +211,19 @@ visible = true
 [node name="regularAttackSprite" type="AnimatedSprite" parent="attackSprite" index="0"]
 visible = false
 frames = SubResource( 26 )
-frame = 1
 speed_scale = 0.6
 playing = true
 
 [node name="shotgunAttackSprite" type="AnimatedSprite" parent="attackSprite" index="1"]
 visible = false
 frames = SubResource( 27 )
+frame = 1
 speed_scale = 0.6
 playing = true
 
 [node name="assaultAttackSprite" type="AnimatedSprite" parent="attackSprite" index="2"]
 visible = false
 frames = SubResource( 38 )
+frame = 1
 speed_scale = 0.6
 playing = true

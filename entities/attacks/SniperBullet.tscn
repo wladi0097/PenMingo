@@ -30,6 +30,20 @@ width = 2.0
 gradient = SubResource( 1 )
 end_cap_mode = 2
 
+[node name="Line2D2" type="Line2D" parent="."]
+position = Vector2( -24, 0 )
+points = PoolVector2Array( 0, 0, 15, 0, 30, 0 )
+width = 2.0
+default_color = Color( 0.686275, 0.686275, 0.686275, 0.156863 )
+end_cap_mode = 2
+
+[node name="Line2D3" type="Line2D" parent="."]
+position = Vector2( -56, 0 )
+points = PoolVector2Array( 0, 0, 15, 0, 30, 0 )
+width = 2.0
+default_color = Color( 0.686275, 0.686275, 0.686275, 0.0196078 )
+end_cap_mode = 2
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( 18, 0 )
 shape = SubResource( 2 )
@@ -65,6 +79,15 @@ autostart = true
 [node name="muzSprite" type="Sprite" parent="."]
 scale = Vector2( 1.5, 1.75 )
 texture = ExtResource( 6 )
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+amount = 10
+gravity = Vector2( -100, 0 )
+initial_velocity = 40.0
+initial_velocity_random = 1.0
+scale_amount = 5.0
+scale_amount_random = 1.0
+color = Color( 1.2, 1.2, 1.2, 1 )
 
 [connection signal="body_entered" from="." to="." method="_on_SniperBullet_body_entered"]
 [connection signal="timeout" from="destroyTimer" to="." method="_on_destroyTimer_timeout"]

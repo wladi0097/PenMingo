@@ -31,6 +31,7 @@ onready var healAudio := $healAudio
 onready var slideTimeAnimationPlayer := $SliderTimeAnimation/AnimationPlayer
 onready var sliderTimeAnimationContainer := $SliderTimeAnimation
 onready var slideAnimations := $SlideAnimationPlayer
+onready var slideParticles := $SlideParticles
 
 onready var penguinShootLoopAudio := $penguinShootLoop
 onready var penguinShotTimer := $penguinShotTimer
@@ -114,6 +115,7 @@ func slide():
 			get_tree().get_root().call_deferred("add_child", spinDmg_instance)
 		
 		slideAnimations.play("slide")
+		slideParticles.emitting = true
 		canBeHitByBullets(false)
 		slideTimeAnimationPlayer.play("progress")
 		switchTimer.start()

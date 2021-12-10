@@ -217,6 +217,7 @@ shape = SubResource( 18 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="movementSprite" index="0"]
 frames = SubResource( 11 )
+frame = 5
 playing = true
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="attackSprite" index="0"]
@@ -248,5 +249,9 @@ initial_velocity_random = 1.0
 scale_amount = 7.0
 scale_amount_random = 1.0
 color = Color( 1, 0, 0, 1 )
+
+[node name="waitAfterAttack" type="Timer" parent="." index="13"]
+wait_time = 0.5
+one_shot = true
 
 [connection signal="body_entered" from="StartAttack" to="." method="_on_StartAttack_body_entered"]

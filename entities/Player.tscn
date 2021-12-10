@@ -328,6 +328,23 @@ anims/slide = SubResource( 28 )
 position = Vector2( 0, -1 )
 shape = SubResource( 1 )
 
+[node name="SlideParticles" type="CPUParticles2D" parent="."]
+emitting = false
+amount = 20
+lifetime = 0.3
+one_shot = true
+explosiveness = 1.0
+direction = Vector2( 0, 0 )
+spread = 180.0
+gravity = Vector2( 0, 0 )
+initial_velocity = 150.0
+orbit_velocity = 1.0
+orbit_velocity_random = 1.0
+scale_amount = 7.0
+scale_amount_random = 1.0
+hue_variation = 0.31
+hue_variation_random = 1.0
+
 [node name="FlamingoSprite" type="Node2D" parent="."]
 visible = false
 
@@ -335,7 +352,6 @@ visible = false
 visible = false
 position = Vector2( 0, -6 )
 frames = SubResource( 22 )
-frame = 1
 playing = true
 
 [node name="flamingoIdle" type="AnimatedSprite" parent="FlamingoSprite"]
