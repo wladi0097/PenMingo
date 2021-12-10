@@ -1,10 +1,11 @@
-[gd_resource type="TileSet" load_steps=25 format=2]
+[gd_resource type="TileSet" load_steps=26 format=2]
 
 [ext_resource path="res://assets/tilesets/props.png" type="Texture" id=1]
 [ext_resource path="res://assets/tilesets/grass/Gras.tres" type="Texture" id=2]
 [ext_resource path="res://assets/tilesets/barrel/Barrel.tres" type="Texture" id=3]
 [ext_resource path="res://assets/tilesets/worms/Worms.tres" type="Texture" id=4]
 [ext_resource path="res://assets/shaders/windSway.tres" type="Shader" id=5]
+[ext_resource path="res://assets/tilesets/flower/Flower.tres" type="Texture" id=6]
 
 [sub_resource type="NavigationPolygon" id=28]
 vertices = PoolVector2Array( 0, 0, 32, 0, 32, 2.60789, 0, 2.60789 )
@@ -562,3 +563,17 @@ points = PoolVector2Array( 15.8683, 0.420399, 23.9617, 3.4903, 29.2643, 22.7469,
 44/shape_one_way_margin = 0.0
 44/shapes = [  ]
 44/z_index = 0
+45/name = "Flower.tres 45"
+45/texture = ExtResource( 6 )
+45/tex_offset = Vector2( 0, 0 )
+45/modulate = Color( 1, 1, 1, 1 )
+45/region = Rect2( 0, 0, 32, 32 )
+45/tile_mode = 0
+45/occluder_offset = Vector2( 0, 0 )
+45/navigation_offset = Vector2( 0, 0 )
+45/shape_offset = Vector2( 0, 0 )
+45/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+45/shape_one_way = false
+45/shape_one_way_margin = 0.0
+45/shapes = [  ]
+45/z_index = 0
