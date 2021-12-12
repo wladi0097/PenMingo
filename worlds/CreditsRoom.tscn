@@ -29,6 +29,9 @@ position = Vector2( -408, -328 )
 [node name="Camera2D" parent="FightStage/Navigation2D/Player" index="0"]
 offset_h = 1.0
 
+[node name="flamingoMove" parent="FightStage/Navigation2D/Player/FlamingoSprite" index="0"]
+frame = 1
+
 [node name="penguinAttack" parent="FightStage/Navigation2D/Player/PenguinSprite" index="2"]
 frame = 0
 
@@ -57,7 +60,8 @@ margin_bottom = 432.0
 rect_scale = Vector2( 0.6, 0.6 )
 custom_fonts/normal_font = ExtResource( 3 )
 text = "__Our Highscores__
-Wladi: 05:40:921"
+Lichstars: 02:39:363
+Wladi:     05:40:921"
 __meta__ = {
 "_edit_use_anchors_": false
 }
