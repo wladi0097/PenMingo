@@ -10,8 +10,8 @@ var enemies = []
 enum ENEMIES {regularShooter,regularDrone, mortarEnemy, shotgunShooter, assaultShooter, shieldEnemy}
 export(ENEMIES) var spawnEnemy = ENEMIES.regularShooter
 
-var easyMode = [50, 20, 10, 5, 5, 10]
-var normalMode = [20, 20, 20, 15, 15, 10]
+var easyMode = [59, 20, 10, 5, 5, 1]
+var normalMode = [20, 20, 25, 15, 15, 5]
 var hardMode = [5, 10, 25, 25, 25, 10]
 
 func getModeByClearedRooms():
